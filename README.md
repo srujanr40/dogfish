@@ -35,3 +35,14 @@ This application is for people trying to find other people to play a sport with 
 1. Use mobile phone numbers and SMS messages for userID logins or email with verification link instead of unique plaintext ID (maybe also a Remember Me?)
 2. Different front-end pages that take specific inputs for equipment available for some popular sports (reverting to text-box for sports that aren’t as common)
 3. Forums for some popular sports that users can access regardless of what user groups they are in
+
+
+### Lo-fi Prototypes
+
+Create "Session"
+![image](https://github.com/srujanr40/dogfish/assets/54603297/5f81141c-f6e8-4f4a-b893-e009d0f8f6d5)
+
+![image](https://github.com/srujanr40/dogfish/assets/54603297/7e5a90c6-00cd-47e0-bdad-1996e6627f34)
+
+
+
