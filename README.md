@@ -42,7 +42,11 @@ This application is for people trying to find other people to play a sport with 
 Create "Session"
 ![image](https://github.com/srujanr40/dogfish/assets/54603297/5f81141c-f6e8-4f4a-b893-e009d0f8f6d5)
 
+Possible Dashboards
 ![image](https://github.com/srujanr40/dogfish/assets/54603297/7e5a90c6-00cd-47e0-bdad-1996e6627f34)
+
+![dasboard](https://github.com/srujanr40/dogfish/assets/13267569/8fb99365-71ff-4136-b61b-adb430ba0d69)
+
 
 
 
