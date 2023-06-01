@@ -7,4 +7,4 @@ const temp = (count = 0, action) => {
 	}
 };
 
-export default buttonCount;
+export default temp;
