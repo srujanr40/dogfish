@@ -4,7 +4,7 @@ import {
   BrowserRouter as Router, Switch, Route, Routes, Redirect
 } from 'react-router-dom';
 
-import Dashboard from "/Users/krishsridar/Desktop/CPSC_455/Project/dogfish/src/client/components/Dashboard/Dashboard.jsx"
+import Dashboard from './client/components/Dashboard/Dashboard.jsx'
 
 function App() {
   return (
