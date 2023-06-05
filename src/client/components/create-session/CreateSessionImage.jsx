@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Box from "@mui/material/Box";
-import '../../App.css';
 
 export default function CreateSessionImage() {
   const [selectedImage, setSelectedImage] = useState(null);
