@@ -5,6 +5,7 @@ import Grid from "@mui/material/Grid";
 import { useDispatch } from 'react-redux';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import './CreateSession.css'
 
 export default function CreateSessionTextFields() {
   const [session_name, setName] = useState("");
@@ -49,8 +50,10 @@ export default function CreateSessionTextFields() {
         noValidate
         autoComplete="off"
       >
-        <Grid container spacing={4}>
-          <Grid item xs={6} sx={{ alignItems: 'center', justifyContent: 'center' }}>
+        <Box className="text-fields" sx={{
+          display: "flex", 
+          flexDirection: { xs: "column", sm: "column", md: "column", lg: "row",}}}>
+          <Box item xs={6} sx={{alignItems: 'center', justifyContent: 'center', width: { sm: 450, md: 300, lg: 400 }, paddingRight: 2}}>
             <TextField
               required
               fullWidth
@@ -94,9 +97,9 @@ export default function CreateSessionTextFields() {
               value={session_city}
               onChange={(e) => setCity(e.target.value)}
             />
-          </Grid>
+          </Box>
 
-          <Grid item xs={6}>
+          <Box item xs={6} sx={{ alignItems: 'center', justifyContent: 'center', width: { sm: 450, md: 300, lg: 400 } }}>
             <TextField
               required
               fullWidth
@@ -134,8 +137,8 @@ export default function CreateSessionTextFields() {
               }}
               onChange={(e) => setPlayersNeeded(e.target.value)}
             />
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
       </Box>
       <Stack sx={{
           paddingTop: 3,

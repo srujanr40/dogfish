@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Box from "@mui/material/Box";
+import "./CreateSession.css";
 
 export default function CreateSessionImage() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -17,23 +18,16 @@ export default function CreateSessionImage() {
   };
 
   return (
-    <Box>
-      <div>
+    <Box sx={{paddingLeft: 10}}>
         {selectedImage ? (
-          <img src={selectedImage} alt="Selected" style={{resizeMode: 'contain',
-          height: 250,
-          width: 250,
-          objectFit: "scale-down"}} />
+          <img className="create-session-image" src={selectedImage} alt="Selected"/>
         ) : (
           <div>
-            <img className="placeholder-image" src={stockPlaceholderImageURL} alt='placeholder' style={{resizeMode: 'contain',
-            height: 250,
-            width: 250,
-            objectFit: "scale-down"}}/>
+            <img className="create-session-image" src={stockPlaceholderImageURL} alt='placeholder'/>
           </div>
         )}
+        <br />
         <input type="file" onChange={handleImageUpload} accept="image/*" />
-      </div>
     </Box>
   );
 }
