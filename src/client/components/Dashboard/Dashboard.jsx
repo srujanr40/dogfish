@@ -6,19 +6,38 @@ import './Dashboard.css';
 import Divider from '@mui/material/Divider';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
+import { useState } from 'react';
+import CreateSessionPopup from '../CreateSession/CreateSessionPopup.jsx';
 
 
 export default function Dashboard() {
+    const [isCreateSessionModalOpen, setIsCreateSessionModalOpen] = useState(false);
+
+    const openCreateSessionModal = () => {
+        setIsCreateSessionModalOpen(true);
+      };
+    
+      const closeCreateSessionModal = () => {
+        setIsCreateSessionModalOpen(false);
+      };
+
+
     return (   
         <div className="container">
             <Navbar />
             <div className="featuredContainer">
                 <div className="featuredAndCreate">
                     <h4>Featured</h4>
-                    <Fab variant="extended" color="primary" aria-label="create">
+                    <Fab variant="extended" color="primary" aria-label="create" onClick={openCreateSessionModal}>
                         <AddIcon />
                         Create Session
                     </Fab>
+
+                    {isCreateSessionModalOpen && (
+                        <div>
+                            <CreateSessionPopup closeModal={closeCreateSessionModal}/>
+                        </div>
+                    )}
                 </div>
                 <Divider />
                 <Featured />

@@ -6,7 +6,7 @@ import Dashboard from './client/components/Dashboard/Dashboard.jsx'
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import rootReducer from './client/reducers';
-import CreateSessionPopup from './client/components/create-session/CreateSessionPopup';
+import CreateSessionPopup from './client/components/CreateSession/CreateSessionPopup';
 
 const store = createStore(rootReducer);
 
