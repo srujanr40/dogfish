@@ -2,7 +2,6 @@ import CreateSessionTextFields from "./CreateSessionTextFields";
 import CreateSessionImage from "./CreateSessionImage";
 import "./CreateSession.css";
 import Box from "@mui/material/Box";
-import Divider from '@mui/material/Divider';
 
 
 import Typography from "@mui/material/Typography";

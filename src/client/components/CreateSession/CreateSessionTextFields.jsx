@@ -1,11 +1,25 @@
 import { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
+import { Tooltip } from "@mui/material";
 import { useDispatch } from 'react-redux';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import { createNewSession } from "../../actions";
 import './CreateSession.css'
+import React from "react";
+
+const equipmentInfo = (
+  <React.Fragment>
+    <div>Enter information about the equipment in the following format:</div>
+    <div style={{textAlign: "center"}}>"Quantity, Equipment Name"</div><br />
+    <div>Example:</div>
+    <div>1, Baseball Bat</div>
+    <div>4, Tennis Ball</div>
+    <div>2, Hockey Stick</div>
+    <div>1, Volleyball Net</div>
+  </React.Fragment>
+)
 
 export default function CreateSessionTextFields() {
   const [session_name, setName] = useState("");
@@ -15,6 +29,8 @@ export default function CreateSessionTextFields() {
   const [session_location, setLocation] = useState("");
   const [session_equipment_needed, setEquipmentNeeded] = useState("");
   const [session_players_needed, setPlayersNeeded] = useState("");
+
+  
 
   const dispatch = useDispatch();
 
@@ -30,7 +46,7 @@ export default function CreateSessionTextFields() {
         session_players_needed,
     }
 
-    dispatch() //add function here that handles what happens with the data at submit
+    dispatch(createNewSession(new_session)) //add function here that handles what happens with the data at submit
     setName("");
     setSport("");
     setDescription("");
@@ -53,7 +69,7 @@ export default function CreateSessionTextFields() {
         <Box className="text-fields" sx={{
           display: "flex", 
           flexDirection: { xs: "column", sm: "column", md: "column", lg: "row",}}}>
-          <Box item xs={6} sx={{alignItems: 'center', justifyContent: 'center', width: { sm: 450, md: 300, lg: 400 }, paddingRight: 2}}>
+          <Box sx={{alignItems: 'center', justifyContent: 'center', width: { sm: 450, md: 300, lg: 400 }, paddingRight: 2}}>
             <TextField
               required
               fullWidth
@@ -99,7 +115,7 @@ export default function CreateSessionTextFields() {
             />
           </Box>
 
-          <Box item xs={6} sx={{ alignItems: 'center', justifyContent: 'center', width: { sm: 450, md: 300, lg: 400 } }}>
+          <Box sx={{ alignItems: 'center', justifyContent: 'center', width: { sm: 450, md: 300, lg: 400 } }}>
             <TextField
               required
               fullWidth
@@ -122,6 +138,9 @@ export default function CreateSessionTextFields() {
               value={session_equipment_needed}
               onChange={(e) => setEquipmentNeeded(e.target.value)}
             />
+            <Tooltip title={equipmentInfo} arrow>
+              <Button>MORE INFO</Button>
+            </Tooltip>
             <br />
 
             <TextField

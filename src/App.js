@@ -1,12 +1,11 @@
 import './App.css';
 import {
-  BrowserRouter as Router, Switch, Route, Routes, Redirect
+  BrowserRouter as Router, Route, Routes,
 } from 'react-router-dom';
 import Dashboard from './client/components/Dashboard/Dashboard.jsx'
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import rootReducer from './client/reducers';
-import CreateSessionPopup from './client/components/CreateSession/CreateSessionPopup';
 
 const store = createStore(rootReducer);
 

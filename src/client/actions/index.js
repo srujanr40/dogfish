@@ -1,6 +1,6 @@
-export const temp = (a) => {
+export const createNewSession = (new_session) => {
 	return {
-		type: 'SOMETHING',
-		payload: a
+		type: 'CREATE_NEW_SESSION',
+		payload: new_session
 	};
 };
