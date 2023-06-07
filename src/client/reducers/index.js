@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import temp from './temp';
+import createNewSession from './sessionReducer';
 
 const rootReducer = combineReducers({
-    temp
+    createNewSession
 });
 
 export default rootReducer;

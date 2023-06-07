@@ -1,0 +1,44 @@
+
+#create-session-popup {
+    display: block;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+#create-session-content {
+    background-color: #fff;
+    margin: 10%;
+    border: 1px solid #ccc;
+    display: flex;
+    border-radius: 30px;
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+    padding: 50px;
+}
+
+.close {
+    color: #aaa;
+    float: left;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.create-session-image {
+    padding-top: 25px;
+    max-width: 100%;
+    height: auto;
+}
