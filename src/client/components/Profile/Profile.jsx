@@ -1,10 +1,9 @@
 import UploadImage from "../UploadImage/UploadImage"
 import React, { useState } from 'react';
-import {useDispatch} from 'react-redux';
-import { updateInfo } from '../../actions/index.js'
+import {useDispatch, useSelector} from 'react-redux';
+import { updateProfile } from '../../actions/index.js'
 import { TextField, Button, MenuItem, Chip } from '@mui/material';
 import Navbar from '../Navbar/Navbar.jsx';
-import styles from './Profile.css'
 
 
 const sportsEquipmentOptions = [
@@ -17,11 +16,15 @@ const sportsEquipmentOptions = [
 
 
 export default function Profile() {
+
+    const profile = useSelector(state => state.updateProfile);
+    console.log(profile);
+
     const [formData, setFormData] = useState({
-        name: '',
-        equipment: [],
-        interests: [],
-        location: '',
+        name: profile.name,
+        equipment: profile.equipment,
+        interests: profile.interests,
+        location: profile.location,
       });
       const [selectedEquipment, setSelectedEquipment] = useState('');
       const [interest, setInterest] = useState('');
@@ -58,10 +61,13 @@ export default function Profile() {
           interests: formData.interests.filter(item => item !== interest)
         });
       };
+
+      const dispatch = useDispatch();
     
       const handleSubmit = (event) => {
         event.preventDefault();
         console.log(formData);
+        dispatch(updateProfile(formData));
       };
     
 
