@@ -12,6 +12,23 @@ import CreateSessionPopup from '../CreateSession/CreateSessionPopup.jsx';
 
 export default function Dashboard() {
     const [isCreateSessionModalOpen, setIsCreateSessionModalOpen] = useState(false);
+    const [cardList, setCardList] = useState([
+        {name: "Frisbee", description: "Ultimate at the field"},
+        {name: "Soccer", description: "after school soccer session"},
+        {name: "Basketball", description: "play time"},
+        {name: "Badminton", description: "play time"},
+        {name: "Tennis", description: "play time"},
+        {name: "Football", description: "play time"},
+        {name: "Water Polo", description: "play time"},
+    ]);
+    const [secondCardList, setSecondCardList] = useState([
+        {name: "Soccer", description: "mini league"},
+        {name: "Football", description: "after school football session"},
+        {name: "Football", description: "saturday football"},
+        {name: "Soccer", description: "5 players needed"},
+        {name: "Soccer", description: "test"},
+        {name: "Soccer", description: "field tonight"},
+    ]);
 
     const openCreateSessionModal = () => {
         setIsCreateSessionModalOpen(true);
@@ -45,28 +62,20 @@ export default function Dashboard() {
             <div className="sessionsContainer">
                 <h4>Activities near you</h4>
                 <Divider />
-                <div className="sessionsList">
-                    <SessionCard />
-                    <SessionCard />
-                    <SessionCard />
-                    <SessionCard />
-                    <SessionCard />
-                    <SessionCard />
-                    <SessionCard />
-                </div>
+                <ul className="sessionsList">
+                    {cardList.map((element, index) => (
+                        <SessionCard name={element.name} description={element.description}/>
+                    ))}
+                </ul>
             </div>
             <div className="sessionsContainer">
                 <h4>Soccer</h4>
                 <Divider />
-                <div className="sessionsList">
-                    <SessionCard />
-                    <SessionCard />
-                    <SessionCard />
-                    <SessionCard />
-                    <SessionCard />
-                    <SessionCard />
-                    <SessionCard />
-                </div>
+                <ul className="sessionsList">
+                    {secondCardList.map((element, index) => (
+                        <SessionCard name={element.name} description={element.description}/>
+                    ))}
+                </ul>
             </div>
         </div>
     )
