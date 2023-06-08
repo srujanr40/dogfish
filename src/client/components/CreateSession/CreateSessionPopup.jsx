@@ -1,5 +1,5 @@
 import CreateSessionTextFields from "./CreateSessionTextFields";
-import CreateSessionImage from "./CreateSessionImage";
+import UploadImage from "../UploadImage/UploadImage";
 import "./CreateSession.css";
 import Box from "@mui/material/Box";
 
@@ -23,7 +23,7 @@ export default function CreateSessionPopup(props) {
           </Typography>
           <Box sx={{display: "flex", flexDirection: { xs: "column", sm: "column", md: "row", lg: "row",}}}>
             <CreateSessionTextFields />
-            <CreateSessionImage/>
+            <UploadImage/>
           </Box>
         </Box>
 

@@ -7,6 +7,8 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
+import { Link } from 'react-router-dom';
+import "../styles.module.css"
 
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
@@ -78,7 +80,7 @@ export default function Navbar() {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            dogFish
+            <Link to="/">dogFish</Link>
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -114,8 +116,12 @@ export default function Navbar() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>Log out</MenuItem>
+              <Link to="/profile" style={{ color: 'black' }}>
+                <MenuItem>
+                  Profile
+                </MenuItem>
+              </Link>
+              <MenuItem onClick={handleClose}>Log out</MenuItem>
               </Menu>
         </Toolbar>
       </AppBar>
