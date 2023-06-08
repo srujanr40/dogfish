@@ -80,7 +80,7 @@ export default function Profile() {
                     justifyContent: 'center',
                     alignItems: 'center',
                 }}>
-                 <UploadImage/>
+                 <UploadImage image={profile.image}/>
                 <form onSubmit={handleSubmit}>
                 <TextField
                     name="name"
