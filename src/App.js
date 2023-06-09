@@ -6,6 +6,7 @@ import Dashboard from './client/components/Dashboard/Dashboard.jsx'
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import rootReducer from './client/reducers';
+import JoinSession from "./client/components/JoinSession/JoinSession";
 
 const store = createStore(rootReducer);
 
@@ -17,6 +18,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/join" element={<JoinSession />} />
           </Routes>
         </main>
     </Router>

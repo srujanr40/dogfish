@@ -13,21 +13,21 @@ import CreateSessionPopup from '../CreateSession/CreateSessionPopup.jsx';
 export default function Dashboard() {
     const [isCreateSessionModalOpen, setIsCreateSessionModalOpen] = useState(false);
     const [cardList, setCardList] = useState([
-        {name: "Frisbee", description: "Ultimate at the field"},
-        {name: "Soccer", description: "after school soccer session"},
-        {name: "Basketball", description: "play time"},
-        {name: "Badminton", description: "play time"},
-        {name: "Tennis", description: "play time"},
-        {name: "Football", description: "play time"},
-        {name: "Water Polo", description: "play time"},
+        {name: "Frisbee", description: "Ultimate at the field", groupId: 1},
+        {name: "Soccer", description: "after school soccer session", groupId: 2},
+        {name: "Basketball", description: "play time", groupId: 3},
+        {name: "Badminton", description: "play time", groupId: 4},
+        {name: "Tennis", description: "play time", groupId: 5},
+        {name: "Football", description: "play time", groupId: 6},
+        {name: "Water Polo", description: "play time", groupId: 7},
     ]);
     const [secondCardList, setSecondCardList] = useState([
-        {name: "Soccer", description: "mini league"},
-        {name: "Football", description: "after school football session"},
-        {name: "Football", description: "saturday football"},
-        {name: "Soccer", description: "5 players needed"},
-        {name: "Soccer", description: "test"},
-        {name: "Soccer", description: "field tonight"},
+        {name: "Soccer", description: "mini league", groupId: 8},
+        {name: "Football", description: "after school football session", groupId: 9},
+        {name: "Football", description: "saturday football", groupId: 10},
+        {name: "Soccer", description: "5 players needed", groupId: 11},
+        {name: "Soccer", description: "test", groupId: 12},
+        {name: "Soccer", description: "field tonight", groupId: 13},
     ]);
 
     const openCreateSessionModal = () => {
@@ -73,7 +73,7 @@ export default function Dashboard() {
                 <Divider />
                 <ul className="sessionsList">
                     {secondCardList.map((element, index) => (
-                        <SessionCard name={element.name} description={element.description}/>
+                        <SessionCard name={element.name} description={element.description} groupId={element.groupId}/>
                     ))}
                 </ul>
             </div>
