@@ -8,21 +8,33 @@ import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import { useState } from 'react';
 import CreateSessionPopup from '../CreateSession/CreateSessionPopup.jsx';
+import SessionMoreInfoPopup from '../SessionMoreInfo/SessionMoreInfoPopup.jsx';
 
 
 export default function Dashboard() {
     const [isCreateSessionModalOpen, setIsCreateSessionModalOpen] = useState(false);
+    const [isSessionMoreInfoModalOpen, setIsSessionMoreInfoModalOpen] = useState(false);
+    const [selectedSessionId, setSelectedItemId] = useState(null);
 
     const openCreateSessionModal = () => {
         setIsCreateSessionModalOpen(true);
-      };
-    
-      const closeCreateSessionModal = () => {
+    };
+
+    const closeCreateSessionModal = () => {
         setIsCreateSessionModalOpen(false);
-      };
+    };
 
+    const openSessionMoreInfoModal = (itemId) => {
+        setSelectedItemId(itemId);
+        setIsSessionMoreInfoModalOpen(true)
+    };
 
-    return (   
+    const closeSessionMoreInfoModal = () => {
+        setSelectedItemId(null);
+        setIsSessionMoreInfoModalOpen(false)
+    };
+
+    return (
         <div className="container">
             <Navbar />
             <div className="featuredContainer">
@@ -35,7 +47,7 @@ export default function Dashboard() {
 
                     {isCreateSessionModalOpen && (
                         <div>
-                            <CreateSessionPopup closeModal={closeCreateSessionModal}/>
+                            <CreateSessionPopup closeModal={closeCreateSessionModal} />
                         </div>
                     )}
                 </div>
@@ -46,27 +58,32 @@ export default function Dashboard() {
                 <h4>Activities near you</h4>
                 <Divider />
                 <div className="sessionsList">
-                    <SessionCard />
-                    <SessionCard />
-                    <SessionCard />
-                    <SessionCard />
-                    <SessionCard />
-                    <SessionCard />
-                    <SessionCard />
+                    <SessionCard onMoreInfo={openSessionMoreInfoModal}/>
+                    <SessionCard onMoreInfo={openSessionMoreInfoModal}/>
+                    <SessionCard onMoreInfo={openSessionMoreInfoModal}/>
+                    <SessionCard onMoreInfo={openSessionMoreInfoModal}/>
+                    <SessionCard onMoreInfo={openSessionMoreInfoModal}/>
+                    <SessionCard onMoreInfo={openSessionMoreInfoModal}/>
+                    <SessionCard onMoreInfo={openSessionMoreInfoModal}/>
                 </div>
-            </div>
-            <div className="sessionsContainer">
+
                 <h4>Soccer</h4>
                 <Divider />
                 <div className="sessionsList">
-                    <SessionCard />
-                    <SessionCard />
-                    <SessionCard />
-                    <SessionCard />
-                    <SessionCard />
-                    <SessionCard />
-                    <SessionCard />
+                    <SessionCard onMoreInfo={openSessionMoreInfoModal}/>
+                    <SessionCard onMoreInfo={openSessionMoreInfoModal}/>
+                    <SessionCard onMoreInfo={openSessionMoreInfoModal}/>
+                    <SessionCard onMoreInfo={openSessionMoreInfoModal}/>
+                    <SessionCard onMoreInfo={openSessionMoreInfoModal}/>
+                    <SessionCard onMoreInfo={openSessionMoreInfoModal}/>
+                    <SessionCard onMoreInfo={openSessionMoreInfoModal}/>
                 </div>
+
+                {isSessionMoreInfoModalOpen && (
+                    <div>
+                        <SessionMoreInfoPopup sessionID="1" closeModal={closeSessionMoreInfoModal} />
+                    </div>
+                )}
             </div>
         </div>
     )

@@ -1,11 +1,21 @@
 import * as React from 'react';
+import  { useState } from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-export default function SessionCard() {
+// props should contain the session and a onMoreInfo callback function to call when More Info is clicked.
+export default function SessionCard(props) {
+  const [isMoreInfoOpen, setIsMoreInfoOpen] = useState(false);
+
+  const handleOpenMoreInfo = () => {
+      setIsMoreInfoOpen(true);
+      props.onMoreInfo(1);
+      // props.onMoreInfo(props.session.id); uncomment when session cards are properly set up
+  };
+
   return (
     <Card sx={{ maxWidth: '250px', minWidth: '250px', backgroundColor: 'white' }}>
 
@@ -19,7 +29,7 @@ export default function SessionCard() {
       </CardContent>
       <CardActions>
         <Button sx={{color: "white", backgroundColor: "lightsalmon", textTransform:"none"}} size="small">Join</Button>
-        <Button sx={{color: "white", backgroundColor: "lightsalmon", textTransform:"none"}} size="small">More info</Button>
+        <Button onClick={handleOpenMoreInfo} sx={{color: "white", backgroundColor: "lightsalmon", textTransform:"none"}} size="small">More info</Button>
       </CardActions>
     </Card>
   );
