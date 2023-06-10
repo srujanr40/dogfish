@@ -1,10 +1,10 @@
 import { useState } from "react";
 import Box from "@mui/material/Box";
-import "./CreateSession.css";
+import "./UploadImage.css";
 
-export default function CreateSessionImage() {
+export default function UploadImage(props) {
   const [selectedImage, setSelectedImage] = useState(null);
-  let stockPlaceholderImageURL = 'https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM='
+  
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -20,10 +20,10 @@ export default function CreateSessionImage() {
   return (
     <Box sx={{paddingLeft: 10}}>
         {selectedImage ? (
-          <img className="create-session-image" src={selectedImage} alt="Selected"/>
+          <img className="upload-image" src={selectedImage} alt="Selected"/>
         ) : (
           <div>
-            <img className="create-session-image" src={stockPlaceholderImageURL} alt='placeholder'/>
+            <img className="upload-image" src={props.image} alt='placeholder'/>
           </div>
         )}
         <br />
