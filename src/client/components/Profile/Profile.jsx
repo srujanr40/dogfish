@@ -6,15 +6,6 @@ import { TextField, Button, MenuItem, Chip } from '@mui/material';
 import Navbar from '../Navbar/Navbar.jsx';
 
 
-const sportsEquipmentOptions = [
-    'Football',
-    'Basketball',
-    'Tennis racket',
-    'Baseball bat',
-    'Soccer ball',
-];
-
-
 export default function Profile() {
 
     const profile = useSelector(state => state.updateProfile);
@@ -31,10 +22,6 @@ export default function Profile() {
       const handleChange = (event) => {
         const { name, value } = event.target;
         setFormData({ ...formData, [name]: value });
-      };
-    
-      const handleEquipmentChange = (event) => {
-        setSelectedEquipment(event.target.value);
       };
     
       const handleAddEquipment = () => {
@@ -91,20 +78,14 @@ export default function Profile() {
                 />
 
                 <TextField
-                    select
                     name="selectedEquipment"
                     label="Sports Equipment"
                     value={selectedEquipment}
-                    onChange={handleEquipmentChange}
-                    fullWidth
-                    style={{ marginBottom: '20px' }}
-                >
-                    {sportsEquipmentOptions.map((option) => (
-                    <MenuItem key={option} value={option}>
-                        {option}
-                    </MenuItem>
-                    ))}
-                </TextField>
+                    onChange={(e) => setSelectedEquipment(e.target.value)}
+                    placeholder="Sports Equipment"
+                    style={{ marginBottom: '20px', boxSizing: 'border-box', width: '100%' }}
+                  />
+
                 <Button
                     variant="contained"
                     color="primary"
