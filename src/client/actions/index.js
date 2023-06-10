@@ -5,7 +5,6 @@ export const createNewSession = (new_session) => {
 	};
 };
 
-
 export const fetchSession = (sessions) => {
 	return {
 		type: 'FETCH_SESSIONS',
