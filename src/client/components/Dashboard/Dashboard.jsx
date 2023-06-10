@@ -8,27 +8,14 @@ import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import { useState } from 'react';
 import CreateSessionPopup from '../CreateSession/CreateSessionPopup.jsx';
+import {useSelector} from "react-redux";
 
 
 export default function Dashboard() {
     const [isCreateSessionModalOpen, setIsCreateSessionModalOpen] = useState(false);
-    const [cardList, setCardList] = useState([
-        {name: "Frisbee", description: "Ultimate at the field", groupId: 1},
-        {name: "Soccer", description: "after school soccer session", groupId: 2},
-        {name: "Basketball", description: "play time", groupId: 3},
-        {name: "Badminton", description: "play time", groupId: 4},
-        {name: "Tennis", description: "play time", groupId: 5},
-        {name: "Football", description: "play time", groupId: 6},
-        {name: "Water Polo", description: "play time", groupId: 7},
-    ]);
-    const [secondCardList, setSecondCardList] = useState([
-        {name: "Soccer", description: "mini league", groupId: 8},
-        {name: "Football", description: "after school football session", groupId: 9},
-        {name: "Football", description: "saturday football", groupId: 10},
-        {name: "Soccer", description: "5 players needed", groupId: 11},
-        {name: "Soccer", description: "test", groupId: 12},
-        {name: "Soccer", description: "field tonight", groupId: 13},
-    ]);
+    const sessions = useSelector(state => state.fetchSession);
+    const [cardList, setCardList] = useState(sessions.slice(0, 5));
+    const [secondCardList, setSecondCardList] = useState(sessions.slice(3, 7));
 
     const openCreateSessionModal = () => {
         setIsCreateSessionModalOpen(true);
@@ -64,7 +51,7 @@ export default function Dashboard() {
                 <Divider />
                 <ul className="sessionsList">
                     {cardList.map((element, index) => (
-                        <SessionCard name={element.name} description={element.description}/>
+                        <SessionCard name={element.name} description={element.description} groupId={element.groupId}/>
                     ))}
                 </ul>
             </div>

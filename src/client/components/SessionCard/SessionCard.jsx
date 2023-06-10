@@ -4,11 +4,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import JoinSession from "../JoinSession/JoinSession";
-import {useState} from "react";
-import CreateSessionPopup from "../CreateSession/CreateSessionPopup";
 import {Link} from "react-router-dom";
-import Divider from "@mui/material/Divider";
 
 export default function SessionCard(props) {
     return (
@@ -22,7 +18,7 @@ export default function SessionCard(props) {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Link to={{ pathname: '/join', state: { groupId: props.groupId} }} style={{marginRight: '10px'}}>
+                <Link to={`/join?groupId=${props.groupId}`} style={{marginRight: '10px'}}>
                     <Button sx={{color: "white", backgroundColor: "lightsalmon", textTransform: "none"}} size="small">Join</Button>
                 </Link>
                 <Button sx={{color: "white", backgroundColor: "lightsalmon", textTransform: "none"}} size="small">More

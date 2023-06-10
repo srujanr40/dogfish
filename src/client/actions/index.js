@@ -4,3 +4,11 @@ export const createNewSession = (new_session) => {
 		payload: new_session
 	};
 };
+
+
+export const fetchSession = (sessions) => {
+	return {
+		type: 'FETCH_SESSIONS',
+		payload: sessions
+	};
+};
