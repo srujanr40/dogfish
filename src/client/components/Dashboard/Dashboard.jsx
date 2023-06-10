@@ -3,6 +3,7 @@ import Navbar from '../Navbar/Navbar.jsx';
 import Featured from '../FeaturedCard/Featured.jsx';
 import SessionCard from '../SessionCard/SessionCard.jsx';
 import './Dashboard.css';
+import "../styles.module.css"
 import Divider from '@mui/material/Divider';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
