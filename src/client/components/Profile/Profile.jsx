@@ -18,7 +18,6 @@ const sportsEquipmentOptions = [
 export default function Profile() {
 
     const profile = useSelector(state => state.updateProfile);
-    console.log(profile);
 
     const [formData, setFormData] = useState({
         name: profile.name,
@@ -66,7 +65,6 @@ export default function Profile() {
     
       const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(formData);
         dispatch(updateProfile(formData));
       };
     
