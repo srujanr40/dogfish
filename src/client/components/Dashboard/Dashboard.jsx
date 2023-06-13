@@ -77,7 +77,7 @@ export default function Dashboard() {
 
                 {isSessionMoreInfoModalOpen && (
                 <div>
-                    <SessionMoreInfoPopup sessionID="1" closeModal={closeSessionMoreInfoModal} />
+                    <SessionMoreInfoPopup sessionID={selectedSessionId} closeModal={closeSessionMoreInfoModal} />
                 </div>
                 )}
                 

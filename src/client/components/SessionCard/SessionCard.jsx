@@ -13,8 +13,7 @@ export default function SessionCard(props) {
 
   const handleOpenMoreInfo = () => {
       setIsMoreInfoOpen(true);
-      props.onMoreInfo(1);
-      // props.onMoreInfo(props.session.id); uncomment when session cards are properly set up
+      props.onMoreInfo(props.groupId);
   };
 
     return (

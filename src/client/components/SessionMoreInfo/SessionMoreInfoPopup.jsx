@@ -1,10 +1,13 @@
 import "./SessionMoreInfo.css";
+import { useSelector } from 'react-redux';
 import Box from "@mui/material/Box";
-import { List, ListItem, ListItemText } from '@mui/material';
 import Typography from "@mui/material/Typography";
 
 // props should contain a session ID and a closeModal callback for when the more info popup's close button is pressed.
 export default function SessionMoreInfoPopup(props) {
+  const sessions = useSelector(state => state.fetchSession);
+  const session = sessions.find(element => element.groupId === props.sessionID)
+
   return (
     <div id="session-more-info-popup">
       <div id="session-more-info-content">
@@ -34,7 +37,7 @@ export default function SessionMoreInfoPopup(props) {
                       fontWeight: "medium",
                     }}
                   >
-                    Hockey at the Park
+                    {session.name}
                   </Typography>
                   <br />
 
@@ -46,7 +49,7 @@ export default function SessionMoreInfoPopup(props) {
                       fontWeight: "medium",
                     }}
                   >
-                    Sport: Hockey
+                    Sport: {session.sport}
                   </Typography>
                   <br />
 
@@ -58,7 +61,7 @@ export default function SessionMoreInfoPopup(props) {
                       fontWeight: "medium",
                     }}
                   >
-                    Join us at the local park for some hockey scrimmages this Saturday. New and experienced players are welcome!
+                    {session.description}
                   </Typography>
                 </Box>
               </Box>
@@ -76,7 +79,7 @@ export default function SessionMoreInfoPopup(props) {
                       fontWeight: "medium",
                     }}
                   >
-                    Where: Vancouver
+                    Where: {session.location}, {session.city}
                   </Typography>
                   <br />
 
@@ -88,23 +91,9 @@ export default function SessionMoreInfoPopup(props) {
                       fontWeight: "medium",
                     }}
                   >
-                    Missing Equipment:
+                    Missing Equipment: {session.equipment}
                   </Typography>
-
-                  <List>
-                    <ListItem>
-                      <ListItemText
-                        primary="Helmet"
-                        secondary="Missing: 2"
-                      />
-                    </ListItem>,
-                    <ListItem>
-                      <ListItemText
-                        primary="Stick"
-                        secondary="Missing: 3"
-                      />
-                    </ListItem>
-                  </List>
+                  <br />
 
                   <Typography
                     variant="h6"
@@ -114,23 +103,9 @@ export default function SessionMoreInfoPopup(props) {
                       fontWeight: "medium",
                     }}
                   >
-                    Missing Players:
+                    Missing Players: {session.playersNeeded}
                   </Typography>
-
-                  <List>
-                    <ListItem>
-                      <ListItemText
-                        primary="Goalie"
-                        secondary="Missing: 1"
-                      />
-                    </ListItem>,
-                    <ListItem>
-                      <ListItemText
-                        primary="Defenseman"
-                        secondary="Missing: 2"
-                      />
-                    </ListItem>
-                  </List>
+                  <br />
                 </Box>
               </Box>
             </div>
