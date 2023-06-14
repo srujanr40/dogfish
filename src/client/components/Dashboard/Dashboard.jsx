@@ -15,7 +15,7 @@ import {useSelector} from "react-redux";
 export default function Dashboard() {
     const [isCreateSessionModalOpen, setIsCreateSessionModalOpen] = useState(false);
     const sessions = useSelector(state => state.fetchSession);
-    const [cardList, setCardList] = useState(sessions.slice(0, 5));
+    const [cardList, setCardList] = useState(sessions);
     const [secondCardList, setSecondCardList] = useState(sessions.slice(3, 7));
 
     const openCreateSessionModal = () => {

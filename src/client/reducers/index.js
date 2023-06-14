@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
-import createNewSession from './sessionReducer';
-import fetchSession from './fetchedSessionReducer';
+import {createNewSession, fetchSession} from './sessionReducer';
 import updateProfile from './updateProfile';
 
 const rootReducer = combineReducers({
