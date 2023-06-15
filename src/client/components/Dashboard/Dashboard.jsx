@@ -18,7 +18,7 @@ export default function Dashboard() {
     const [isSessionMoreInfoModalOpen, setIsSessionMoreInfoModalOpen] = useState(false);
     const [selectedSessionId, setSelectedItemId] = useState(null);
     const sessions = useSelector(state => state.fetchSession);
-    const [cardList, setCardList] = useState(sessions.slice(0, 5));
+    const [cardList, setCardList] = useState(sessions);
     const [secondCardList, setSecondCardList] = useState(sessions.slice(3, 7));
 
     const openCreateSessionModal = () => {

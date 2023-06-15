@@ -10,7 +10,6 @@ export default function JoinSession() {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const groupId = searchParams.get('groupId');
-    let stockPlaceholderImageURL = 'https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM='
     const sessions = useSelector(state => state.fetchSession);
     const session = sessions.find(element => element.groupId == groupId)
 
@@ -20,7 +19,7 @@ export default function JoinSession() {
             <div className="mainPart">
                 <div className="splits">
                     <div className="mainInfo">
-                        <img className="placeholder-image" src={stockPlaceholderImageURL} alt="placeholder"/>
+                        <img className="placeholder-image" src={session.image} alt="placeholder"/>
                         <h5>Event</h5>
                         <h4>{session.name}</h4>
                         <h5>Location</h5>

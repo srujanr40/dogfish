@@ -37,14 +37,11 @@ export default function CreateSessionTextFields() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const new_session = { session_name, 
-        session_sport, 
-        session_description, 
-        session_city,
-        session_location,
-        session_equipment_needed,
-        session_players_needed,
-    }
+    const image = 'https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM='
+    const randomInt = Math.floor(Math.random() * 10001)
+    const new_session = {name: session_name, description: session_description, city: session_city,
+        location: session_location, equipment: session_equipment_needed, playersNeeded: session_players_needed,
+        groupId: randomInt, image: image, sport: session_sport}
 
     dispatch(createNewSession(new_session)) //add function here that handles what happens with the data at submit
     setName("");
@@ -162,7 +159,7 @@ export default function CreateSessionTextFields() {
       <Stack sx={{
           paddingTop: 3,
         }}>
-        <Button variant="contained">Submit</Button>
+        <Button variant="contained" onClick={handleSubmit}>Submit</Button>
       </Stack>
     </div>
   );
