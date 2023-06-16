@@ -9,25 +9,37 @@ import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import { useState } from 'react';
 import CreateSessionPopup from '../CreateSession/CreateSessionPopup.jsx';
-import {useSelector} from "react-redux";
+import SessionMoreInfoPopup from '../SessionMoreInfo/SessionMoreInfoPopup.jsx';
+import { useSelector } from "react-redux";
 
 
 export default function Dashboard() {
     const [isCreateSessionModalOpen, setIsCreateSessionModalOpen] = useState(false);
+    const [isSessionMoreInfoModalOpen, setIsSessionMoreInfoModalOpen] = useState(false);
+    const [selectedSessionId, setSelectedItemId] = useState(null);
     const sessions = useSelector(state => state.fetchSession);
     const [cardList, setCardList] = useState(sessions);
     const [secondCardList, setSecondCardList] = useState(sessions.slice(3, 7));
 
     const openCreateSessionModal = () => {
         setIsCreateSessionModalOpen(true);
-      };
-    
-      const closeCreateSessionModal = () => {
+    };
+
+    const closeCreateSessionModal = () => {
         setIsCreateSessionModalOpen(false);
-      };
+    };
 
+    const openSessionMoreInfoModal = (itemId) => {
+        setSelectedItemId(itemId);
+        setIsSessionMoreInfoModalOpen(true)
+    };
 
-    return (   
+    const closeSessionMoreInfoModal = () => {
+        setSelectedItemId(null);
+        setIsSessionMoreInfoModalOpen(false)
+    };
+
+    return (
         <div className="container">
             <Navbar />
             <div className="featuredContainer">
@@ -40,7 +52,7 @@ export default function Dashboard() {
 
                     {isCreateSessionModalOpen && (
                         <div>
-                            <CreateSessionPopup closeModal={closeCreateSessionModal}/>
+                            <CreateSessionPopup closeModal={closeCreateSessionModal} />
                         </div>
                     )}
                 </div>
@@ -52,18 +64,23 @@ export default function Dashboard() {
                 <Divider />
                 <ul className="sessionsList">
                     {cardList.map((element, index) => (
-                        <SessionCard name={element.name} description={element.description} groupId={element.groupId}/>
+                        <SessionCard name={element.name} description={element.description} groupId={element.groupId} onMoreInfo={openSessionMoreInfoModal} />
                     ))}
                 </ul>
-            </div>
-            <div className="sessionsContainer">
                 <h4>Soccer</h4>
                 <Divider />
                 <ul className="sessionsList">
                     {secondCardList.map((element, index) => (
-                        <SessionCard name={element.name} description={element.description} groupId={element.groupId}/>
+                        <SessionCard name={element.name} description={element.description} groupId={element.groupId} onMoreInfo={openSessionMoreInfoModal} />
                     ))}
                 </ul>
+
+                {isSessionMoreInfoModalOpen && (
+                <div>
+                    <SessionMoreInfoPopup sessionID={selectedSessionId} closeModal={closeSessionMoreInfoModal} />
+                </div>
+                )}
+                
             </div>
         </div>
     )
