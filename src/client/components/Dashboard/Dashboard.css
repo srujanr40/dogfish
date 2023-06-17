@@ -1,0 +1,52 @@
+.container {
+    font-family: 'Roboto', sans-serif;    
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    background-color: whitesmoke;
+}
+
+.featuredAndCreateCards {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px;
+    padding-bottom: 0px;
+}
+
+.sessionsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    padding-bottom: 0px;
+}
+
+.featuredContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    padding-bottom: 0;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.featuredAndCreate {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sessionsList {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding-bottom: 5px;
+    padding-top: 10px;
+    padding-left: 0;
+    gap: 20px;
+    overflow: auto
+    /* Depending on preference we could make overflow hidden but we'd have to limit number of shown events on main page*/
+    /* otherwise it just cus sessions*/
+    /* overflow: hidden */
+}
