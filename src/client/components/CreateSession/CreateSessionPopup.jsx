@@ -23,7 +23,7 @@ export default function CreateSessionPopup(props) {
             Create a new Session
           </Typography>
           <Box sx={{display: "flex", flexDirection: { xs: "column", sm: "column", md: "row", lg: "row",}}}>
-            <CreateSessionTextFields />
+            <CreateSessionTextFields closeModal={props.closeModal}/>
             <Box sx={{paddingLeft: 10}}>
               <UploadImage image={stockPlaceholderImageURL}/>
             </Box>
