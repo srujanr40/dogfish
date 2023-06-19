@@ -24,7 +24,6 @@ const initialState = {
 export const sessionReducer = (state = initialState, action) => {
 	switch(action.type) {
         case 'CREATE_NEW_SESSION':
-			console.log('here')
 			return {
 				...state,
 				sessions: [...state.sessions, action.payload]
