@@ -18,3 +18,10 @@ export const updateProfile = profile => {
 		payload: profile
 	};
 };
+
+export const featuredSession = (session) => {
+	return {
+		type: 'FEATURED_SESSION',
+		payload: session
+	};
+};

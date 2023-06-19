@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux';
-import {createNewSession, fetchSession} from './sessionReducer';
+import {createNewSession, fetchSession, featuredSession} from './sessionReducer';
 import updateProfile from './updateProfile';
 
 const rootReducer = combineReducers({
     createNewSession,
     fetchSession,
-    updateProfile
+    updateProfile,
+    featuredSession,
 });
 
 export default rootReducer;
