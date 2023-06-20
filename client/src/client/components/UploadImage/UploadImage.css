@@ -1,6 +1,5 @@
 .upload-image {
-    padding-top: 25px;
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
+    height: auto;
+    max-width: 200px;
+    border-radius: 7px;
 }

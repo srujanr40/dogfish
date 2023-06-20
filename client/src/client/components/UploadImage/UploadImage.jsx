@@ -18,7 +18,7 @@ export default function UploadImage(props) {
   };
 
   return (
-    <Box sx={{paddingLeft: 10}}>
+    <Box sx={{paddingTop: 2}}>
         {selectedImage ? (
           <img className="upload-image" src={selectedImage} alt="Selected"/>
         ) : (
