@@ -6,7 +6,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import "./SessionMoreInfo.css";
 
 export default function SessionMoreInfoPopup(props) {
-  const sessions = useSelector((state) => state.fetchSession);
+  const sessions = useSelector((state) => state.sessionReducer).sessions;
   const session = sessions.find((element) => element.groupId === props.sessionID);
 
   return (

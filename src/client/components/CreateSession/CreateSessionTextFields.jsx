@@ -21,7 +21,7 @@ const equipmentInfo = (
   </React.Fragment>
 )
 
-export default function CreateSessionTextFields() {
+export default function CreateSessionTextFields(props) {
   const [session_name, setName] = useState("");
   const [session_sport, setSport] = useState("");
   const [session_description, setDescription] = useState("");
@@ -51,6 +51,7 @@ export default function CreateSessionTextFields() {
     setLocation("");
     setEquipmentNeeded("");
     setPlayersNeeded("");
+    props.closeModal()
   };
 
   return (

@@ -17,9 +17,7 @@ export default function Dashboard() {
     const [isCreateSessionModalOpen, setIsCreateSessionModalOpen] = useState(false);
     const [isSessionMoreInfoModalOpen, setIsSessionMoreInfoModalOpen] = useState(false);
     const [selectedSessionId, setSelectedItemId] = useState(null);
-    const sessions = useSelector(state => state.fetchSession);
-    const [cardList, setCardList] = useState(sessions);
-    const [secondCardList, setSecondCardList] = useState(sessions.slice(3, 7));
+    var sessions = useSelector(state => state.sessionReducer).sessions;
 
     const openCreateSessionModal = () => {
         setIsCreateSessionModalOpen(true);
@@ -63,15 +61,15 @@ export default function Dashboard() {
                 <h4>Activities near you</h4>
                 <Divider />
                 <ul className="sessionsList">
-                    {cardList.map((element, index) => (
-                        <SessionCard name={element.name} description={element.description} groupId={element.groupId} onMoreInfo={openSessionMoreInfoModal} />
+                    {sessions.map((element, index) => (
+                        <SessionCard key={index} name={element.name} description={element.description} groupId={element.groupId} onMoreInfo={openSessionMoreInfoModal} />
                     ))}
                 </ul>
                 <h4>Soccer</h4>
                 <Divider />
                 <ul className="sessionsList">
-                    {secondCardList.map((element, index) => (
-                        <SessionCard name={element.name} description={element.description} groupId={element.groupId} onMoreInfo={openSessionMoreInfoModal} />
+                    {sessions.map((element, index) => (
+                        <SessionCard key={index} name={element.name} description={element.description} groupId={element.groupId} onMoreInfo={openSessionMoreInfoModal} />
                     ))}
                 </ul>
 
