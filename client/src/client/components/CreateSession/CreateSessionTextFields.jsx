@@ -12,7 +12,6 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import { createNewSession } from "../../actions";
 import "./CreateSession.css";
-import UploadImage from "../UploadImage/UploadImage";
 
 const equipmentInfo = (
   <React.Fragment>
