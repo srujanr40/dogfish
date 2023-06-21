@@ -21,6 +21,47 @@ const initialState = {
 	}
 
 
+const images = ['https://img-aws.ehowcdn.com/750x428p/photos.demandstudios.com/getty/article/115/217/492629987.jpg',
+				'https://clutchpoints.com/_next/image?url=https%3A%2F%2Fwp.clutchpoints.com%2Fwp-content%2Fuploads%2F2022%2F10%2FTop-15-Fantasy-Basketball-Small-Forwards-In-2022-23-NBA-Season-Ranked.jpg&w=3840&q=75',
+				'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnRjjzK1bkG_CBDBHsxCD_lW9DtGRS-kiqbA&usqp=CAU'
+				]
+const initialfeaturedSession = [
+	{
+		name: "Basketball", 
+		description: "Ultimate at the field behind the Nest, going to meet around 3pm tomorrow", 
+		city: "Vancouver", 
+		location: "MacInnes Field", 
+		equipment: "Basketball", 
+		playersNeeded: 3, 
+		groupId: 1,
+		image: images[0], 
+		sport: "Basketball"
+	},
+	{
+		name: "Football", 
+		description: "Ultimate at the field behind the Nest, going to meet around 3pm tomorrow", 
+		city: "Vancouver", 
+		location: "MacInnes Field", 
+		equipment: "Basketball", 
+		playersNeeded: 3, 
+		groupId: 1,
+		image: images[1], 
+		sport: "Basketball"
+	},
+	{
+		name: "Hockey", 
+		description: "Ultimate at the field behind the Nest, going to meet around 3pm tomorrow", 
+		city: "Vancouver", 
+		location: "MacInnes Field", 
+		equipment: "Basketball", 
+		playersNeeded: 3, 
+		groupId: 1,
+		image: images[2], 
+		sport: "Basketball"
+	}
+
+]
+
 export const sessionReducer = (state = initialState, action) => {
 	switch(action.type) {
         case 'CREATE_NEW_SESSION':
@@ -28,6 +69,15 @@ export const sessionReducer = (state = initialState, action) => {
 				...state,
 				sessions: [...state.sessions, action.payload]
 			}
+		default:
+			return state;
+	}
+};
+
+export const featuredSession = (state = initialfeaturedSession, action) => {
+	switch(action.type) {
+		case 'FEATURED_SESSION':
+			return action.payload;
 		default:
 			return state;
 	}
