@@ -28,6 +28,10 @@ export default function MySessions() {
         setIsSessionMoreInfoModalOpen(false)
     };
 
+    // filters so that only sessions that are joined are displayed
+    const joinedSessions = sessions.filter(element => element.joined === true);
+
+
     return (
         <div className="container">
             <Navbar />
@@ -35,9 +39,9 @@ export default function MySessions() {
             <div className="sessionsContainer">
                 <h4>Upcoming </h4>
                 <Divider />
-                <ul className="sessionsList">
-                    {sessions.map((element, index) => (
-                        <SessionCard key={index} name={element.name} description={element.description} groupId={element.groupId} onMoreInfo={openSessionMoreInfoModal} />
+                <ul className="sessions">
+                    {joinedSessions.map((element, index) => (
+                        <SessionCard key={index} name={element.name} description={element.description} groupId={element.groupId} onMoreInfo={openSessionMoreInfoModal} /> 
                     ))}
                 </ul>            
 

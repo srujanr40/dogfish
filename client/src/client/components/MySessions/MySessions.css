@@ -21,12 +21,15 @@
     justify-content: space-between;
 }
 
-.sessionsList {
+.sessions {
     display: flex;
     justify-content: flex-start;
     padding-bottom: 5px;
     padding-top: 10px;
     padding-left: 0;
+    padding-right: 0;
+    flex-wrap: wrap;
+
     gap: 20px;
     /* Depending on preference we could make overflow hidden but we'd have to limit number of shown events on main page*/
     /* otherwise it just cus sessions*/

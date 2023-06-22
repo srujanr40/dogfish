@@ -3,21 +3,21 @@ const initialState = {
 	sessions: [
 	{name: "Frisbee Meetup", description: "Ultimate at the field behind the Nest, going to meet around 3pm tomorrow"
 		, city: "Vancouver", location: "MacInnes Field", equipment: "Frisbee", playersNeeded: 3, groupId: 1,
-		image: image, sport: "Frisbee"},
+		image: image, sport: "Frisbee", joined: true},
 	{name: "Frisbee", description: "Ultimate at the field", city: "Vancouver", location: "MacInnes Field",
-		equipment: "Frisbee", playersNeeded: 3, groupId: 1, image: image, sport: "Frisbee"},
+		equipment: "Frisbee", playersNeeded: 3, groupId: 1, image: image, sport: "Frisbee", joined: false},
 	{name: "Soccer Evening", description: "after school soccer session", city: "Vancouver", location: "MacInnes Field",
-		equipment: "Football", playersNeeded: 3,groupId: 2, image: image, sport: "Soccer"},
+		equipment: "Football", playersNeeded: 3,groupId: 2, image: image, sport: "Soccer", joined: true},
 	{name: "Basketball", description: "play time", city: "Vancouver", location: "MacInnes Field", equipment: "Frisbee",
-		playersNeeded: 3,groupId: 3, image: image, sport: "Basketball"},
+		playersNeeded: 3,groupId: 3, image: image, sport: "Basketball", joined: false},
 	{name: "Badminton", description: "play time",city: "Vancouver", location: "MacInnes Field", equipment: "Frisbee",
-		playersNeeded: 3, groupId: 4, image: image, sport: "Badminton"},
+		playersNeeded: 3, groupId: 4, image: image, sport: "Badminton", joined: false},
 	{name: "Tennis", description: "play time", city: "Vancouver", location: "MacInnes Field", equipment: "Frisbee",
-		playersNeeded: 3,groupId: 5, image: image, sport: "Tennis"},
+		playersNeeded: 3,groupId: 5, image: image, sport: "Tennis", joined: false},
 	{name: "Football", description: "play time",city: "Vancouver", location: "MacInnes Field", equipment: "Frisbee",
-		playersNeeded: 3, groupId: 6, image: image, sport: "Soccer"},
+		playersNeeded: 3, groupId: 6, image: image, sport: "Soccer", joined: false},
 	{name: "Water Polo", description: "play time",city: "Vancouver", location: "MacInnes Field", equipment: "Frisbee",
-		playersNeeded: 3, groupId: 7, image: image, sport: "Water Polo"},]
+		playersNeeded: 3, groupId: 7, image: image, sport: "Water Polo",joined: true},]
 	}
 
 

@@ -28,7 +28,7 @@ export default function SessionCard(props) {
             </CardContent>
             <CardActions>
                 <Link to={`/join?groupId=${props.groupId}`} style={{marginRight: '10px'}}>
-                    <Button sx={{color: "white", backgroundColor: "lightsalmon", textTransform: "none"}} size="small">Join</Button>
+                    <Button sx={{color: "white", backgroundColor: "lightsalmon", textTransform: "none"}} size="small">Join</Button> :
                 </Link>
                 <Button onClick={handleOpenMoreInfo} sx={{color: "white", backgroundColor: "lightsalmon", textTransform: "none"}} size="small">More
                     info</Button>
