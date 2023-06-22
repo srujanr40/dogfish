@@ -7,19 +7,15 @@
     background-color: whitesmoke;
 }
 
-.sessionsContainer {
+.sessionsCont {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 20px;
     padding-bottom: 0px;
+    height: 100vh;
 }
 
-
-.featuredAndCreate {
-    display: flex;
-    justify-content: space-between;
-}
 
 .sessions {
     display: flex;

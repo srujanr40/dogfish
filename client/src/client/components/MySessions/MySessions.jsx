@@ -35,13 +35,10 @@ export default function MySessions() {
     return (
         <div className="container">
             <Navbar />
-                <Divider />
-            <div className="sessionsContainer">
-                <h4>Upcoming </h4>
-                <Divider />
+            <div className="sessionsCont">
                 <ul className="sessions">
                     {joinedSessions.map((element, index) => (
-                        <SessionCard key={index} name={element.name} description={element.description} groupId={element.groupId} onMoreInfo={openSessionMoreInfoModal} /> 
+                        <SessionCard joined={element.joined} key={index} name={element.name} description={element.description} groupId={element.groupId} onMoreInfo={openSessionMoreInfoModal} /> 
                     ))}
                 </ul>            
 
