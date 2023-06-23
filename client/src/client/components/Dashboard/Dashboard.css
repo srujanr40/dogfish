@@ -45,8 +45,20 @@
     padding-top: 10px;
     padding-left: 0;
     gap: 20px;
-    overflow: auto
+    overflow: auto;
+    scrollbar-width: none;
     /* Depending on preference we could make overflow hidden but we'd have to limit number of shown events on main page*/
     /* otherwise it just cus sessions*/
     /* overflow: hidden */
 }
+
+.sessionsList::-webkit-scrollbar {
+    display: none;
+  }
+  
+  
+  .scrollableContainer:hover:after {
+    color: black;
+  }
+  
+  
