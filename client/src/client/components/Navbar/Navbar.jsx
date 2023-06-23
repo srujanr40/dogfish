@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
+import { useState } from 'react';
+
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,6 +15,13 @@ import "../styles.module.css"
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+
+import logo from './logo.png'
+
+import Fab, { fabClasses } from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+
+import CreateSessionPopup from '../CreateSession/CreateSessionPopup';
 
 
 // Code from Material UI docs for AppBar
@@ -63,6 +72,19 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function Navbar() {
     const [anchorEl, setAnchorEl] = React.useState(null);
 
+    const [isCreateSessionModalOpen, setIsCreateSessionModalOpen] = useState(false);
+
+
+    const openCreateSessionModal = () => {
+      setIsCreateSessionModalOpen(true);
+  };
+
+  const closeCreateSessionModal = () => {
+      setIsCreateSessionModalOpen(false);
+  };
+
+  
+
       const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
       };
@@ -72,15 +94,15 @@ export default function Navbar() {
       };
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{backgroundColor: 'coral'}}>
-        <Toolbar>
+      <AppBar position="static" sx={{backgroundColor: '#052465'}}>
+        <Toolbar sx={{gap: 2}}>
           <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            <Link to="/">dogFish</Link>
+            <Link to="/"><img src={logo} width="90px" height="70px"></img></Link>
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -96,6 +118,10 @@ export default function Navbar() {
                   My Sessions
                 </MenuItem>
           </Link>
+          <Fab variant="extended" sx={{backgroundColor:"#FDB501", color: "black"}} aria-label="create" onClick={openCreateSessionModal}>
+                        <AddIcon />
+                        Create Session
+          </Fab>
               <IconButton
                 size="large"
                 aria-label="account of current user"
@@ -130,6 +156,11 @@ export default function Navbar() {
               </Menu>
         </Toolbar>
       </AppBar>
+      {isCreateSessionModalOpen && (
+                        <div>
+                            <CreateSessionPopup closeModal={closeCreateSessionModal} />
+                        </div>
+                    )}
     </Box>
   );
 }

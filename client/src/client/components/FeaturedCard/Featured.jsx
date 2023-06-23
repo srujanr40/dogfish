@@ -22,7 +22,7 @@ const Featured = () => {
   return (
     <Card
       sx={{
-        backgroundColor: 'black',
+        backgroundColor: '#052465',
         maxWidth: '100%',
         margin: '0 auto',
       }}
@@ -40,10 +40,10 @@ const Featured = () => {
               </Typography>
             </CardContent>
             <CardActions>
-              <Button sx={{ color: 'white', backgroundColor: 'lightsalmon', textTransform: 'none' }} size="small">
+              <Button sx={{ color: 'black', backgroundColor: '#FDB501', textTransform: 'none' }} size="small">
                 Join
               </Button>
-              <Button sx={{ color: 'white', backgroundColor: 'lightsalmon', textTransform: 'none' }} size="small">
+              <Button sx={{ color: 'black', backgroundColor: '#FDB501', textTransform: 'none' }} size="small">
                 More Info
               </Button>
             </CardActions>

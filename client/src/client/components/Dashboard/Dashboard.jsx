@@ -15,9 +15,10 @@ import { useSelector } from "react-redux";
 
 export default function Dashboard() {
     const [isCreateSessionModalOpen, setIsCreateSessionModalOpen] = useState(false);
-    const [isSessionMoreInfoModalOpen, setIsSessionMoreInfoModalOpen] = useState(false);
     const [selectedSessionId, setSelectedItemId] = useState(null);
     var sessions = useSelector(state => state.sessionReducer).sessions;
+
+    const [isSessionMoreInfoModalOpen, setIsSessionMoreInfoModalOpen] = useState(false);
 
     const openCreateSessionModal = () => {
         setIsCreateSessionModalOpen(true);
@@ -37,43 +38,30 @@ export default function Dashboard() {
         setIsSessionMoreInfoModalOpen(false)
     };
 
-    // only display sessions not joined
-    const availableSessions = sessions.filter(element => element.joined === false);
-
 
     return (
         <div className="container">
             <Navbar />
             <div className="featuredContainer">
                 <div className="featuredAndCreate">
-                    <h4>Featured</h4>
-                    <Fab variant="extended" color="primary" aria-label="create" onClick={openCreateSessionModal}>
-                        <AddIcon />
-                        Create Session
-                    </Fab>
 
-                    {isCreateSessionModalOpen && (
-                        <div>
-                            <CreateSessionPopup closeModal={closeCreateSessionModal} />
-                        </div>
-                    )}
                 </div>
                 <Divider />
                 <Featured />
             </div>
             <div className="sessionsContainer">
-                <h4>Activities near you</h4>
-                <Divider />
+                <h2 style={{color: 'white'}}>Activities near you</h2>
+                <Divider sx={{backgroundColor: 'gray'}}/>
                 <ul className="sessionsList">
-                    {availableSessions.map((element, index) => (
-                        <SessionCard key={index} name={element.name} description={element.description} groupId={element.groupId} onMoreInfo={openSessionMoreInfoModal} />
+                    {sessions.map((element, index) => (
+                        <SessionCard joined={element.joined} key={index} name={element.name} description={element.description} groupId={element.groupId} onMoreInfo={openSessionMoreInfoModal} image={element.image} />
                     ))}
                 </ul>
-                <h4>Soccer</h4>
-                <Divider />
+                <h2 style={{color: 'white'}}>Newly added</h2>
+                <Divider sx={{backgroundColor: 'gray'}}/>
                 <ul className="sessionsList">
-                    {availableSessions.map((element, index) => (
-                        <SessionCard key={index} name={element.name} description={element.description} groupId={element.groupId} onMoreInfo={openSessionMoreInfoModal} />
+                    {sessions.map((element, index) => (
+                        <SessionCard key={index} name={element.name} description={element.description} groupId={element.groupId} onMoreInfo={openSessionMoreInfoModal} image={element.image} />
                     ))}
                 </ul>
 

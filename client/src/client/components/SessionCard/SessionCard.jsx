@@ -6,6 +6,8 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
+import CardMedia from '@mui/material/CardMedia';
+
 
 export default function SessionCard(props) {
   const [isMoreInfoOpen, setIsMoreInfoOpen] = useState(false);
@@ -16,8 +18,14 @@ export default function SessionCard(props) {
   };
 
   return (
-    <Card sx={{ maxWidth: '250px', minWidth: '250px', backgroundColor: 'white', display: 'flex', flexDirection: 'column' }}>
-      <CardContent>
+    <Card sx={{ maxWidth: '250px', minWidth: '250px', backgroundColor: '#052465', display: 'flex', flexDirection: 'column' }}>
+    <CardMedia
+          component="img"
+          height="140"
+          image={props.image}
+          alt="image"
+        />
+      <CardContent sx={{color: 'white'}}>
         <Typography gutterBottom variant="h5" component="div">
           {props.name}
         </Typography>
@@ -25,20 +33,28 @@ export default function SessionCard(props) {
           {props.description}
         </Typography>
       </CardContent>
-      <CardActions style={{ marginTop: 'auto' }}>
-        {!props.joined && (
+      <CardActions style={{ marginTop: 'auto', justifyContent: 'space-between' }}>
+        {props.joined? (
+        <Button disabled
+        sx={{color: 'white', backgroundColor: '#FDB501', textTransform: 'none' }}
+        size="small"
+      >
+        Joined &#x2713;
+      </Button> ) : (
           <Link to={`/join?groupId=${props.groupId}`} style={{ marginRight: '10px' }}>
             <Button
-              sx={{ color: 'white', backgroundColor: 'lightsalmon', textTransform: 'none' }}
+              sx={{ color: 'black', backgroundColor: '#FDB501', textTransform: 'none' }}
               size="small"
             >
               Join
             </Button>
           </Link>
-        )}
+        ) 
+
+    }
         <Button
           onClick={handleOpenMoreInfo}
-          sx={{ color: 'white', backgroundColor: 'lightsalmon', textTransform: 'none' }}
+          sx={{ color: 'black', backgroundColor: '#FDB501', textTransform: 'none' }}
           size="small"
         >
           More info

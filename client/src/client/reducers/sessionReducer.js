@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 const image = 'https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM='
 const initialState = {
 	sessions: [
-	{name: "Frisbee Meetup", description: "Ultimate at the field behind the Nest, going to meet around 3pm tomorrow"
+	{name: "Frisbee Meetup", description: "Ultimate at the field behind the Nest"
 		, city: "Vancouver", location: "MacInnes Field", equipment: "Frisbee", playersNeeded: 3, groupId: 1,
 		image: image, sport: "Frisbee", joined: true, dateTime: dayjs('2022-04-17T15:30')},
 	{name: "Frisbee", description: "Ultimate at the field", city: "Vancouver", location: "MacInnes Field",
