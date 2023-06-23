@@ -3,58 +3,45 @@ import Navbar from '../Navbar/Navbar.jsx';
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Link, useLocation} from "react-router-dom";
 import "react-chat-elements/dist/main.css"
 import { MessageList, Input } from "react-chat-elements"
 import Button from "@mui/material/Button";
-import {useState} from "react";
+import {addChat} from "../../actions";
+import updateProfile from "../../reducers/updateProfile";
 const listReference = React.createRef();
 const inputReference = React.createRef();
 
 export default function JoinSession() {
     const location = useLocation();
+    const dispatch = useDispatch();
     const searchParams = new URLSearchParams(location.search);
     const groupId = searchParams.get('groupId');
     const sessions = useSelector(state => state.sessionReducer).sessions;
     const session = sessions.find(element => element.groupId == groupId)
+    const name = useSelector(state => state.updateProfile).name;
+    let chats = useSelector(state => state.chatRed.chats);
+    let chat = chats.find(element => element.groupId == groupId)
+    if(chat === undefined) {
+        chat = []
+    } else {
+        chat = chat.chat
+    }
 
-    const [messageListArray, setMessageListArray] = useState([
-        {
-            position:"left",
-            type:"text",
-            title:"Kursat",
-            text:"Hey everyone!",
-        },
-        {
-            position: 'left',
-            type: 'text',
-            title:"Bob",
-            text: 'Hello, I have some equipment we can use',
-        },
-        {
-            position: 'left',
-            type: 'text',
-            title:"Michael",
-            text: 'Great, good to hear!',
-            date: new Date(),
-        }
-    ])
-
-    const addMessage = () => {
+    const AddMessage = () => {
         const value = inputReference.current.value;
         if(value.length === 0)
             return
-        const newMessage = {
+        const newChat = {
             position: 'right',
             type: 'text',
-            title:"Edvin",
+            title:name,
             text: value,
             date: new Date(),
         }
         inputReference.current.value = ''
-        setMessageListArray([...messageListArray, newMessage])
-
+        dispatch(addChat(groupId, newChat))
     }
     return (
         <div className="container">
@@ -90,28 +77,32 @@ export default function JoinSession() {
                             className='message-list'
                             lockable={true}
                             toBottomHeight={'100%'}
-                            dataSource={messageListArray} />
+                            dataSource={chat} />
 
                     </Box>
-                    <Input
-                        className='rce-example-input'
-                        placeholder='Write your message here.'
-                        defaultValue=''
-                        referance={inputReference}
-                        maxHeight={50}
-                        onKeyPress={(e) => {
-                            if (e.shiftKey && e.charCode === 13) {
-                                return true
-                            }
-                            if (e.charCode === 13) {
-                                addMessage()
-                            }
-                        }}
 
-                        rightButtons={<Button sx={{ color: 'white', backgroundColor: 'lightsalmon', '&:hover': {
-                                backgroundColor: '#ffc4ad'} ,textTransform: 'none' }}
-                                              size="small" text='Submit' onClick={() => addMessage()}>Join</Button>}
-                    />
+                    <Box>
+                        <Input
+                            className='rce-example-input'
+                            placeholder='Write your message here.'
+                            defaultValue=''
+                            referance={inputReference}
+                            maxHeight={50}
+                            onKeyPress={(e) => {
+                                if (e.shiftKey && e.charCode === 13) {
+                                    return true
+                                }
+                                if (e.charCode === 13) {
+                                    AddMessage()
+                                }
+                            }}
+
+                            rightButtons={<Button sx={{ color: 'white', backgroundColor: 'lightsalmon', '&:hover': {
+                                    backgroundColor: '#ffc4ad'} ,textTransform: 'none' }}
+                                                  size="small" text='Submit' onClick={() => AddMessage()}>Join</Button>}
+                        />
+
+                    </Box>
                 </div>
                 <div className="splits">
                     <Box sx={{
