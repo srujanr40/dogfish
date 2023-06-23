@@ -91,6 +91,11 @@ export default function Navbar() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
+          <Link to="/mysessions" style={{ color: 'white' }}>
+                <MenuItem>
+                  My Sessions
+                </MenuItem>
+          </Link>
               <IconButton
                 size="large"
                 aria-label="account of current user"
