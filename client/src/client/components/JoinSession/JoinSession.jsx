@@ -5,14 +5,57 @@ import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import {useSelector} from 'react-redux';
 import {Link, useLocation} from "react-router-dom";
+import "react-chat-elements/dist/main.css"
+import { MessageList, Input } from "react-chat-elements"
+import Button from "@mui/material/Button";
+import {useState} from "react";
+const listReference = React.createRef();
+const inputReference = React.createRef();
 
 export default function JoinSession() {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const groupId = searchParams.get('groupId');
-    const sessions = useSelector(state => state.fetchSession);
+    const sessions = useSelector(state => state.sessionReducer).sessions;
     const session = sessions.find(element => element.groupId == groupId)
 
+    const [messageListArray, setMessageListArray] = useState([
+        {
+            position:"left",
+            type:"text",
+            title:"Kursat",
+            text:"Hey everyone!",
+        },
+        {
+            position: 'left',
+            type: 'text',
+            title:"Bob",
+            text: 'Hello, I have some equipment we can use',
+        },
+        {
+            position: 'left',
+            type: 'text',
+            title:"Michael",
+            text: 'Great, good to hear!',
+            date: new Date(),
+        }
+    ])
+
+    const addMessage = () => {
+        const value = inputReference.current.value;
+        if(value.length === 0)
+            return
+        const newMessage = {
+            position: 'right',
+            type: 'text',
+            title:"Edvin",
+            text: value,
+            date: new Date(),
+        }
+        inputReference.current.value = ''
+        setMessageListArray([...messageListArray, newMessage])
+
+    }
     return (
         <div className="container">
             <Navbar/>
@@ -39,9 +82,36 @@ export default function JoinSession() {
                 <div className="splits">
                     <Box sx={{
                         width: 400,
-                        height: 600,
-                        backgroundColor: 'primary.dark',
-                    }}/>
+                        height: 550,
+                        overflow: "auto",
+                    }}>
+                        <MessageList
+                            referance={listReference}
+                            className='message-list'
+                            lockable={true}
+                            toBottomHeight={'100%'}
+                            dataSource={messageListArray} />
+
+                    </Box>
+                    <Input
+                        className='rce-example-input'
+                        placeholder='Write your message here.'
+                        defaultValue=''
+                        referance={inputReference}
+                        maxHeight={50}
+                        onKeyPress={(e) => {
+                            if (e.shiftKey && e.charCode === 13) {
+                                return true
+                            }
+                            if (e.charCode === 13) {
+                                addMessage()
+                            }
+                        }}
+
+                        rightButtons={<Button sx={{ color: 'white', backgroundColor: 'lightsalmon', '&:hover': {
+                                backgroundColor: '#ffc4ad'} ,textTransform: 'none' }}
+                                              size="small" text='Submit' onClick={() => addMessage()}>Join</Button>}
+                    />
                 </div>
                 <div className="splits">
                     <Box sx={{
