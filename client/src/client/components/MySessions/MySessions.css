@@ -1,0 +1,33 @@
+.container {
+    font-family: 'Roboto', sans-serif;    
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    background-color: whitesmoke;
+}
+
+.sessionsCont {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    padding-bottom: 0px;
+    height: 100vh;
+}
+
+
+.sessions {
+    display: flex;
+    justify-content: flex-start;
+    padding-bottom: 5px;
+    padding-top: 10px;
+    padding-left: 0;
+    padding-right: 0;
+    flex-wrap: wrap;
+
+    gap: 20px;
+    /* Depending on preference we could make overflow hidden but we'd have to limit number of shown events on main page*/
+    /* otherwise it just cus sessions*/
+    /* overflow: hidden */
+}

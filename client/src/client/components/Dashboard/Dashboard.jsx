@@ -5,7 +5,7 @@ import SessionCard from '../SessionCard/SessionCard.jsx';
 import './Dashboard.css';
 import "../styles.module.css"
 import Divider from '@mui/material/Divider';
-import Fab from '@mui/material/Fab';
+import Fab, { fabClasses } from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import { useState } from 'react';
 import CreateSessionPopup from '../CreateSession/CreateSessionPopup.jsx';
@@ -37,6 +37,10 @@ export default function Dashboard() {
         setIsSessionMoreInfoModalOpen(false)
     };
 
+    // only display sessions not joined
+    const availableSessions = sessions.filter(element => element.joined === false);
+
+
     return (
         <div className="container">
             <Navbar />
@@ -61,14 +65,14 @@ export default function Dashboard() {
                 <h4>Activities near you</h4>
                 <Divider />
                 <ul className="sessionsList">
-                    {sessions.map((element, index) => (
+                    {availableSessions.map((element, index) => (
                         <SessionCard key={index} name={element.name} description={element.description} groupId={element.groupId} onMoreInfo={openSessionMoreInfoModal} />
                     ))}
                 </ul>
                 <h4>Soccer</h4>
                 <Divider />
                 <ul className="sessionsList">
-                    {sessions.map((element, index) => (
+                    {availableSessions.map((element, index) => (
                         <SessionCard key={index} name={element.name} description={element.description} groupId={element.groupId} onMoreInfo={openSessionMoreInfoModal} />
                     ))}
                 </ul>

@@ -9,7 +9,6 @@ import "react-chat-elements/dist/main.css"
 import { MessageList, Input } from "react-chat-elements"
 import Button from "@mui/material/Button";
 import {addChat} from "../../actions";
-import updateProfile from "../../reducers/updateProfile";
 const listReference = React.createRef();
 const inputReference = React.createRef();
 
@@ -99,7 +98,7 @@ export default function JoinSession() {
 
                             rightButtons={<Button sx={{ color: 'white', backgroundColor: 'lightsalmon', '&:hover': {
                                     backgroundColor: '#ffc4ad'} ,textTransform: 'none' }}
-                                                  size="small" text='Submit' onClick={() => AddMessage()}>Join</Button>}
+                                                  size="small" text='Submit' onClick={() => AddMessage()}>Send</Button>}
                         />
 
                     </Box>

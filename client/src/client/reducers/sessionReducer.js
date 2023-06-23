@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 const image = 'https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM='
 const initialState = {
     sessions: [
@@ -11,11 +13,22 @@ const initialState = {
             playersNeeded: 3,
             groupId: 1,
             image: image,
-            sport: "Frisbee"
+            sport: "Frisbee",
+            joined: false,
+            dateTime: dayjs('2022-04-17T15:30')
         },
         {
-            name: "Frisbee", description: "Ultimate at the field", city: "Vancouver", location: "MacInnes Field",
-            equipment: "Frisbee", playersNeeded: 3, groupId: 1, image: image, sport: "Frisbee"
+            name: "Frisbee",
+            description: "Ultimate at the field",
+            city: "Vancouver",
+            location: "MacInnes Field",
+            equipment: "Frisbee",
+            playersNeeded: 3,
+            groupId: 1,
+            image: image,
+            sport: "Frisbee",
+            joined: false,
+            dateTime: dayjs('2022-04-17T15:30')
         },
         {
             name: "Soccer Evening",
@@ -26,7 +39,9 @@ const initialState = {
             playersNeeded: 3,
             groupId: 2,
             image: image,
-            sport: "Soccer"
+            sport: "Soccer",
+            joined: false,
+            dateTime: dayjs('2022-04-17T15:30')
         },
         {
             name: "Basketball",
@@ -37,7 +52,9 @@ const initialState = {
             playersNeeded: 3,
             groupId: 3,
             image: image,
-            sport: "Basketball"
+            sport: "Basketball",
+            joined: false,
+            dateTime: dayjs('2022-04-17T15:30')
         },
         {
             name: "Badminton",
@@ -48,7 +65,9 @@ const initialState = {
             playersNeeded: 3,
             groupId: 4,
             image: image,
-            sport: "Badminton"
+            sport: "Badminton",
+            joined: true,
+            dateTime: dayjs('2022-04-17T15:30')
         },
         {
             name: "Tennis",
@@ -59,7 +78,9 @@ const initialState = {
             playersNeeded: 3,
             groupId: 5,
             image: image,
-            sport: "Tennis"
+            sport: "Tennis",
+            joined: true,
+            dateTime: dayjs('2022-04-17T15:30')
         },
         {
             name: "Football",
@@ -70,7 +91,9 @@ const initialState = {
             playersNeeded: 3,
             groupId: 6,
             image: image,
-            sport: "Soccer"
+            sport: "Soccer",
+            joined: false,
+            dateTime: dayjs('2022-04-17T15:30')
         },
         {
             name: "Water Polo",
@@ -81,7 +104,9 @@ const initialState = {
             playersNeeded: 3,
             groupId: 7,
             image: image,
-            sport: "Water Polo"
+            sport: "Water Polo",
+            joined: true,
+            dateTime: dayjs('2022-04-17T15:30')
         },]
 }
 
