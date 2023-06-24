@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
+import {useDispatch} from 'react-redux';
 
 export default function Filter() {
   const [locationFilter, setLocationFilter] = useState('');
+  const dispatch = useDispatch();
 
-  const handleFilterChange = (e) => {
-    setLocationFilter(e.target.value);
+  const handleFilterChange = (value) => {
+    setLocationFilter(value);
+    // dispatch(filterSessions(locationFilter));
   };
 
   return (
