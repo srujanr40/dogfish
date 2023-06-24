@@ -2,6 +2,7 @@ import * as React from 'react';
 import Navbar from '../Navbar/Navbar.jsx';
 import Featured from '../FeaturedCard/Featured.jsx';
 import SessionCard from '../SessionCard/SessionCard.jsx';
+import Filter from '../Filter/Filter.jsx';
 import './Dashboard.css';
 import "../styles.module.css"
 import Divider from '@mui/material/Divider';
@@ -62,7 +63,10 @@ export default function Dashboard() {
                 <Featured />
             </div>
             <div className="sessionsContainer">
-                <h4>Activities near you</h4>
+                <div>
+                    <h4>Activities near you</h4>
+                    <Filter />
+                </div>
                 <Divider />
                 <ul className="sessionsList">
                     {availableSessions.map((element, index) => (
