@@ -15,7 +15,11 @@ export default function SessionCard(props) {
     props.onMoreInfo(props.groupId);
   };
 
-  return (
+    function joinButton() {
+        // dispatch to change joined value for this session = true
+    }
+
+    return (
     <Card sx={{ maxWidth: '250px', minWidth: '250px', backgroundColor: 'white', display: 'flex', flexDirection: 'column' }}>
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
@@ -30,7 +34,7 @@ export default function SessionCard(props) {
           <Link to={`/join?groupId=${props.groupId}`} style={{ marginRight: '10px' }}>
             <Button
               sx={{ color: 'white', backgroundColor: 'lightsalmon', textTransform: 'none' }}
-              size="small"
+              size="small" onClick={joinButton}
             >
               Join
             </Button>

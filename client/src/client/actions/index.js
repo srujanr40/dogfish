@@ -12,6 +12,13 @@ export const updateProfile = profile => {
 	};
 };
 
+export const addChat = (groupId, chat) => {
+	return {
+		type: 'ADD_CHAT',
+		payload: {groupId : groupId, chat: chat}
+	};
+};
+
 export const featuredSession = (session) => {
 	return {
 		type: 'FEATURED_SESSION',
