@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { v4: uuid } = require('uuid');
 
+const image = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnRjjzK1bkG_CBDBHsxCD_lW9DtGRS-kiqbA&usqp=CAU'
 const sessions = [
     {
         name: "Frisbee Meetup",
@@ -14,7 +15,7 @@ const sessions = [
         image: image,
         sport: "Frisbee",
         joined: false,
-        dateTime: dayjs('2022-04-17T15:30'),
+        dateTime:" dayjs('2022-04-17T15:30')",
         type: "outdoor",
     },
     {
@@ -28,7 +29,7 @@ const sessions = [
         image: image,
         sport: "Frisbee",
         joined: false,
-        dateTime: dayjs('2022-04-17T15:30'),
+        dateTime:" dayjs('2022-04-17T15:30')",
         type: "indoor",
     },
     {
@@ -42,7 +43,7 @@ const sessions = [
         image: image,
         sport: "Soccer",
         joined: false,
-        dateTime: dayjs('2022-04-17T15:30'),
+        dateTime:" dayjs('2022-04-17T15:30')",
         type: "outdoor,"
     },
     
