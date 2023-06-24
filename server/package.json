@@ -7,8 +7,10 @@
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
+    "dayjs": "^1.11.8",
     "debug": "~2.6.9",
     "express": "~4.16.1",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "uuid": "^9.0.0"
   }
 }
