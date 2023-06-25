@@ -33,7 +33,7 @@ const sessionsSlice = createSlice({
       })
       .addCase(filterSessionsAsync.fulfilled, (state, action) => {
         state.filterItems = REQUEST_STATE.FULFILLED;
-        state.list = action.payload
+        state.list = action.payload;
       })
       .addCase(filterSessionsAsync.rejected, (state, action) => {
         state.filterItems = REQUEST_STATE.REJECTED;
@@ -42,4 +42,5 @@ const sessionsSlice = createSlice({
   }
 });
 
+export const sessionsReducer = sessionsSlice.reducer;
 export default sessionsSlice.reducer;

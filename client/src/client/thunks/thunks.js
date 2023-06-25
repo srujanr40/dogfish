@@ -10,7 +10,7 @@ export const getSessionsAsync = createAsyncThunk(
 );
 export const filterSessionsAsync = createAsyncThunk(
   actionTypes.FILTER_SESSIONS,
-  async (item) => {
-    return await Service.filterSessions({ item });
+  async (filter) => {
+    return await Service.filterSessions({ filter });
   }
 )

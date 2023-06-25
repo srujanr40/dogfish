@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import {useDispatch} from 'react-redux';
+import { filterSessionsAsync } from '../../thunks/thunks';
 
 export default function Filter() {
   const [locationFilter, setLocationFilter] = useState('');
@@ -8,8 +9,12 @@ export default function Filter() {
 
   const handleFilterChange = (value) => {
     setLocationFilter(value);
-    // dispatch(filterSessions(locationFilter));
+    // dispatch(filterSessionsAsync(locationFilter));
   };
+
+  useEffect(() => {
+    dispatch(filterSessionsAsync(locationFilter));
+  }, [locationFilter]);
 
   return (
     <div>

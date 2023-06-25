@@ -7,8 +7,10 @@ const getSessions = async () => {
   };
   
 const filterSessions = async (item) => {
-    const endpoint = '/sessions';
-    const queryParams = new URLSearchParams({ filter: item.item });
+    console.log(item)
+    console.log(item.filter)
+    const endpoint = '/filter';
+    const queryParams = new URLSearchParams({ filter: item.filter });
     const url = `http://localhost:3001/sessions${endpoint}?${queryParams}`;
     const response = await fetch(url, {
       method: 'GET',

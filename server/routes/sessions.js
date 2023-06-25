@@ -44,7 +44,7 @@ const sessions = [
         sport: "Soccer",
         joined: false,
         dateTime:" dayjs('2022-04-17T15:30')",
-        type: "outdoor,"
+        type: "outdoor"
     },
     
 ]
@@ -56,8 +56,9 @@ router.get('/', function (req, res, next) {
 router.get('/filter', function (req, res, next) {
 	const filterName = req.query.filter;
 	if (filterName === '')
-		return res.send(defaultItems)
-	let filterArray = defaultItems.filter(item => item.type === filterName);
+		return res.send(sessions)
+	let filterArray = sessions.filter(item => item.type === filterName);
+  console.log(filterArray)
 	return res.status(200).send(filterArray);
   });
 

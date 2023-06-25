@@ -6,11 +6,14 @@ import Dashboard from './client/components/Dashboard/Dashboard.jsx'
 import Profile from './client/components/Profile/Profile.jsx'
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
 import rootReducer from './client/reducers';
 import JoinSession from "./client/components/JoinSession/JoinSession";
 import MySessions from './client/components/MySessions/MySessions';
 
-const store = createStore(rootReducer);
+const store = configureStore({
+  reducer: rootReducer
+});
 
 function App() {
   return (
