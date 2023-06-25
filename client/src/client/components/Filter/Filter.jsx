@@ -9,15 +9,21 @@ export default function Filter() {
 
   const handleFilterChange = (value) => {
     setLocationFilter(value);
-    // dispatch(filterSessionsAsync(locationFilter));
+    dispatch(filterSessionsAsync(value));
   };
 
-  useEffect(() => {
-    dispatch(filterSessionsAsync(locationFilter));
-  }, [locationFilter]);
+  // useEffect(() => {
+  //   dispatch(filterSessionsAsync(locationFilter));
+  // }, [locationFilter]);
 
   return (
     <div>
+        <Button
+                sx={{ color: 'white', backgroundColor: 'lightsalmon', textTransform: 'none', marginRight: '10px' }}
+                size="small" onClick={() => handleFilterChange('')}
+              >
+              All
+          </Button>
         <Button
               sx={{ color: 'white', backgroundColor: 'lightsalmon', textTransform: 'none', marginRight: '10px' }}
               size="small" onClick={() => handleFilterChange('outdoor')}
