@@ -26,15 +26,15 @@ export default function Filter() {
           </Button>
         <Button
               sx={{ color: 'white', backgroundColor: 'lightsalmon', textTransform: 'none', marginRight: '10px' }}
-              size="small" onClick={() => handleFilterChange('outdoor')}
+              size="small" onClick={() => handleFilterChange('football')}
             >
-            Outdoors
+            Football
         </Button>
         <Button
               sx={{ color: 'white', backgroundColor: 'lightsalmon', textTransform: 'none' }}
-              size="small" onClick={() => handleFilterChange('indoor')}
+              size="small" onClick={() => handleFilterChange('basketball')}
             >
-            Indoors
+            Basketball
         </Button>
       </div>
   );

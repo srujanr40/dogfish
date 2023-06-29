@@ -31,7 +31,8 @@ export const createNewSessionAsync = (new_session) => {
       body: JSON.stringify(new_session)
     })
 
-    dispatch(createNewSession(new_session))
+    let data = await response.json()
+    dispatch(createNewSession(data))
   }
 }
 
@@ -45,7 +46,8 @@ export const updateProfileAsync = (new_details) => {
       body: JSON.stringify(new_details)
     })
 
-    dispatch(updateProfile(new_details))
+    let data = await response.json()
+    dispatch(updateProfile(data))
   }
 }
 
