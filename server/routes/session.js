@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { v4: uuid } = require('uuid');
+const { v4: uuidv4 } = require('uuid');
 
 const image = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnRjjzK1bkG_CBDBHsxCD_lW9DtGRS-kiqbA&usqp=CAU'
 const sessions = [
@@ -155,10 +155,21 @@ const featuredSessions = [
 
 ]
 
+// GET all sessions
 router.get('/', function (req, res, next) {
   return res.status(200).send(sessions);
 });
 
+// ADD a new session
+router.post('/', function (req, res, next) {
+    let new_session = req.body
+    new_session.groupId = uuidv4()
+    sessions.push(new_session)
+
+    return res.status(200).send(new_session);
+});
+
+// GET featured sessions
 router.get('/featured', function (req, res, next) {
     return res.status(200).send(featuredSessions);
 });

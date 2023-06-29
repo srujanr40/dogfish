@@ -10,7 +10,7 @@ import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import dayjs from "dayjs";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import { createNewSession } from "../../actions";
+import { createNewSessionAsync } from "../../thunks/thunks";
 import "./CreateSession.css";
 
 const equipmentInfo = (
@@ -55,7 +55,6 @@ export default function CreateSessionTextFields(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const randomInt = Math.floor(Math.random() * 10001);
     const new_session = {
       name: session_name,
       description: session_description,
@@ -63,14 +62,13 @@ export default function CreateSessionTextFields(props) {
       location: session_location,
       equipment: session_equipment_needed,
       playersNeeded: session_players_needed,
-      groupId: randomInt,
       image: session_image,
       sport: session_sport,
       dateTime: session_date_time,
       joined: false,
     };
 
-    dispatch(createNewSession(new_session)); //add function here that handles what happens with the data at submit
+    dispatch(createNewSessionAsync(new_session)); //add function here that handles what happens with the data at submit
 
     setName("");
     setSport("");

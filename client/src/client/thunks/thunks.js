@@ -1,9 +1,13 @@
 import { getSessions, getFeaturedSessions, createNewSession, updateProfile } from "../actions"
 
-export const getSessionsAsync = () => {
+export const getSessionsAsync = (sport = "") => {
   return async (dispatch) => {
-    // TODO: add support for query params
-    const response = await fetch('http://localhost:3001/session')
+    var response = {}
+    if (sport !== "") {
+      response = await fetch('http://localhost:3001/session' + '?sport=' + sport)
+    } else {
+      response = await fetch('http://localhost:3001/session')
+    }
     let data = await response.json()
     dispatch(getSessions(data))
   }
@@ -11,7 +15,7 @@ export const getSessionsAsync = () => {
 
 export const getFeaturedSessionsAsync = () => {
   return async (dispatch) => {
-    const response = await fetch('http://localhost:3001/session/featured')
+    var response = await fetch('http://localhost:3001/session/featured')
     let data = await response.json()
     dispatch(getFeaturedSessions(data))
   }
@@ -19,7 +23,7 @@ export const getFeaturedSessionsAsync = () => {
 
 export const createNewSessionAsync = (new_session) => {
   return async (dispatch) => {
-    const response = await fetch('http://localhost:3001/session', {
+    var response = await fetch('http://localhost:3001/session', {
       method: "POST",
       headers: {
          "Content-Type": "application/json"
