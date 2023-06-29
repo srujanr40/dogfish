@@ -6,7 +6,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import { Card, CardContent, CardActions, CardMedia, Typography, Button } from '@mui/material';
 
 const Featured = () => {
-  const featuredSessions = useSelector((state) => state.featuredSession);
+  const featuredSessions = useSelector((store) => store.sessionReducer).featuredSessions;
 
   const settings = {
     dots: true,

@@ -1,3 +1,10 @@
+export const getSessions = (sessions) => {
+	return {
+		type: 'GET_SESSIONS',
+		payload: sessions
+	};
+};
+
 export const createNewSession = (new_session) => {
 	return {
 		type: 'CREATE_NEW_SESSION',
@@ -19,9 +26,9 @@ export const addChat = (groupId, chat) => {
 	};
 };
 
-export const featuredSession = (session) => {
+export const getFeaturedSessions = (session) => {
 	return {
-		type: 'FEATURED_SESSION',
+		type: 'GET_FEATURED_SESSIONS',
 		payload: session
 	};
 };

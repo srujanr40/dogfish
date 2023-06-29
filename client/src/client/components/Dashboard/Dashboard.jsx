@@ -6,7 +6,7 @@ import Filter from '../Filter/Filter.jsx';
 import './Dashboard.css';
 import "../styles.module.css"
 import Divider from '@mui/material/Divider';
-import Fab, { fabClasses } from '@mui/material/Fab';
+import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import CreateSessionPopup from '../CreateSession/CreateSessionPopup.jsx';
 import SessionMoreInfoPopup from '../SessionMoreInfo/SessionMoreInfoPopup.jsx';
@@ -24,9 +24,9 @@ export default function Dashboard() {
 
     useEffect(() => {
         dispatch(getSessionsAsync());
-      }, []);
+    }, []);
 
-    const sessions = useSelector(state => state.sessions.list);
+    const sessions = useSelector(store => store.sessionReducer).sessions;
 
 
     const openCreateSessionModal = () => {
