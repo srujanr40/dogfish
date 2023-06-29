@@ -67,6 +67,7 @@ export default function CreateSessionTextFields(props) {
       image: session_image,
       sport: session_sport,
       dateTime: session_date_time,
+      joined: false,
     };
 
     dispatch(createNewSession(new_session)); //add function here that handles what happens with the data at submit
@@ -218,7 +219,7 @@ export default function CreateSessionTextFields(props) {
                   fullWidth
                   label="Select Date"
                   value={session_date_time}
-                  onChange={(e) => setDateTime(e.target.value)}
+                  onChange={(e) => setDateTime(e)}
                 />
               </LocalizationProvider>
             </Box>

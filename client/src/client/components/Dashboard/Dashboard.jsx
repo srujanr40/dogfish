@@ -2,6 +2,7 @@ import * as React from 'react';
 import Navbar from '../Navbar/Navbar.jsx';
 import Featured from '../FeaturedCard/Featured.jsx';
 import SessionCard from '../SessionCard/SessionCard.jsx';
+import Filter from '../Filter/Filter.jsx';
 import './Dashboard.css';
 import "../styles.module.css"
 import Divider from '@mui/material/Divider';
