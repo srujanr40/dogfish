@@ -45,8 +45,11 @@ export default function Dashboard() {
         <div className="container">
             <Navbar />
             <div className="featuredContainer">
+                <Featured />
+            </div>
+            <div className="sessionsContainer">
                 <div className="featuredAndCreate">
-                    <h4>Featured</h4>
+                    <h4>Activities near you</h4>
                     <Fab variant="extended" color="primary" aria-label="create" onClick={openCreateSessionModal}>
                         <AddIcon />
                         Create Session
@@ -58,11 +61,6 @@ export default function Dashboard() {
                         </div>
                     )}
                 </div>
-                <Divider />
-                <Featured />
-            </div>
-            <div className="sessionsContainer">
-                <h4>Activities near you</h4>
                 <Divider />
                 <ul className="sessionsList">
                     {availableSessions.map((element, index) => (

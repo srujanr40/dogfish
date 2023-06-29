@@ -15,7 +15,7 @@ const Featured = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 4000,
     ltr: true,
   };
 
@@ -30,7 +30,7 @@ const Featured = () => {
       <Slider {...settings}>
         {featuredSessions.map((session, index) => (
           <div key={index}>
-            <CardMedia component="img" height="400" image={session.image} alt={`Slide ${index + 1}`} />
+            <CardMedia component="img" height="300" image={session.image} alt={`Slide ${index + 1}`} />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div" sx={{ color: 'white' }}>
                 {session.name}
