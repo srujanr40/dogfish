@@ -50,8 +50,11 @@ export default function Dashboard() {
         <div className="container">
             <Navbar />
             <div className="featuredContainer">
+                <Featured />
+            </div>
+            <div className="sessionsContainer">
                 <div className="featuredAndCreate">
-                    <h4>Featured</h4>
+                    <h4>Activities near you</h4>
                     <Fab variant="extended" color="primary" aria-label="create" onClick={openCreateSessionModal}>
                         <AddIcon />
                         Create Session
@@ -62,14 +65,6 @@ export default function Dashboard() {
                             <CreateSessionPopup closeModal={closeCreateSessionModal} />
                         </div>
                     )}
-                </div>
-                <Divider />
-                <Featured />
-            </div>
-            <div className="sessionsContainer">
-                <div>
-                    <h4>Activities near you</h4>
-                    <Filter />
                 </div>
                 <Divider />
                 <ul className="sessionsList">
