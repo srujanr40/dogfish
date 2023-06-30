@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../Navbar/Navbar.jsx';
 import Featured from '../FeaturedCard/Featured.jsx';
 import SessionCard from '../SessionCard/SessionCard.jsx';
@@ -6,19 +6,23 @@ import Filter from '../Filter/Filter.jsx';
 import './Dashboard.css';
 import "../styles.module.css"
 import Divider from '@mui/material/Divider';
-import Fab, { fabClasses } from '@mui/material/Fab';
+import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
-import { useState } from 'react';
 import CreateSessionPopup from '../CreateSession/CreateSessionPopup.jsx';
 import SessionMoreInfoPopup from '../SessionMoreInfo/SessionMoreInfoPopup.jsx';
 import { useSelector } from "react-redux";
+import { useDispatch } from 'react-redux';
 
 
 export default function Dashboard() {
+    const dispatch = useDispatch();
+
     const [isCreateSessionModalOpen, setIsCreateSessionModalOpen] = useState(false);
     const [isSessionMoreInfoModalOpen, setIsSessionMoreInfoModalOpen] = useState(false);
     const [selectedSessionId, setSelectedItemId] = useState(null);
-    const sessions = useSelector(state => state.sessionReducer).sessions;
+
+    const sessions = useSelector(store => store.sessionReducer).sessions;
+
 
     const openCreateSessionModal = () => {
         setIsCreateSessionModalOpen(true);

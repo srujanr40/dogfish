@@ -1,14 +1,14 @@
 import UploadImage from "../UploadImage/UploadImage"
 import React, { useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { updateProfile } from '../../actions/index.js'
 import { TextField, Button, MenuItem, Chip } from '@mui/material';
 import Navbar from '../Navbar/Navbar.jsx';
+import { updateProfileAsync } from "../../thunks/thunks";
 
 
 export default function Profile() {
 
-    const profile = useSelector(state => state.updateProfile);
+    const profile = useSelector(store => store.profileReducer).profile;
 
     const [formData, setFormData] = useState({
         name: profile.name,
@@ -52,7 +52,7 @@ export default function Profile() {
     
       const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch(updateProfile(formData));
+        dispatch(updateProfileAsync(formData));
       };
     
 
