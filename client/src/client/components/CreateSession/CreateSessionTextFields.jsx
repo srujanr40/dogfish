@@ -26,7 +26,8 @@ const equipmentInfo = (
   </React.Fragment>
 );
 
-let stockPlaceholderImageURL = 'https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM='
+let stockPlaceholderImageURL =
+  "https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=";
 
 export default function CreateSessionTextFields(props) {
   const [session_name, setName] = useState("");
@@ -38,6 +39,8 @@ export default function CreateSessionTextFields(props) {
   const [session_players_needed, setPlayersNeeded] = useState("");
   const [session_image, setSessionImage] = useState("");
   const [session_date_time, setDateTime] = useState(dayjs("2022-04-17T15:30"));
+
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -83,6 +86,24 @@ export default function CreateSessionTextFields(props) {
     props.closeModal();
   };
 
+  function validityCheck() {
+    console.log(session_date_time.unix() + "    " + Date.now());
+    if (
+      session_name !== "" &&
+      session_sport !== "" &&
+      session_city !== "" &&
+      session_location !== "" &&
+      session_equipment_needed !== "" &&
+      session_players_needed !== "" &&
+      session_date_time !== "" &&
+      session_date_time.unix() >= Date.now() / 1000
+    ) {
+      setIsFormValid(true);
+    } else {
+      setIsFormValid(false);
+    }
+  }
+
   return (
     <div id="create-session-text-fields">
       <Box
@@ -126,7 +147,10 @@ export default function CreateSessionTextFields(props) {
                 label="Session Name"
                 margin="normal"
                 value={session_name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => {
+                  setName(e.target.value);
+                  validityCheck();
+                }}
               />
               <br />
 
@@ -137,7 +161,10 @@ export default function CreateSessionTextFields(props) {
                 label="Sport"
                 margin="normal"
                 value={session_sport}
-                onChange={(e) => setSport(e.target.value)}
+                onChange={(e) => {
+                  setSport(e.target.value);
+                  validityCheck();
+                }}
               />
               <br />
 
@@ -149,7 +176,10 @@ export default function CreateSessionTextFields(props) {
                 margin="normal"
                 value={session_description}
                 rows={4}
-                onChange={(e) => setDescription(e.target.value)}
+                onChange={(e) => {
+                  setDescription(e.target.value);
+                  validityCheck();
+                }}
               />
               <br />
 
@@ -160,7 +190,10 @@ export default function CreateSessionTextFields(props) {
                 label="City"
                 margin="normal"
                 value={session_city}
-                onChange={(e) => setCity(e.target.value)}
+                onChange={(e) => {
+                  setCity(e.target.value);
+                  validityCheck();
+                }}
               />
             </Box>
 
@@ -178,7 +211,10 @@ export default function CreateSessionTextFields(props) {
                 label="Field Location"
                 margin="normal"
                 value={session_location}
-                onChange={(e) => setLocation(e.target.value)}
+                onChange={(e) => {
+                  setLocation(e.target.value);
+                  validityCheck();
+                }}
               />
               <br />
 
@@ -191,7 +227,10 @@ export default function CreateSessionTextFields(props) {
                 label="Equipment Needed"
                 margin="normal"
                 value={session_equipment_needed}
-                onChange={(e) => setEquipmentNeeded(e.target.value)}
+                onChange={(e) => {
+                  setEquipmentNeeded(e.target.value);
+                  validityCheck();
+                }}
               />
               <Tooltip title={equipmentInfo} arrow>
                 <Button>MORE INFO</Button>
@@ -209,7 +248,10 @@ export default function CreateSessionTextFields(props) {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => setPlayersNeeded(e.target.value)}
+                onChange={(e) => {
+                  setPlayersNeeded(e.target.value);
+                  validityCheck();
+                }}
               />
 
               <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -217,18 +259,25 @@ export default function CreateSessionTextFields(props) {
                   fullWidth
                   label="Select Date"
                   value={session_date_time}
-                  onChange={(e) => setDateTime(e)}
+                  onChange={(e) => {
+                    setDateTime(e);
+                    validityCheck();
+                  }}
                 />
               </LocalizationProvider>
             </Box>
           </Box>
         </Box>
-        <Box sx={{ paddingLeft: {sm: 10, md: 20}, paddingTop : 2}}>
+        <Box sx={{ paddingLeft: { sm: 10, md: 20 }, paddingTop: 2 }}>
           {session_image ? (
-            <img className="upload-image" src={session_image} alt="Selected"/>
+            <img className="upload-image" src={session_image} alt="Selected" />
           ) : (
             <div>
-              <img className="upload-image" src={stockPlaceholderImageURL} alt='placeholder'/>
+              <img
+                className="upload-image"
+                src={stockPlaceholderImageURL}
+                alt="placeholder"
+              />
             </div>
           )}
           <br />
@@ -240,7 +289,11 @@ export default function CreateSessionTextFields(props) {
           paddingTop: 3,
         }}
       >
-        <Button variant="contained" onClick={handleSubmit}>
+        <Button
+          variant="contained"
+          onClick={handleSubmit}
+          disabled={!isFormValid}
+        >
           Submit
         </Button>
       </Stack>
