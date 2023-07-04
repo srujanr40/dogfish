@@ -87,7 +87,6 @@ export default function CreateSessionTextFields(props) {
   };
 
   function validityCheck() {
-    console.log(session_date_time.unix() + "    " + Date.now());
     if (
       session_name !== "" &&
       session_sport !== "" &&
