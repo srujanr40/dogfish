@@ -1,4 +1,3 @@
-
 async function getSessions() {
     let getSessionsResponse = await fetch('http://localhost:3001/session');
     let data = await getSessionsResponse.json();

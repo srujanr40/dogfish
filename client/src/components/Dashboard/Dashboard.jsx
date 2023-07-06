@@ -21,7 +21,8 @@ export default function Dashboard() {
     const [isSessionMoreInfoModalOpen, setIsSessionMoreInfoModalOpen] = useState(false);
     const [selectedSessionId, setSelectedItemId] = useState(null);
 
-    const sessions = useSelector(store => store.sessionReducer).sessions;
+    const sessions = useSelector((store) => store.sessionReducer).sessions;
+    console.log(sessions);
 
 
     const openCreateSessionModal = () => {

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { TextField, Button, MenuItem, Chip } from '@mui/material';
 import Navbar from '../Navbar/Navbar.jsx';
-import { updateProfileAsync } from "../../thunks/thunks";
+import { updateProfileAsync } from "../../redux/thunks/thunks";
 
 
 export default function Profile() {

@@ -10,7 +10,7 @@ import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import dayjs from "dayjs";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import { createNewSessionAsync } from "../../thunks/thunks";
+import { createNewSessionAsync } from "../../redux/thunks/thunks";
 import "./CreateSession.css";
 
 const equipmentInfo = (

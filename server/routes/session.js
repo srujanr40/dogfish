@@ -157,7 +157,7 @@ const featuredSessions = [
 
 // GET all sessions
 router.get('/', function (req, res, next) {
-    if (req.query) {
+    if (req.query.sport) {
         let filteredSessions = sessions.filter(session => session.sport === req.query.sport)
         return res.status(200).send(filteredSessions)
     } 
