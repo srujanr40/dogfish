@@ -1,4 +1,4 @@
-import { getSessions, getFeaturedSessions, createNewSession, updateProfile } from "../actions"
+import { getSessions, getFeaturedSessions, createNewSession } from "../actions"
 
 export const getSessionsAsync = (sport = "") => {
   return async (dispatch) => {
@@ -35,20 +35,3 @@ export const createNewSessionAsync = (new_session) => {
     dispatch(createNewSession(data))
   }
 }
-
-export const updateProfileAsync = (new_details) => {
-  return async (dispatch) => {
-    const response = await fetch('http://localhost:3001/profile', {
-      method: "PATCH",
-      headers: {
-         "Content-Type": "application/json"
-      },
-      body: JSON.stringify(new_details)
-    })
-
-    let data = await response.json()
-    dispatch(updateProfile(data))
-  }
-}
-
-
