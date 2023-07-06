@@ -1,7 +1,7 @@
 import { configureStore, applyMiddleware } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
 import { combineReducers } from 'redux';
-import sessionReducer from './reducers/sessionReducer';
+import sessionReducer from './session/sessionReducer';
 import profileReducer from './profile/profileReducer';
 import chatReducer from "./reducers/chatReducer";
 

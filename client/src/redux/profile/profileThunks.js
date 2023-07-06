@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { actionTypes } from './actions/actionTypes';
+import { actionTypes } from './actionTypes';
 import profileService from "./profileService"
 
 export const getProfileAsync = createAsyncThunk(
