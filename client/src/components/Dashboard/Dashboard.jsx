@@ -12,7 +12,7 @@ import CreateSessionPopup from '../CreateSession/CreateSessionPopup.jsx';
 import SessionMoreInfoPopup from '../SessionMoreInfo/SessionMoreInfoPopup.jsx';
 import { useSelector } from "react-redux";
 import { useDispatch } from 'react-redux';
-
+import { getSessionsAsync } from '../../redux/session/sessionThunks.js';
 
 export default function Dashboard() {
     const dispatch = useDispatch();
@@ -22,6 +22,10 @@ export default function Dashboard() {
     const [selectedSessionId, setSelectedItemId] = useState(null);
 
     const sessions = useSelector((store) => store.sessionReducer).sessions;
+
+    useEffect(() => {
+        dispatch(getSessionsAsync());
+    }, [dispatch]);
 
     const openCreateSessionModal = () => {
         setIsCreateSessionModalOpen(true);
@@ -80,11 +84,11 @@ export default function Dashboard() {
                 </ul>
 
                 {isSessionMoreInfoModalOpen && (
-                <div>
-                    <SessionMoreInfoPopup sessionID={selectedSessionId} closeModal={closeSessionMoreInfoModal} />
-                </div>
+                    <div>
+                        <SessionMoreInfoPopup sessionID={selectedSessionId} closeModal={closeSessionMoreInfoModal} />
+                    </div>
                 )}
-                
+
             </div>
         </div>
     )

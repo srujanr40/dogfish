@@ -2,12 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import { REQUEST_STATE } from '../utils';
 import { getSessionsAsync, getFeaturedSessionsAsync, createNewSessionAsync } from './sessionThunks';
 
-async function getSessions() {
-    let getSessionsResponse = await fetch('http://localhost:3001/session');
-    let data = await getSessionsResponse.json();
-    return data;
-}
-
 async function getFeaturedSessions() {
     let getSessionsResponse = await fetch('http://localhost:3001/session/featured');
     let data = await getSessionsResponse.json();
@@ -15,8 +9,8 @@ async function getFeaturedSessions() {
 }
 
 const INITIAL_STATE = {
-    sessions: await getSessions(),
-    featuredSessions: await getFeaturedSessions(),
+    sessions: [],
+    featuredSessions: [],
     getSessions: REQUEST_STATE.IDLE,
     getFeaturedSessions: REQUEST_STATE.IDLE,
     createNewSession: REQUEST_STATE.IDLE,

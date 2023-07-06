@@ -1,12 +1,21 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { Card, CardContent, CardActions, CardMedia, Typography, Button } from '@mui/material';
+import { getFeaturedSessionsAsync } from '../../redux/session/sessionThunks';
 
 const Featured = () => {
+  const dispatch = useDispatch();
   const featuredSessions = useSelector((store) => store.sessionReducer).featuredSessions;
+  const [isFeaturedFetched, setIsFeaturedFetched] = useState(false);
+
+  useEffect(() => {
+    dispatch(getFeaturedSessionsAsync()).then(() => {
+      setIsFeaturedFetched(true);
+    });
+  }, [dispatch]);
 
   const settings = {
     dots: true,
@@ -27,7 +36,7 @@ const Featured = () => {
         margin: '0 auto',
       }}
     >
-      <Slider {...settings}>
+      {isFeaturedFetched && <Slider {...settings}>
         {featuredSessions.map((session, index) => (
           <div key={index}>
             <CardMedia component="img" height="300" image={session.image} alt={`Slide ${index + 1}`} />
@@ -50,6 +59,7 @@ const Featured = () => {
           </div>
         ))}
       </Slider>
+      }
     </Card>
   );
 };
