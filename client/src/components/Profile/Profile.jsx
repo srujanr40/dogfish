@@ -1,153 +1,164 @@
 import UploadImage from "../UploadImage/UploadImage"
-import React, { useState } from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { TextField, Button, MenuItem, Chip } from '@mui/material';
 import Navbar from '../Navbar/Navbar.jsx';
-import { updateProfileAsync } from "../../redux/thunks/thunks";
+import { getProfileAsync, updateProfileAsync } from "../../redux/profile/profileThunks";
 
 
 export default function Profile() {
+  const dispatch = useDispatch();
 
-    const profile = useSelector(store => store.profileReducer).profile;
+  const [formData, setFormData] = useState({
+    name: '',
+    equipment: [],
+    interests: [],
+    location: '',
+    image: '',
+  });
+  const [selectedEquipment, setSelectedEquipment] = useState('');
+  const [interest, setInterest] = useState('');
 
-    const [formData, setFormData] = useState({
-        name: profile.name,
-        equipment: profile.equipment,
-        interests: profile.interests,
-        location: profile.location,
+  useEffect(() => {
+    dispatch(getProfileAsync()).then((fetchedProfile) => {
+      const { payload } = fetchedProfile;
+      setFormData({
+        name: payload.name || '',
+        equipment: payload.equipment || [],
+        interests: payload.interests || [],
+        location: payload.location || '',
+        image: payload.image || '',
       });
-      const [selectedEquipment, setSelectedEquipment] = useState('');
-      const [interest, setInterest] = useState('');
-    
-      const handleChange = (event) => {
-        const { name, value } = event.target;
-        setFormData({ ...formData, [name]: value });
-      };
-    
-      const handleAddEquipment = () => {
-        if (selectedEquipment && !formData.equipment.includes(selectedEquipment)) {
-          setFormData({ ...formData, equipment: [...formData.equipment, selectedEquipment] });
-          setSelectedEquipment('');
-        }
-      };
-      const handleDeleteEquipment = (equipment) => {
-        setFormData({ ...formData, equipment: formData.equipment.filter(item => item !== equipment) });
-      };
+    });
+  }, [dispatch]);
 
-      const handleAddInterest = () => {
-        if (interest.trim() !== '') {
-          setFormData({ ...formData, interests: [...formData.interests, interest.trim()] });
-          setInterest('');
-        }
-      };
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
-      const handleDeleteInterest = (interest) => {
-        setFormData({
-          ...formData,
-          interests: formData.interests.filter(item => item !== interest)
-        });
-      };
+  const handleAddEquipment = () => {
+    if (selectedEquipment && !formData.equipment.includes(selectedEquipment)) {
+      setFormData({ ...formData, equipment: [...formData.equipment, selectedEquipment] });
+      setSelectedEquipment('');
+    }
+  };
+  const handleDeleteEquipment = (equipment) => {
+    setFormData({ ...formData, equipment: formData.equipment.filter(item => item !== equipment) });
+  };
 
-      const dispatch = useDispatch();
-    
-      const handleSubmit = (event) => {
-        event.preventDefault();
-        dispatch(updateProfileAsync(formData));
-      };
-    
+  const handleAddInterest = () => {
+    if (interest.trim() !== '') {
+      setFormData({ ...formData, interests: [...formData.interests, interest.trim()] });
+      setInterest('');
+    }
+  };
 
-    return(
-        <div>
-            <Navbar />
-            <div style=
-                {{  display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}>
-                 <UploadImage image={profile.image}/>
-                <form onSubmit={handleSubmit}>
-                <TextField
-                    name="name"
-                    label="Name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    fullWidth
-                    required
-                    style={{ marginBottom: '20px', marginTop: '20px' }}
-                />
+  const handleDeleteInterest = (interest) => {
+    setFormData({
+      ...formData,
+      interests: formData.interests.filter(item => item !== interest)
+    });
+  };
 
-                <TextField
-                    name="selectedEquipment"
-                    label="Sports Equipment"
-                    value={selectedEquipment}
-                    onChange={(e) => setSelectedEquipment(e.target.value)}
-                    placeholder="Sports Equipment"
-                    style={{ marginBottom: '20px', boxSizing: 'border-box', width: '100%' }}
-                  />
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch(updateProfileAsync(formData));
+  };
 
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleAddEquipment}
-                    disabled={!selectedEquipment}
-                    style={{ marginBottom: '20px' }}
-                >
-                    Add
-                </Button>
+  return (
+    <div>
+      <Navbar />
+      <div style=
+        {{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <UploadImage image={formData.image} />
+        <form onSubmit={handleSubmit}>
+          <TextField
+            name="name"
+            label="Name"
+            value={formData.name}
+            onChange={handleChange}
+            fullWidth
+            required
+            style={{ marginBottom: '20px', marginTop: '20px' }}
+          />
 
-                <div style={{ marginBottom: '20px' }}>
-                    {formData.equipment.map((equipment) => (
-                    <Chip
-                        key={equipment}
-                        label={equipment}
-                        onDelete={() => handleDeleteEquipment(equipment)}
-                        style={{ margin: '5px' }}
-                    />
-                    ))}
-                </div>
-                <TextField
-                    name="interest"
-                    value={interest}
-                    onChange={(e) => setInterest(e.target.value)}
-                    placeholder="Interests"
-                    style={{ marginBottom: '20px', boxSizing: 'border-box', width: '100%' }}
-                />
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleAddInterest}
-                    style={{ marginBottom: '20px' }}
-                >
-                    Add
-                </Button>
-                <div style={{ marginBottom: '20px' }}>
-                    {formData.interests.map((interest) => (
-                    <Chip
-                        key={interest}
-                        label={interest}
-                        onDelete={() => handleDeleteInterest(interest)}
-                        style={{ margin: '5px' }}
-                    />
-                    ))}
-                </div>
-                <TextField
-                    name="location"
-                    label="Location"
-                    value={formData.location}
-                    onChange={handleChange}
-                    fullWidth
-                    required
-                    style={{ marginBottom: '20px' }}
-                />
+          <TextField
+            name="selectedEquipment"
+            label="Sports Equipment"
+            value={selectedEquipment}
+            onChange={(e) => setSelectedEquipment(e.target.value)}
+            placeholder="Sports Equipment"
+            style={{ marginBottom: '20px', boxSizing: 'border-box', width: '100%' }}
+          />
 
-                <Button type="submit" variant="contained" color="primary">
-                    Submit
-                </Button>
-            </form>   
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleAddEquipment}
+            disabled={!selectedEquipment}
+            style={{ marginBottom: '20px' }}
+          >
+            Add
+          </Button>
 
-            </div>
+          <div style={{ marginBottom: '20px' }}>
+            {formData.equipment && formData.equipment.map((equipment) => (
+              <Chip
+                key={equipment}
+                label={equipment}
+                onDelete={() => handleDeleteEquipment(equipment)}
+                style={{ margin: '5px' }}
+              />
+            ))}
+          </div>
+          <TextField
+            name="interest"
+            value={interest}
+            onChange={(e) => setInterest(e.target.value)}
+            placeholder="Interests"
+            style={{ marginBottom: '20px', boxSizing: 'border-box', width: '100%' }}
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleAddInterest}
+            style={{ marginBottom: '20px' }}
+          >
+            Add
+          </Button>
+          <div style={{ marginBottom: '20px' }}>
+            {formData.interests && formData.interests.map((interest) => (
+              <Chip
+                key={interest}
+                label={interest}
+                onDelete={() => handleDeleteInterest(interest)}
+                style={{ margin: '5px' }}
+              />
+            ))}
+          </div>
+          <TextField
+            name="location"
+            label="Location"
+            value={formData.location}
+            onChange={handleChange}
+            fullWidth
+            required
+            style={{ marginBottom: '20px' }}
+          />
 
-        </div>
-    )
+          <Button type="submit" variant="contained" color="primary">
+            Submit
+          </Button>
+        </form>
+
+      </div>
+
+    </div>
+  )
 }
