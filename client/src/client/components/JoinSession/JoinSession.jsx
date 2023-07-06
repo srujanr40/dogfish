@@ -19,7 +19,7 @@ export default function JoinSession() {
     const groupId = searchParams.get('groupId');
     const sessions = useSelector(state => state.sessionReducer).sessions;
     const session = sessions.find(element => element.groupId == groupId)
-    const name = useSelector(state => state.updateProfile).name;
+    const name = useSelector(state => state.profileReducer).name;
     let chats = useSelector(state => state.chatRed.chats);
     let chat = chats.find(element => element.groupId == groupId)
     if(chat === undefined) {
