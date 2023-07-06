@@ -55,7 +55,7 @@ const initialState = {
     ]
 }
 
-export const chatReducer = (state = initialState, action) => {
+const chatReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'ADD_CHAT':
             const { groupId, chat } = action.payload;
@@ -75,3 +75,5 @@ export const chatReducer = (state = initialState, action) => {
             return state;
     }
 };
+
+export default chatReducer;

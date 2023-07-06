@@ -16,7 +16,7 @@ var initialState = {
 }
 
 
-export const sessionReducer = (state = initialState, action) => {
+const sessionReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'CREATE_NEW_SESSION':
             return {
@@ -37,3 +37,5 @@ export const sessionReducer = (state = initialState, action) => {
             return state;
     }
 }
+
+export default sessionReducer;

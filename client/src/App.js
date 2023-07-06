@@ -5,17 +5,9 @@ import {
 import Dashboard from './components/Dashboard/Dashboard.jsx'
 import Profile from './components/Profile/Profile.jsx'
 import { Provider } from 'react-redux';
-import { configureStore, applyMiddleware } from '@reduxjs/toolkit';
-import rootReducer from './redux/reducers';
 import JoinSession from "./components/JoinSession/JoinSession";
 import MySessions from './components/MySessions/MySessions';
-import thunk from 'redux-thunk';
-
-
-const store = configureStore({
-  reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
-});
+import store from "./redux/store"
 
 function App() {
   return (
