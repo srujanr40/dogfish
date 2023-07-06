@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import { combineReducers } from 'redux';
 import sessionReducer from './session/sessionReducer';
 import profileReducer from './profile/profileReducer';
-import chatReducer from "./reducers/chatReducer";
+import chatReducer from "./chat/chatReducer";
 
 const rootReducer = combineReducers({
     sessionReducer,

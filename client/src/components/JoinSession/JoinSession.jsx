@@ -8,8 +8,9 @@ import {Link, useLocation} from "react-router-dom";
 import "react-chat-elements/dist/main.css"
 import { MessageList, Input } from "react-chat-elements"
 import Button from "@mui/material/Button";
-import {addChat} from "../../redux/actions";
+import { getChatAsync, addChatAsync } from "../../redux/chat/chatThunks";
 import { getSessionsAsync } from '../../redux/session/sessionThunks';
+import { getProfileAsync } from '../../redux/profile/profileThunks';
 const listReference = React.createRef();
 const inputReference = React.createRef();
 
@@ -20,9 +21,8 @@ export default function JoinSession() {
     const groupId = searchParams.get('groupId');
     const sessions = useSelector(state => state.sessionReducer).sessions;
     const session = sessions.find(element => element.groupId == groupId)
-    console.log(JSON.stringify(sessions));
-    const name = useSelector(state => state.profileReducer).name;
-    let chats = useSelector(state => state.chatRed.chats);
+    const profile = useSelector(state => state.profileReducer).profile;
+    let chats = useSelector(state => state.chatRed).chats;
     let chat = chats.find(element => element.groupId == groupId)
     if(chat === undefined) {
         chat = []
@@ -34,19 +34,21 @@ export default function JoinSession() {
         const value = inputReference.current.value;
         if(value.length === 0)
             return
-        const newChat = {
+        const chat = {
             position: 'right',
             type: 'text',
-            title:name,
+            title: profile.name,
             text: value,
             date: new Date(),
         }
         inputReference.current.value = ''
-        dispatch(addChat(groupId, newChat))
+        dispatch(addChatAsync({ groupId, chat }))
     }
 
     useEffect(() => {
         dispatch(getSessionsAsync());
+        dispatch(getChatAsync());
+        dispatch(getProfileAsync());
       }, [dispatch]);
     
       if (!sessions.length) {
