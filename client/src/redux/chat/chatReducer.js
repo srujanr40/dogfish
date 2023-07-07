@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { REQUEST_STATE } from '../utils';
 import { getChatAsync, addChatAsync } from './chatThunks';
+import chatService from './chatService';
 
 const INITIAL_STATE = {
-    chats: [],
+    chats: await chatService.getChat(),
     getChat: REQUEST_STATE.IDLE,
     addChat: REQUEST_STATE.IDLE,
     error: null

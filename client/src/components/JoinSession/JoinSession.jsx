@@ -1,6 +1,6 @@
 import './JoinSession.css';
 import Navbar from '../Navbar/Navbar.jsx';
-import React, { useEffect } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import {useDispatch, useSelector} from 'react-redux';
@@ -8,9 +8,7 @@ import {Link, useLocation} from "react-router-dom";
 import "react-chat-elements/dist/main.css"
 import { MessageList, Input } from "react-chat-elements"
 import Button from "@mui/material/Button";
-import { getChatAsync, addChatAsync } from "../../redux/chat/chatThunks";
-import { getSessionsAsync } from '../../redux/session/sessionThunks';
-import { getProfileAsync } from '../../redux/profile/profileThunks';
+import { addChatAsync } from "../../redux/chat/chatThunks";
 const listReference = React.createRef();
 const inputReference = React.createRef();
 
@@ -44,16 +42,6 @@ export default function JoinSession() {
         inputReference.current.value = ''
         dispatch(addChatAsync({ groupId, chat }))
     }
-
-    useEffect(() => {
-        dispatch(getSessionsAsync());
-        dispatch(getChatAsync());
-        dispatch(getProfileAsync());
-      }, [dispatch]);
-    
-      if (!sessions.length) {
-        return <div>Loading...</div>;
-      }
 
     return (
         <div className="container">

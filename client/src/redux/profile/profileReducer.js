@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { REQUEST_STATE } from '../utils';
 import { getProfileAsync, updateProfileAsync } from './profileThunks';
+import profileService from './profileService'
 
 const INITIAL_STATE = {
-    profile: null,
+    profile: await profileService.getProfile(),
     getProfile: REQUEST_STATE.IDLE,
     updateProfile: REQUEST_STATE.IDLE,
     error: null

@@ -1,36 +1,25 @@
 import UploadImage from "../UploadImage/UploadImage"
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TextField, Button, MenuItem, Chip } from '@mui/material';
 import Navbar from '../Navbar/Navbar.jsx';
-import { getProfileAsync, updateProfileAsync } from "../../redux/profile/profileThunks";
+import { updateProfileAsync } from "../../redux/profile/profileThunks";
 
 
 export default function Profile() {
   const dispatch = useDispatch();
 
+  const profile = useSelector((store) => store.profileReducer).profile;
+
   const [formData, setFormData] = useState({
-    name: '',
-    equipment: [],
-    interests: [],
-    location: '',
-    image: '',
+    name: profile.name || '',
+    equipment: profile.equipment || [],
+    interests: profile.interests || [],
+    location: profile.location || '',
+    image: profile.image || '',
   });
   const [selectedEquipment, setSelectedEquipment] = useState('');
   const [interest, setInterest] = useState('');
-
-  useEffect(() => {
-    dispatch(getProfileAsync()).then((fetchedProfile) => {
-      const { payload } = fetchedProfile;
-      setFormData({
-        name: payload.name || '',
-        equipment: payload.equipment || [],
-        interests: payload.interests || [],
-        location: payload.location || '',
-        image: payload.image || '',
-      });
-    });
-  }, [dispatch]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;

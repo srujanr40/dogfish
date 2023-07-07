@@ -1,4 +1,4 @@
-const getSessions = async (sport) => {
+const getSessions = async (sport = '') => {
     var response = {}
     if (sport !== "") {
         response = await fetch('http://localhost:3001/session' + '?sport=' + sport)
