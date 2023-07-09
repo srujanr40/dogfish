@@ -11,17 +11,14 @@ import AddIcon from "@mui/icons-material/Add";
 import CreateSessionPopup from "../CreateSession/CreateSessionPopup.jsx";
 import SessionMoreInfoPopup from "../SessionMoreInfo/SessionMoreInfoPopup.jsx";
 import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
 
 export default function Dashboard() {
-  const dispatch = useDispatch();
 
   const [isCreateSessionModalOpen, setIsCreateSessionModalOpen] =
     useState(false);
   const [isSessionMoreInfoModalOpen, setIsSessionMoreInfoModalOpen] =
     useState(false);
   const [selectedSessionId, setSelectedItemId] = useState(null);
-
   const sessions = useSelector((store) => store.sessionReducer).sessions;
 
   const openCreateSessionModal = () => {
