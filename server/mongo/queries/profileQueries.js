@@ -2,7 +2,7 @@ const Profile = require('../models/profileModel');
 
 const profileQueries = {
     getProfile: async function (name) {
-        let profile = await Profile.findOne({name: name});
+        let profile = await Profile.findOne({ name: name });
         if (profile === null) {
             profile = {
                 name: '',

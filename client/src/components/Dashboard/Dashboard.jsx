@@ -19,6 +19,7 @@ export default function Dashboard() {
   const [isSessionMoreInfoModalOpen, setIsSessionMoreInfoModalOpen] =
     useState(false);
   const [selectedSessionId, setSelectedItemId] = useState(null);
+  const profile = useSelector((store) => store.profileReducer).profile;
   const sessions = useSelector((store) => store.sessionReducer).sessions;
 
   const openCreateSessionModal = () => {
@@ -41,7 +42,7 @@ export default function Dashboard() {
 
   // only display sessions not joined
   const availableSessions = sessions.filter(
-    (element) => element.joined === false
+    (element) => element.members && !element.members.includes(profile.name)
   );
 
   return (
