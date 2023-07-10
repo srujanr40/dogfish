@@ -34,3 +34,8 @@
     height: 15vh;
     width: auto;
 }
+
+.map{
+    height: 100%;
+    width: 100%;
+}
