@@ -10,7 +10,20 @@ const getSessions = async (sport = '') => {
 }
 
 const getFeaturedSessions = async () => {
-    const response = await fetch('http://localhost:3001/session/featured')
+    const response = await fetch('http://localhost:3001/session/featured');
+
+    return await response.json()
+}
+
+const getRecommendedSession = async (profile, sessions) => {
+    let body = {
+        profile: profile,
+        sessions: sessions
+    }
+    const response = await fetch('http://localhost:3001/session/recommended', {
+        method: "GET",
+        body: JSON.stringify(body)
+    })
 
     return await response.json()
 }
@@ -30,5 +43,6 @@ const createNewSession = async (new_session) => {
 export default {
     getSessions,
     getFeaturedSessions,
+    getRecommendedSession,
     createNewSession
 };

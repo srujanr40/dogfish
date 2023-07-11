@@ -1,13 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { REQUEST_STATE } from '../utils';
-import { getSessionsAsync, getFeaturedSessionsAsync, createNewSessionAsync } from './sessionThunks';
+import { getSessionsAsync, getFeaturedSessionsAsync, getRecommendedSessionAsync, createNewSessionAsync } from './sessionThunks';
 import sessionService from './sessionService';
 
 const INITIAL_STATE = {
     sessions: await sessionService.getSessions(),
     featuredSessions: await sessionService.getFeaturedSessions(),
+    recommendedSession: {},
     getSessions: REQUEST_STATE.IDLE,
     getFeaturedSessions: REQUEST_STATE.IDLE,
+    getRecommendedSession: REQUEST_STATE.IDLE,
     createNewSession: REQUEST_STATE.IDLE,
     error: null
 };
@@ -57,6 +59,27 @@ const sessionSlice = createSlice({
                 return {
                     ...state,
                     getFeaturedSessions: REQUEST_STATE.REJECTED,
+                    error: action.error
+                }
+            })
+            .addCase(getRecommendedSessionAsync.pending, (state) => {
+                return {
+                    ...state,
+                    getRecommendedSession: REQUEST_STATE.PENDING,
+                    error: null
+                }
+            })
+            .addCase(getRecommendedSessionAsync.fulfilled, (state, action) => {
+                return {
+                    ...state,
+                    getRecommendedSession: REQUEST_STATE.FULFILLED,
+                    recommendedSession: action.payload
+                }
+            })
+            .addCase(getRecommendedSessionAsync.rejected, (state, action) => {
+                return {
+                    ...state,
+                    getRecommendedSession: REQUEST_STATE.REJECTED,
                     error: action.error
                 }
             })

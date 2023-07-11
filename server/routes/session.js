@@ -1,3 +1,5 @@
+const sessionRecommendationAlgorithm = require('../algorithms/sessionRecommendationAlgorithm');
+
 const express = require('express');
 const sessionQueries = require('../mongo/queries/sessionQueries');
 const router = express.Router();
@@ -175,6 +177,16 @@ router.post('/', async function (req, res, next) {
 // GET featured sessions
 router.get('/featured', function (req, res, next) {
     return res.status(200).send(featuredSessions);
+});
+
+// GET Recommended session for magic join
+router.get('/recommended', function (req, res, next) {
+    let profile = req.body.profile;
+    let sessions = req.body.sessions;
+
+    let session = sessionRecommendationAlgorithm(profile, sessions, 1)[0];
+
+    return res.status(200).send(session);
 });
 
 module.exports = router;
