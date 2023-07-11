@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 export default function MySessions() {
     const [isSessionMoreInfoModalOpen, setIsSessionMoreInfoModalOpen] = useState(false);
     const [selectedSessionId, setSelectedItemId] = useState(null);
+    const profile = useSelector((store) => store.profileReducer).profile;
     var sessions = useSelector(state => state.sessionReducer).sessions;
 
     const openSessionMoreInfoModal = (itemId) => {
@@ -29,7 +30,10 @@ export default function MySessions() {
     };
 
     // filters so that only sessions that are joined are displayed
-    const joinedSessions = sessions.filter(element => element.joined === true);
+    const joinedSessions = sessions.filter(
+        (element) => element.members && element.members.includes(profile.name)
+      );
+    
 
 
     return (
