@@ -174,6 +174,14 @@ router.post('/', async function (req, res, next) {
     return res.status(200).send(new_session);
 });
 
+// UPDATE a session
+router.patch('/', async function (req, res, next) {
+    let session = req.body;
+    await sessionQueries.updateSession(session);
+
+    return res.status(200).send(session);
+});
+
 // GET featured sessions
 router.post('/featured', function (req, res, next) {
     let profile = req.body.profile;

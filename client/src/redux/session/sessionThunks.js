@@ -29,3 +29,10 @@ export const createNewSessionAsync = createAsyncThunk(
         return await sessionService.createNewSession(new_session);
     }
 );
+
+export const updateSessionAsync = createAsyncThunk(
+    actionTypes.UPDATE_SESSION,
+    async (session) => {
+        return await sessionService.updateSession(session);
+    }
+);

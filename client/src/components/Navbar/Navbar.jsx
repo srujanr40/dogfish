@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -9,11 +10,11 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link } from 'react-router-dom';
 import "../styles.module.css"
+import { updateSessionAsync } from '../../redux/session/sessionThunks';
 
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import { useSelector } from 'react-redux';
 
 
 // Code from Material UI docs for AppBar
@@ -62,19 +63,29 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 // Code from Material UI docs for AppBar
 export default function Navbar() {
-    const recommendedSession = useSelector((store) => store.sessionReducer).recommendedSession;
-    const [anchorEl, setAnchorEl] = React.useState(null);
+  const dispatch = useDispatch();
 
-      const handleMenu = (event) => {
-        setAnchorEl(event.currentTarget);
-      };
-    
-      const handleClose = () => {
-        setAnchorEl(null);
-      };
+  const recommendedSession = useSelector((store) => store.sessionReducer).recommendedSession;
+  const profile = useSelector((store) => store.profileReducer).profile;
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const updateSession = () => {
+    let session = recommendedSession;
+    session.members.push(profile.name);
+    dispatch(updateSessionAsync(session));
+  }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{backgroundColor: 'coral'}}>
+      <AppBar position="static" sx={{ backgroundColor: 'coral' }}>
         <Toolbar>
           <Typography
             variant="h6"
@@ -94,47 +105,47 @@ export default function Navbar() {
             />
           </Search>
           <Link to={`/join?groupId=${recommendedSession.groupId}`} style={{ color: 'white' }}>
-                <MenuItem>
-                  Magic Join
-                </MenuItem>
+            <MenuItem onClick={updateSession}>
+              Magic Join
+            </MenuItem>
           </Link>
           <Link to="/mysessions" style={{ color: 'white' }}>
-                <MenuItem>
-                  My Sessions
-                </MenuItem>
+            <MenuItem>
+              My Sessions
+            </MenuItem>
           </Link>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-              <Link to="/profile" style={{ color: 'black' }}>
-                <MenuItem>
-                  Profile
-                </MenuItem>
-              </Link>
-              <MenuItem onClick={handleClose}>Log out</MenuItem>
-              </Menu>
+          <IconButton
+            size="large"
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={handleMenu}
+            color="inherit"
+          >
+            <AccountCircle />
+          </IconButton>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'left',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'left',
+            }}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <Link to="/profile" style={{ color: 'black' }}>
+              <MenuItem>
+                Profile
+              </MenuItem>
+            </Link>
+            <MenuItem onClick={handleClose}>Log out</MenuItem>
+          </Menu>
         </Toolbar>
       </AppBar>
     </Box>

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { REQUEST_STATE } from '../utils';
-import { getSessionsAsync, getFeaturedSessionsAsync, getRecommendedSessionAsync, createNewSessionAsync } from './sessionThunks';
+import { getSessionsAsync, getFeaturedSessionsAsync, getRecommendedSessionAsync, createNewSessionAsync, updateSessionAsync } from './sessionThunks';
 import sessionService from './sessionService';
 import profileService from '../profile/profileService'
 
@@ -18,6 +18,7 @@ const INITIAL_STATE = {
     getFeaturedSessions: REQUEST_STATE.IDLE,
     getRecommendedSession: REQUEST_STATE.IDLE,
     createNewSession: REQUEST_STATE.IDLE,
+    updateSession: REQUEST_STATE.IDLE,
     error: null
 };
 
@@ -108,6 +109,35 @@ const sessionSlice = createSlice({
                 return {
                     ...state,
                     createNewSession: REQUEST_STATE.REJECTED,
+                    error: action.error
+                }
+            })
+            .addCase(updateSessionAsync.pending, (state) => {
+                return {
+                    ...state,
+                    updateSession: REQUEST_STATE.PENDING,
+                    error: null
+                }
+            })
+            .addCase(updateSessionAsync.fulfilled, (state, action) => {
+                const updatedSession = action.payload;
+                const updatedSessions = state.sessions.map(session => {
+                    if (session.groupId === updatedSession.groupId) {
+                        return updatedSession;
+                    }
+                    return session;
+                });
+
+                return {
+                    ...state,
+                    updateSession: REQUEST_STATE.FULFILLED,
+                    sessions: updatedSessions
+                };
+            })
+            .addCase(updateSessionAsync.rejected, (state, action) => {
+                return {
+                    ...state,
+                    updateSession: REQUEST_STATE.REJECTED,
                     error: action.error
                 }
             });

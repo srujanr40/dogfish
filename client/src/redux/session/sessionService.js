@@ -54,9 +54,22 @@ const createNewSession = async (new_session) => {
     return await response.json()
 }
 
+const updateSession = async (session) => {
+    var response = await fetch('http://localhost:3001/session', {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(session)
+    })
+
+    return await response.json()
+}
+
 export default {
     getSessions,
     getFeaturedSessions,
     getRecommendedSession,
-    createNewSession
+    createNewSession,
+    updateSession
 };
