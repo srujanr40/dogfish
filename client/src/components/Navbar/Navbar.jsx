@@ -13,6 +13,7 @@ import "../styles.module.css"
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import { useSelector } from 'react-redux';
 
 
 // Code from Material UI docs for AppBar
@@ -61,6 +62,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 // Code from Material UI docs for AppBar
 export default function Navbar() {
+    const recommendedSession = useSelector((store) => store.sessionReducer).recommendedSession;
     const [anchorEl, setAnchorEl] = React.useState(null);
 
       const handleMenu = (event) => {
@@ -91,6 +93,11 @@ export default function Navbar() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
+          <Link to={`/join?groupId=${recommendedSession.groupId}`} style={{ color: 'white' }}>
+                <MenuItem>
+                  Magic Join
+                </MenuItem>
+          </Link>
           <Link to="/mysessions" style={{ color: 'white' }}>
                 <MenuItem>
                   My Sessions

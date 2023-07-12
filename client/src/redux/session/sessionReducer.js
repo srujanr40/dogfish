@@ -13,7 +13,7 @@ let featuredSessions = await Promise.all([sessions, profile]).then(async (values
 const INITIAL_STATE = {
     sessions: sessions,
     featuredSessions: await featuredSessions,
-    recommendedSession: {},
+    recommendedSession: featuredSessions[0],
     getSessions: REQUEST_STATE.IDLE,
     getFeaturedSessions: REQUEST_STATE.IDLE,
     getRecommendedSession: REQUEST_STATE.IDLE,
