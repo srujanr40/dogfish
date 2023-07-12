@@ -5,7 +5,15 @@ function sessionRecommendationAlgorithm(profile, sessions, number) {
     let counter = 0;
     let ret = [];
 
-    sessions.forEach(session => {
+    const previousSessions = sessions.filter(
+        (session) => session.members && session.members.includes(profile.name)
+    );
+
+    const availableSessions = sessions.filter(
+        (session) => session.members && !session.members.includes(profile.name) && session.playersNeeded > 0
+    );
+
+    availableSessions.forEach(session => {
         let sessionScore = 0;
 
         profile.equipment.forEach((item) => {
@@ -26,6 +34,24 @@ function sessionRecommendationAlgorithm(profile, sessions, number) {
             sessionScore = sessionScore + pointValues.MATCHING_INTEREST;
         }
 
+        previousSessions.forEach((prevSession) => {
+            if (session.city === prevSession.city) {
+                sessionScore = sessionScore + pointValues.HISTORY_SIMILARITY;
+
+                if (session.location === prevSession.location) {
+                    sessionScore = sessionScore + pointValues.HISTORY_SIMILARITY;
+                }
+            }
+
+            sessionScore = sessionScore + prevSession.members.filter(member => session.members.includes(member)).length * pointValues.HISTORY_SIMILARITY;
+
+            if (session.sport === prevSession.sport) {
+                sessionScore = sessionScore + pointValues.HISTORY_SIMILARITY;
+            }
+        });
+
+        console.log(sessionScore);
+
         sessionScores[counter] = sessionScore;
         counter++;
     });
@@ -33,7 +59,7 @@ function sessionRecommendationAlgorithm(profile, sessions, number) {
     for (let i = 0; i < number; i++) {
         let index = sessionScores.indexOf(Math.max(...sessionScores));
         sessionScores[index] = 0;
-        ret[i] = sessions[index];
+        ret[i] = availableSessions[index];
     }
 
     return ret;
