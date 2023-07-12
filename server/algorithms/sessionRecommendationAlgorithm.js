@@ -50,8 +50,6 @@ function sessionRecommendationAlgorithm(profile, sessions, number) {
             }
         });
 
-        console.log(sessionScore);
-
         sessionScores[counter] = sessionScore;
         counter++;
     });

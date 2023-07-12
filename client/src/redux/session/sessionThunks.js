@@ -11,14 +11,14 @@ export const getSessionsAsync = createAsyncThunk(
 
 export const getFeaturedSessionsAsync = createAsyncThunk(
     actionTypes.GET_FEATURED_SESSIONS,
-    async () => {
-        return await sessionService.getFeaturedSessions();
+    async ({profile, sessions}) => {
+        return await sessionService.getFeaturedSessions(profile, sessions);
     }
 );
 
 export const getRecommendedSessionAsync = createAsyncThunk(
     actionTypes.GET_RECOMMENDED_SESSION,
-    async (profile, sessions) => {
+    async ({profile, sessions}) => {
         return await sessionService.getRecommendedSession(profile, sessions);
     }
 );

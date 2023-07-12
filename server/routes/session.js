@@ -175,12 +175,17 @@ router.post('/', async function (req, res, next) {
 });
 
 // GET featured sessions
-router.get('/featured', function (req, res, next) {
+router.post('/featured', function (req, res, next) {
+    let profile = req.body.profile;
+    let sessions = req.body.sessions;
+
+    let featuredSessions = sessionRecommendationAlgorithm(profile, sessions, 3);
+
     return res.status(200).send(featuredSessions);
 });
 
 // GET Recommended session for magic join
-router.get('/recommended', function (req, res, next) {
+router.post('/recommended', function (req, res, next) {
     let profile = req.body.profile;
     let sessions = req.body.sessions;
 

@@ -2,10 +2,17 @@ import { createSlice } from '@reduxjs/toolkit';
 import { REQUEST_STATE } from '../utils';
 import { getSessionsAsync, getFeaturedSessionsAsync, getRecommendedSessionAsync, createNewSessionAsync } from './sessionThunks';
 import sessionService from './sessionService';
+import profileService from '../profile/profileService'
+
+let sessions = await sessionService.getSessions();
+let profile = await profileService.getProfile();
+let featuredSessions = await Promise.all([sessions, profile]).then(async (values) => {
+    return sessionService.getFeaturedSessions(values[1], values[0])
+});
 
 const INITIAL_STATE = {
-    sessions: await sessionService.getSessions(),
-    featuredSessions: await sessionService.getFeaturedSessions(),
+    sessions: sessions,
+    featuredSessions: await featuredSessions,
     recommendedSession: {},
     getSessions: REQUEST_STATE.IDLE,
     getFeaturedSessions: REQUEST_STATE.IDLE,

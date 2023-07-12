@@ -9,8 +9,19 @@ const getSessions = async (sport = '') => {
     return await response.json()
 }
 
-const getFeaturedSessions = async () => {
-    const response = await fetch('http://localhost:3001/session/featured');
+const getFeaturedSessions = async (profile, sessions) => {
+    let body = {
+        profile: profile,
+        sessions: sessions
+    }
+
+    const response = await fetch('http://localhost:3001/session/featured', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+    })
 
     return await response.json()
 }
@@ -21,7 +32,10 @@ const getRecommendedSession = async (profile, sessions) => {
         sessions: sessions
     }
     const response = await fetch('http://localhost:3001/session/recommended', {
-        method: "GET",
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
         body: JSON.stringify(body)
     })
 
