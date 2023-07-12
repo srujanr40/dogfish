@@ -5,6 +5,18 @@ function sessionRecommendationAlgorithm(profile, sessions, number) {
     let counter = 0;
     let ret = [];
 
+    if (!sessions) {
+        return ret;
+    }
+
+    if (!profile) {
+        let size = sessions.length > number ? number : sessions.length;
+        for (let i = 0; i < size; i++) {
+            ret[i] = availableSessions[i];
+        }
+        return ret;
+    }
+
     const previousSessions = sessions.filter(
         (session) => session.members && session.members.includes(profile.name)
     );
@@ -54,7 +66,8 @@ function sessionRecommendationAlgorithm(profile, sessions, number) {
         counter++;
     });
 
-    for (let i = 0; i < number; i++) {
+    let size = availableSessions.length > number ? number : availableSessions.length;
+    for (let i = 0; i < size; i++) {
         let index = sessionScores.indexOf(Math.max(...sessionScores));
         sessionScores[index] = 0;
         ret[i] = availableSessions[index];

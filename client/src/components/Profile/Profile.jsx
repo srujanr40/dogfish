@@ -53,8 +53,10 @@ export default function Profile() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(updateProfileAsync(formData));
-    formData.storedName = formData.name;
+    dispatch(updateProfileAsync(formData)).then(() => {
+      formData.storedName = formData.name;
+      window.location.reload(false);
+    });
   };
 
   return (
