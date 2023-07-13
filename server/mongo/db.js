@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-const user = process.env.MONGODB_USERNAME;
-const password = process.env.MONGODB_PASSWORD;
+const user = "edvin"
+const password = "455love"
 
 // Connect to MongoDB database
 const connectDB = async () => {
