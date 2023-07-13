@@ -42,7 +42,7 @@ export default function MySessions() {
             <div className="sessionsCont">
                 <ul className="sessions">
                     {joinedSessions.map((element, index) => (
-                        <SessionCard joined={element.joined} key={index} name={element.name} description={element.description} groupId={element.groupId} onMoreInfo={openSessionMoreInfoModal} /> 
+                        <SessionCard key={index} session={element} onMoreInfo={openSessionMoreInfoModal} /> 
                     ))}
                 </ul>            
 

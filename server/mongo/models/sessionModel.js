@@ -26,12 +26,12 @@ const sessionSchema = new mongoose.Schema({
         required: true,
     },
     groupId: {
-        type: Number,
+        type: String,
         required: true,
     },
     image: {
         type: String,
-        required: true,
+        required: false,
     },
     sport: {
         type: String,
