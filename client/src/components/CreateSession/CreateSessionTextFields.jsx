@@ -12,6 +12,8 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import {createNewSessionAsync} from "../../redux/session/sessionThunks";
 import "./CreateSession.css";
+import {createNewChatAsync} from "../../redux/chat/chatThunks";
+const { v4: uuidv4 } = require('uuid');
 
 const equipmentInfo = (
     <React.Fragment>
@@ -64,6 +66,8 @@ export default function CreateSessionTextFields(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        const groupId = uuidv4();
+
         const new_session = {
             name: session_name,
             description: session_description,
@@ -75,9 +79,17 @@ export default function CreateSessionTextFields(props) {
             sport: session_sport,
             dateTime: session_date_time,
             members: [], // add profile.name to array for session creator to auto join
+            groupId: groupId,
         };
 
+        const new_chat = {
+            lastModified: new Date(),
+            groupId: groupId,
+            chats: []
+        }
+
         dispatch(createNewSessionAsync(new_session)); //add function here that handles what happens with the data at submit
+        dispatch(createNewChatAsync(new_chat))
 
         setName("");
         setSport("");
@@ -104,20 +116,9 @@ export default function CreateSessionTextFields(props) {
             session_date_time.unix() >= Date.now() / 1000
         ) {
             setIsFormValid(true);
-            console.log(isFormValid)
         } else {
             setIsFormValid(false);
         }
-        console.log(session_name !== "" &&
-            session_sport !== "" &&
-            session_city !== "" &&
-            session_location !== "" &&
-            session_equipment_needed !== "" &&
-            session_players_needed !== "" &&
-            session_date_time !== "" &&
-            session_date_time.unix() >= Date.now() / 1000)
-        // console.log(session_date_time.unix() >= Date.now() / 1000)
-
     }
 
     return (

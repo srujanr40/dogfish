@@ -1,19 +1,22 @@
 const Chat = require('../models/chatModel');
 
-const sessionQueries = {
+const chatQueries = {
     getChats: async function (filter) {
+        console.log('heller')
         let chats = await Chat.find(filter);
         if (chats === null) {
             chats = [];
         }
         return chats;
     },
-    addChat: async function (chat) {
+    createNewChat: async function (chat) {
         const newChat = new Chat({
             lastModified: chat.lastModified,
             groupId: chat.groupId,
             chats: chat.chats
         });
+        // console.log("create new")
+        // console.log(chat)
         newChat.save()
             .then((savedSession) => {
                 console.log('Chat saved:', savedSession);
@@ -23,29 +26,34 @@ const sessionQueries = {
             })
     },
     updateChat: async function (chat) {
-        Chat.findOneAndUpdate(
-            { groupId: chat.groupId },
-            {
-                name: session.name,
-                description: session.description,
-                city: session.city,
-                location: session.location,
-                equipment: session.equipment,
-                playersNeeded: session.playersNeeded,
-                image: session.image,
-                sport: session.sport,
-                members: session.members,
-                dateTime: session.date
-            },
-            { new: true })
-            .then((updatedSession) => {
-                console.log('Session updated:', updatedSession);
+        const newChat = chat.chat
+
+        console.log(chat.groupId)
+        Chat.findOne({groupId: chat.groupId})
+            .then(chatGroup => {
+                if(chatGroup === null) {
+                    chatGroup = []
+                    console.log('anani')
+                }
+                chatGroup.chats.push(newChat); // Add the new chat to the chats array
+                chatGroup.lastModified = new Date()
+
+                console.log("updated")
+
+                console.log(chatGroup)
+                chatGroup.save()
+                    .then(updatedChatGroup => {
+                        console.log('Chat updated:', updatedChatGroup);
+                    })
+                    .catch(error => {
+                        console.error('Error updating chat:', error);
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
             })
-            .catch((error) => {
-                console.error('Error updating session:', error);
-            });
     }
 }
 
 
-module.exports = sessionQueries;
+module.exports = chatQueries;

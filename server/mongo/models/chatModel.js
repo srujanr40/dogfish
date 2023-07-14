@@ -34,7 +34,7 @@ const chatSchema = new mongoose.Schema({
         required: true,
     },
     chats: {
-        type: chatsSchema,
+        type: Array,
         required: true,
     }
 });

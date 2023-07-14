@@ -9,9 +9,17 @@ export const getChatAsync = createAsyncThunk(
     }
 );
 
-export const addChatAsync = createAsyncThunk(
+export const createNewChatAsync = createAsyncThunk(
     actionTypes.ADD_CHAT,
     async (chat) => {
-        return await chatService.addChat(chat);
+        return await chatService.createNewChat(chat);
     }
 );
+
+export const updateChatAsync = createAsyncThunk(
+    actionTypes.UPDATE_CHAT,
+    async (chat) => {
+        return await chatService.updateChat(chat);
+    }
+);
+

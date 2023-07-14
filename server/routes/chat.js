@@ -1,4 +1,6 @@
 const express = require('express');
+const chatQueries = require("../mongo/queries/chatQueries");
+const profileQueries = require("../mongo/queries/profileQueries");
 const router = express.Router();
 
 let chats = [
@@ -57,23 +59,30 @@ let chats = [
 ]
 
 // GET chat
-router.get('/', function (req, res, next) {
+router.get('/', async function (req, res, next) {
+    if (req.query.groupId) {
+        let filteredChat = await chatQueries.getChats({groupId: req.query.groupId});
+        return res.status(200).send(filteredChat);
+    }
+    let chats = await chatQueries.getChats({});
+    // console.log("getChats")
+    // console.log(chats)
     return res.status(200).send(chats);
 });
 
 // ADD chat
-router.post('/', function (req, res, next) {
-    chats = chats.map(chatGroup => {
-        if (chatGroup.groupId == req.body.groupId) {
-            return {
-                ...chatGroup,
-                chat: [...chatGroup.chat, req.body.chat]
-            };
-        }
-        return chatGroup;
-    })
+router.post('/', async function (req, res, next) {
+    const newChat = req.body;
 
-    return res.status(200).send(chats);
+    await chatQueries.createNewChat(newChat);
+    return res.status(200).send(newChat);
+});
+
+// UPDATE chat
+router.patch('/', async function (req, res, next) {
+    const newMessage = req.body;
+    const updatedChat = await chatQueries.updateChat(newMessage);
+    return res.status(201).send(updatedChat);
 });
 
 module.exports = router;
