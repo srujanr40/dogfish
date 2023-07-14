@@ -6,14 +6,16 @@ const getChat = async () => {
 };
 
 const createNewChat = async (chat) => {
-    const response = await fetch('http://localhost:3001/chat', {
+    await fetch('http://localhost:3001/chat', {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(chat)
     })
-
+    const response = await fetch('http://localhost:3001/chat', {
+        method: 'GET'
+    });
     return await response.json()
 }
 
