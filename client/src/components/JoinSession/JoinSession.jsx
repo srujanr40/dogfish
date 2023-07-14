@@ -8,8 +8,7 @@ import {Link, useLocation} from "react-router-dom";
 import "react-chat-elements/dist/main.css"
 import {MessageList, Input} from "react-chat-elements"
 import Button from "@mui/material/Button";
-import {updateChatAsync} from "../../redux/chat/chatThunks";
-
+import {getChatAsync, updateChatAsync} from "../../redux/chat/chatThunks";
 const listReference = React.createRef();
 const inputReference = React.createRef();
 
@@ -33,45 +32,15 @@ export default function JoinSession() {
     }
 
     useEffect(() => {
-        let lastModified;
-        const interval = setInterval(() => {
-            chat = chats.find(element => element.groupId === groupId);
-            if(lastModified === null) {
-                lastModified = chat.lastModified
-            } else if(lastModified !== chat.lastModified) {
-                lastModified = chat.lastModified
-                chat = chat.chats;
-                if (chat.length !== 0) {
-                    sortChat();
-                }
-            }
-        }, 3000);
+        const intervalId = setInterval(() => {
+            dispatch(getChatAsync());
+        }, 1500);
 
-        return () => clearInterval(interval);
-    }, [chats]);
-
-    /*
-    useEffect(() => {
-        let lastModified;
-        const interval = setInterval(() => {
-            let chats = useSelector(state => state.chatReducer).chats;
-
-            chat = chats.find(element => element.groupId === groupId);
-            if(lastModified === null) {
-                lastModified = chat.lastModified
-            } else if(lastModified !== chat.lastModified) {
-                lastModified = chat.lastModified
-                chat = chat.chats;
-                if (chat.length !== 0) {
-                    sortChat();
-                }
-            }
-        }, 3000);
-
-        return () => clearInterval(interval);
-    }, [chats]);
-
-     */
+        // Clean up the interval when the component unmounts
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, [dispatch]);
 
     const AddMessage = () => {
         const value = inputReference.current.value;
