@@ -25,5 +25,6 @@ app.use('/', indexRouter);
 app.use('/session', sessionsRouter);
 app.use('/profile', profileRouter);
 app.use('/chat', chatRouter);
+  
 
 module.exports = app;
