@@ -8,7 +8,7 @@ import chatReducer from "./chat/chatReducer";
 const rootReducer = combineReducers({
     sessionReducer,
     profileReducer,
-    chatRed: chatReducer,
+    chatReducer,
 });
 
 const store = configureStore({

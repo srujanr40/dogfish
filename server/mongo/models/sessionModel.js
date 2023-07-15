@@ -7,7 +7,7 @@ const sessionSchema = new mongoose.Schema({
     },
     description: {
         type: String,
-        required: true,
+        required: false,
     },
     city: {
         type: String,
