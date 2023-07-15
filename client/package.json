@@ -8,6 +8,7 @@
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.13.3",
     "@mui/x-date-pickers": "^6.8.0",
+    "@react-google-maps/api": "^2.18.1",
     "@reduxjs/toolkit": "^1.9.5",
     "dayjs": "^1.11.8",
     "material-ui": "^0.20.2",

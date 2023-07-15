@@ -9,6 +9,7 @@ import "react-chat-elements/dist/main.css"
 import { MessageList, Input } from "react-chat-elements"
 import Button from "@mui/material/Button";
 import { addChatAsync } from "../../redux/chat/chatThunks";
+import Map from "./Map"
 const listReference = React.createRef();
 const inputReference = React.createRef();
 
@@ -105,11 +106,7 @@ export default function JoinSession() {
                     </Box>
                 </div>
                 <div className="splits">
-                    <Box sx={{
-                        width: 400,
-                        height: 600,
-                        backgroundColor: 'primary.dark',
-                    }}/>
+                    <Map />
                 </div>
                 <div className="end">
                     <Link to={{ pathname: '/' }} style={{marginRight: '10px', textDecoration: 'none'}}>
