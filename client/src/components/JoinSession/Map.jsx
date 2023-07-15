@@ -1,6 +1,16 @@
-import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import './JoinSession.css';
+import Navbar from '../Navbar/Navbar.jsx';
+import React from "react";
 import Box from "@mui/material/Box";
-import "./JoinSession.css"
+import Divider from "@mui/material/Divider";
+import {useDispatch, useSelector} from 'react-redux';
+import {Link, useLocation} from "react-router-dom";
+import "react-chat-elements/dist/main.css"
+import { MessageList, Input } from "react-chat-elements"
+import Button from "@mui/material/Button";
+import { addChatAsync } from "../../redux/chat/chatThunks";
+
+import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 
 export default function Map() {
     const { isMapLoaded } = useLoadScript(
@@ -10,14 +20,14 @@ export default function Map() {
     );
     console.log(!isMapLoaded)
 
-    if( !isMapLoaded ) return 
-    <Box sx={{
-        width: 400,
-        height: 600,
-        backgroundColor: 'primary.dark',
-    }}/>
-
     return (
-        <GoogleMap zoom={10} center={{lat: 40, lng: -80}} mapContainerClassName="map"></GoogleMap>
-    )
+        (!isMapLoaded) && <><Box sx={{
+            width: 400,
+            height: 600,
+            backgroundColor: 'primary.dark',
+        }} /><GoogleMap
+            zoom={10}
+            center={{ lat: 44, lng: 84 }}
+        ></GoogleMap></>
+    );
 }
