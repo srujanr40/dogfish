@@ -1,25 +1,25 @@
-import React, {useEffect} from "react";
-import {useState} from "react";
+import React, { useEffect } from "react";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import {Tooltip} from "@mui/material";
-import {useDispatch, useSelector} from "react-redux";
-import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
-import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
-import {DateTimePicker} from "@mui/x-date-pickers/DateTimePicker";
+import { Tooltip } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import dayjs from "dayjs";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import {createNewSessionAsync} from "../../redux/session/sessionThunks";
+import { createNewSessionAsync } from "../../redux/session/sessionThunks";
 import "./CreateSession.css";
-import {createNewChatAsync} from "../../redux/chat/chatThunks";
+import { createNewChatAsync } from "../../redux/chat/chatThunks";
 const { v4: uuidv4 } = require('uuid');
 
 const equipmentInfo = (
     <React.Fragment>
         <div>Enter information about the equipment in the following format:</div>
-        <div style={{textAlign: "center"}}>"Quantity, Equipment Name"</div>
-        <br/>
+        <div style={{ textAlign: "center" }}>"Quantity, Equipment Name"</div>
+        <br />
         <div>Example:</div>
         <div>1, Baseball Bat</div>
         <div>4, Tennis Ball</div>
@@ -78,7 +78,7 @@ export default function CreateSessionTextFields(props) {
             image: session_image,
             sport: session_sport,
             dateTime: session_date_time,
-            members: [], // add profile.name to array for session creator to auto join
+            members: [profile.name],
             groupId: groupId,
         };
 
@@ -126,13 +126,13 @@ export default function CreateSessionTextFields(props) {
             <Box
                 sx={{
                     display: "flex",
-                    flexDirection: {xs: "column", sm: "column", md: "row", lg: "row"},
+                    flexDirection: { xs: "column", sm: "column", md: "row", lg: "row" },
                 }}
             >
                 <Box
                     component="form"
                     sx={{
-                        "& .MuiTextField-root": {m: 1},
+                        "& .MuiTextField-root": { m: 1 },
                     }}
                     noValidate
                     autoComplete="off"
@@ -153,7 +153,7 @@ export default function CreateSessionTextFields(props) {
                             sx={{
                                 alignItems: "center",
                                 justifyContent: "center",
-                                width: {sm: 450, md: 300, lg: 400},
+                                width: { sm: 450, md: 300, lg: 400 },
                                 paddingRight: 2,
                             }}
                         >
@@ -168,7 +168,7 @@ export default function CreateSessionTextFields(props) {
                                     setName(e.target.value);
                                 }}
                             />
-                            <br/>
+                            <br />
 
                             <TextField
                                 required
@@ -181,7 +181,7 @@ export default function CreateSessionTextFields(props) {
                                     setSport(e.target.value);
                                 }}
                             />
-                            <br/>
+                            <br />
 
                             <TextField
                                 multiline
@@ -195,7 +195,7 @@ export default function CreateSessionTextFields(props) {
                                     setDescription(e.target.value);
                                 }}
                             />
-                            <br/>
+                            <br />
 
                             <TextField
                                 required
@@ -214,7 +214,7 @@ export default function CreateSessionTextFields(props) {
                             sx={{
                                 alignItems: "center",
                                 justifyContent: "center",
-                                width: {sm: 450, md: 300, lg: 400},
+                                width: { sm: 450, md: 300, lg: 400 },
                             }}
                         >
                             <TextField
@@ -228,7 +228,7 @@ export default function CreateSessionTextFields(props) {
                                     setLocation(e.target.value);
                                 }}
                             />
-                            <br/>
+                            <br />
 
                             <TextField
                                 required
@@ -246,7 +246,7 @@ export default function CreateSessionTextFields(props) {
                             <Tooltip title={equipmentInfo} arrow>
                                 <Button>MORE INFO</Button>
                             </Tooltip>
-                            <br/>
+                            <br />
 
                             <TextField
                                 required
@@ -277,9 +277,9 @@ export default function CreateSessionTextFields(props) {
                         </Box>
                     </Box>
                 </Box>
-                <Box sx={{paddingLeft: {sm: 10, md: 20}, paddingTop: 2}}>
+                <Box sx={{ paddingLeft: { sm: 10, md: 20 }, paddingTop: 2 }}>
                     {session_image ? (
-                        <img className="upload-image" src={session_image} alt="Selected"/>
+                        <img className="upload-image" src={session_image} alt="Selected" />
                     ) : (
                         <div>
                             <img
@@ -289,8 +289,8 @@ export default function CreateSessionTextFields(props) {
                             />
                         </div>
                     )}
-                    <br/>
-                    <input type="file" onChange={handleImageUpload} accept="image/*"/>
+                    <br />
+                    <input type="file" onChange={handleImageUpload} accept="image/*" />
                 </Box>
             </Box>
             <Stack

@@ -10,7 +10,7 @@ export const getChatAsync = createAsyncThunk(
 );
 
 export const createNewChatAsync = createAsyncThunk(
-    actionTypes.ADD_CHAT,
+    actionTypes.CREATE_NEW_CHAT,
     async (chat) => {
         return await chatService.createNewChat(chat);
     }

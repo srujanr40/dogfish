@@ -1,14 +1,14 @@
 import './JoinSession.css';
 import Navbar from '../Navbar/Navbar.jsx';
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
-import {useDispatch, useSelector} from 'react-redux';
-import {Link, useLocation} from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useLocation } from "react-router-dom";
 import "react-chat-elements/dist/main.css"
-import {MessageList, Input} from "react-chat-elements"
+import { MessageList, Input } from "react-chat-elements"
 import Button from "@mui/material/Button";
-import {getChatAsync, updateChatAsync} from "../../redux/chat/chatThunks";
+import { getChatAsync, updateChatAsync } from "../../redux/chat/chatThunks";
 const listReference = React.createRef();
 const inputReference = React.createRef();
 
@@ -54,7 +54,7 @@ export default function JoinSession() {
             date: new Date(),
         }
         inputReference.current.value = ''
-        dispatch(updateChatAsync({groupId, chat}))
+        dispatch(updateChatAsync({ groupId, chat }))
     }
 
     function sortChat() {
@@ -75,11 +75,11 @@ export default function JoinSession() {
 
     return (
         <div className="container">
-            <Navbar/>
+            <Navbar />
             <div className="mainPart">
                 <div className="splits">
                     <div className="mainInfo">
-                        <img className="placeholder-image" src={session.image} alt="placeholder"/>
+                        <img className="placeholder-image" src={session.image} alt="placeholder" />
                         <h5>Event</h5>
                         <h4>{session.name}</h4>
                         <h5>Location</h5>
@@ -88,7 +88,7 @@ export default function JoinSession() {
                         <h4>{session.city}</h4>
                         <h4>{session.description}</h4>
                     </div>
-                    <Divider/>
+                    <Divider />
                     <div className="equipmentInfo">
                         <h5>Equipment Needed</h5>
                         <h4>{session.equipment}</h4>
@@ -107,7 +107,7 @@ export default function JoinSession() {
                             className='message-list'
                             lockable={true}
                             toBottomHeight={'100%'}
-                            dataSource={chat}/>
+                            dataSource={chat} />
 
                     </Box>
 
@@ -132,7 +132,7 @@ export default function JoinSession() {
                                     backgroundColor: '#ffc4ad'
                                 }, textTransform: 'none'
                             }}
-                                                  size="small" text='Submit' onClick={() => AddMessage()}>Send</Button>}
+                                size="small" text='Submit' onClick={() => AddMessage()}>Send</Button>}
                         />
 
                     </Box>
@@ -142,10 +142,10 @@ export default function JoinSession() {
                         width: 400,
                         height: 600,
                         backgroundColor: 'primary.dark',
-                    }}/>
+                    }} />
                 </div>
                 <div className="end">
-                    <Link to={{pathname: '/'}} style={{marginRight: '10px', textDecoration: 'none'}}>
+                    <Link to={{ pathname: '/' }} style={{ marginRight: '10px', textDecoration: 'none' }}>
                         <span className="closeButton">
                             &times;
                         </span>

@@ -49,7 +49,7 @@ const chatSlice = createSlice({
                 return {
                     ...state,
                     createNewChat: REQUEST_STATE.FULFILLED,
-                    chats: action.payload
+                    chats: [...state.chats, action.payload]
                 }
             })
             .addCase(createNewChatAsync.rejected, (state, action) => {

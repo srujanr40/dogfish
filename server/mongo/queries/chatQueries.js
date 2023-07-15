@@ -15,8 +15,8 @@ const chatQueries = {
             chats: chat.chats
         });
         newChat.save()
-            .then((savedSession) => {
-                console.log('Chat saved:', savedSession);
+            .then((savedChat) => {
+                console.log('Chat saved:', savedChat);
             })
             .catch((error) => {
                 console.error('Error saving chat:', error);
@@ -32,8 +32,6 @@ const chatQueries = {
                 chatGroup.chats.push(newChat); // Add the new chat to the chats array
                 chatGroup.lastModified = new Date()
 
-                // console.log("updated")
-                //console.log(chatGroup)
                 chatGroup.save()
                     .then(updatedChatGroup => {
                         console.log('Chat updated:', updatedChatGroup);
