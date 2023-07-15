@@ -53,7 +53,7 @@ export default function Dashboard() {
       </div>
       <div className="sessionsContainer">
         <div className="featuredAndCreate">
-          <h4>Activities near you</h4>
+          <h3>Activities near you</h3>
           {!isCreateSessionModalOpen && (
             <Fab
               variant="extended"
@@ -82,7 +82,7 @@ export default function Dashboard() {
             />
           ))}
         </ul>
-        <h4>Soccer</h4>
+        <h3>Soccer</h3>
         <Divider />
         <ul className="sessionsList">
           {availableSessions.map((element, index) => (

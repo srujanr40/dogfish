@@ -22,9 +22,10 @@ const Featured = () => {
   return (
     <Card
       sx={{
-        backgroundColor: 'black',
+        backgroundColor: '#737373',
         maxWidth: '100%',
         margin: '0 auto',
+        borderRadius: '10px'
       }}
     >
       <Slider {...settings}>
@@ -40,11 +41,13 @@ const Featured = () => {
               </Typography>
             </CardContent>
             <CardActions>
-              <Button sx={{ color: 'white', backgroundColor: 'lightsalmon', textTransform: 'none' }} size="small">
+              <Button sx={{ color: 'white', backgroundColor: '#FF5757', textTransform: 'none', '&:hover': { backgroundColor: '#FF6E6E' } }} size="small">
                 Join
               </Button>
-              <Button sx={{ color: 'white', backgroundColor: 'lightsalmon', textTransform: 'none' }} size="small">
-                More Info
+              <Button
+                sx={{ color: 'black', backgroundColor: '#FDB501', textTransform: 'none', '&:hover': { backgroundColor: '#FFD43D' } }}
+                size="small"
+              >                More Info
               </Button>
             </CardActions>
           </div>
