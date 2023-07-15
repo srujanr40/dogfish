@@ -3,7 +3,7 @@ import { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Tooltip } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
@@ -30,6 +30,7 @@ let stockPlaceholderImageURL =
   "https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=";
 
 export default function CreateSessionTextFields(props) {
+  const profile = useSelector((store) => store.profileReducer).profile;
   const [session_name, setName] = useState("");
   const [session_sport, setSport] = useState("");
   const [session_description, setDescription] = useState("");
@@ -68,7 +69,7 @@ export default function CreateSessionTextFields(props) {
       image: session_image,
       sport: session_sport,
       dateTime: session_date_time,
-      joined: false,
+      members: [], // add profile.name to array for session creator to auto join
     };
 
     dispatch(createNewSessionAsync(new_session)); //add function here that handles what happens with the data at submit

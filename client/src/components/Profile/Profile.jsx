@@ -17,6 +17,7 @@ export default function Profile() {
     interests: profile.interests || [],
     location: profile.location || '',
     image: profile.image || '',
+    storedName: profile.name || '',
   });
   const [selectedEquipment, setSelectedEquipment] = useState('');
   const [interest, setInterest] = useState('');
@@ -52,7 +53,10 @@ export default function Profile() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(updateProfileAsync(formData));
+    dispatch(updateProfileAsync(formData)).then(() => {
+      formData.storedName = formData.name;
+      window.location.reload(false);
+    });
   };
 
   return (
