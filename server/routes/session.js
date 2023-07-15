@@ -168,7 +168,6 @@ router.get('/', async function (req, res, next) {
 // ADD a new session
 router.post('/', async function (req, res, next) {
     let new_session = req.body;
-    new_session.groupId = uuidv4();
     await sessionQueries.addSession(new_session);
 
     return res.status(200).send(new_session);
