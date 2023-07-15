@@ -77,9 +77,7 @@ export default function Dashboard() {
           {availableSessions.map((element, index) => (
             <SessionCard
               key={index}
-              name={element.name}
-              description={element.description}
-              groupId={element.groupId}
+              session={element}
               onMoreInfo={openSessionMoreInfoModal}
             />
           ))}
@@ -90,9 +88,7 @@ export default function Dashboard() {
           {availableSessions.map((element, index) => (
             <SessionCard
               key={index}
-              name={element.name}
-              description={element.description}
-              groupId={element.groupId}
+              session={element}
               onMoreInfo={openSessionMoreInfoModal}
             />
           ))}
