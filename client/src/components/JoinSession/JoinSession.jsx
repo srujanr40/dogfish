@@ -1,15 +1,16 @@
 import './JoinSession.css';
 import Navbar from '../Navbar/Navbar.jsx';
-import React from "react";
+import React, { useEffect } from "react";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
-import {useDispatch, useSelector} from 'react-redux';
-import {Link, useLocation} from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useLocation } from "react-router-dom";
 import "react-chat-elements/dist/main.css"
 import { MessageList, Input } from "react-chat-elements"
 import Button from "@mui/material/Button";
 import { addChatAsync } from "../../redux/chat/chatThunks";
 import Map from "./Map"
+import { getChatAsync, updateChatAsync } from "../../redux/chat/chatThunks";
 const listReference = React.createRef();
 const inputReference = React.createRef();
 
@@ -21,17 +22,31 @@ export default function JoinSession() {
     const sessions = useSelector(state => state.sessionReducer).sessions;
     const session = sessions.find(element => element.groupId == groupId);
     const profile = useSelector(state => state.profileReducer).profile;
-    let chats = useSelector(state => state.chatRed).chats;
+    let chats = useSelector(state => state.chatReducer).chats;
     let chat = chats.find(element => element.groupId == groupId)
-    if(chat === undefined) {
+    if (chat === undefined) {
         chat = []
     } else {
-        chat = chat.chat
+        chat = chat.chats
+        if (chat.length !== 0) {
+            sortChat()
+        }
     }
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            dispatch(getChatAsync());
+        }, 1500);
+
+        // Clean up the interval when the component unmounts
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, [dispatch]);
 
     const AddMessage = () => {
         const value = inputReference.current.value;
-        if(value.length === 0)
+        if (value.length === 0)
             return
         const chat = {
             position: 'right',
@@ -41,16 +56,32 @@ export default function JoinSession() {
             date: new Date(),
         }
         inputReference.current.value = ''
-        dispatch(addChatAsync({ groupId, chat }))
+        dispatch(updateChatAsync({ groupId, chat }))
+    }
+
+    function sortChat() {
+        chat = chat.map(item => {
+            if (item.title === profile.name) {
+                return {
+                    ...item,
+                    position: "right"
+                };
+            } else {
+                return {
+                    ...item,
+                    position: "left"
+                };
+            }
+        });
     }
 
     return (
         <div className="container">
-            <Navbar/>
+            <Navbar />
             <div className="mainPart">
                 <div className="splits">
                     <div className="mainInfo">
-                        <img className="placeholder-image" src={session.image} alt="placeholder"/>
+                        <img className="placeholder-image" src={session.image} alt="placeholder" />
                         <h5>Event</h5>
                         <h4>{session.name}</h4>
                         <h5>Location</h5>
@@ -59,7 +90,7 @@ export default function JoinSession() {
                         <h4>{session.city}</h4>
                         <h4>{session.description}</h4>
                     </div>
-                    <Divider/>
+                    <Divider />
                     <div className="equipmentInfo">
                         <h5>Equipment Needed</h5>
                         <h4>{session.equipment}</h4>
@@ -98,9 +129,12 @@ export default function JoinSession() {
                                 }
                             }}
 
-                            rightButtons={<Button sx={{ color: 'white', backgroundColor: 'lightsalmon', '&:hover': {
-                                    backgroundColor: '#ffc4ad'} ,textTransform: 'none' }}
-                                                  size="small" text='Submit' onClick={() => AddMessage()}>Send</Button>}
+                            rightButtons={<Button sx={{
+                                color: 'white', backgroundColor: 'lightsalmon', '&:hover': {
+                                    backgroundColor: '#ffc4ad'
+                                }, textTransform: 'none'
+                            }}
+                                size="small" text='Submit' onClick={() => AddMessage()}>Send</Button>}
                         />
 
                     </Box>
@@ -109,7 +143,7 @@ export default function JoinSession() {
                     <Map />
                 </div>
                 <div className="end">
-                    <Link to={{ pathname: '/' }} style={{marginRight: '10px', textDecoration: 'none'}}>
+                    <Link to={{ pathname: '/' }} style={{ marginRight: '10px', textDecoration: 'none' }}>
                         <span className="closeButton">
                             &times;
                         </span>

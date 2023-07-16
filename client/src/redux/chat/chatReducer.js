@@ -1,12 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { REQUEST_STATE } from '../utils';
-import { getChatAsync, addChatAsync } from './chatThunks';
+import {createSlice} from '@reduxjs/toolkit';
+import {REQUEST_STATE} from '../utils';
+import {getChatAsync, createNewChatAsync, updateChatAsync} from './chatThunks';
 import chatService from './chatService';
 
 const INITIAL_STATE = {
     chats: await chatService.getChat(),
     getChat: REQUEST_STATE.IDLE,
-    addChat: REQUEST_STATE.IDLE,
+    createNewChat: REQUEST_STATE.IDLE,
+    updateChat: REQUEST_STATE.IDLE,
     error: null
 };
 
@@ -37,24 +38,45 @@ const chatSlice = createSlice({
                     error: action.error
                 }
             })
-            .addCase(addChatAsync.pending, (state) => {
+            .addCase(createNewChatAsync.pending, (state) => {
                 return {
                     ...state,
-                    addChat: REQUEST_STATE.PENDING,
+                    createNewChat: REQUEST_STATE.PENDING,
                     error: null
                 }
             })
-            .addCase(addChatAsync.fulfilled, (state, action) => {
+            .addCase(createNewChatAsync.fulfilled, (state, action) => {
                 return {
                     ...state,
-                    addChat: REQUEST_STATE.FULFILLED,
+                    createNewChat: REQUEST_STATE.FULFILLED,
+                    chats: [...state.chats, action.payload]
+                }
+            })
+            .addCase(createNewChatAsync.rejected, (state, action) => {
+                return {
+                    ...state,
+                    createNewChat: REQUEST_STATE.REJECTED,
+                    error: action.error
+                }
+            })
+            .addCase(updateChatAsync.pending, (state) => {
+                return {
+                    ...state,
+                    updateChat: REQUEST_STATE.PENDING,
+                    error: null
+                }
+            })
+            .addCase(updateChatAsync.fulfilled, (state, action) => {
+                return {
+                    ...state,
+                    updateChat: REQUEST_STATE.FULFILLED,
                     chats: action.payload
                 }
             })
-            .addCase(addChatAsync.rejected, (state, action) => {
+            .addCase(updateChatAsync.rejected, (state, action) => {
                 return {
                     ...state,
-                    addChat: REQUEST_STATE.REJECTED,
+                    updateChat: REQUEST_STATE.REJECTED,
                     error: action.error
                 }
             });
