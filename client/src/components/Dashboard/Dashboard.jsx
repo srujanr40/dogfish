@@ -41,9 +41,6 @@ export default function Dashboard() {
   };
 
   // only display sessions not joined
-  const availableSessions = sessions.filter(
-    (element) => element.members && !element.members.includes(profile.name)
-  );
 
   return (
     <div className="container">
@@ -53,7 +50,7 @@ export default function Dashboard() {
       </div>
       <div className="sessionsContainer">
         <div className="featuredAndCreate">
-          <h4>Activities near you</h4>
+          <h3>Activities near you</h3>
           {!isCreateSessionModalOpen && (
             <Fab
               variant="extended"
@@ -74,7 +71,7 @@ export default function Dashboard() {
         </div>
         <Divider />
         <ul className="sessionsList">
-          {availableSessions.map((element, index) => (
+          {sessions.map((element, index) => (
             <SessionCard
               key={index}
               session={element}
@@ -82,10 +79,10 @@ export default function Dashboard() {
             />
           ))}
         </ul>
-        <h4>Soccer</h4>
+        <h3>Soccer</h3>
         <Divider />
         <ul className="sessionsList">
-          {availableSessions.map((element, index) => (
+          {sessions.map((element, index) => (
             <SessionCard
               key={index}
               session={element}

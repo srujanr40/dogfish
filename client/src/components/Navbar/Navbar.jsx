@@ -16,6 +16,8 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 
+import logo from './logo.png';
+
 
 // Code from Material UI docs for AppBar
 const Search = styled('div')(({ theme }) => ({
@@ -86,7 +88,7 @@ export default function Navbar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ backgroundColor: 'coral' }}>
+      <AppBar position="static" sx={{ backgroundColor: '#DD4D2B' }}>
         <Toolbar>
           <Typography
             variant="h6"
@@ -94,7 +96,7 @@ export default function Navbar() {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            <Link to="/">dogFish</Link>
+            <Link to="/"><img src={logo} height="70px"/></Link>
           </Typography>
           <Search>
             <SearchIconWrapper>
