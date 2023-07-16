@@ -140,7 +140,7 @@ export default function JoinSession() {
                     </Box>
                 </div>
                 <div className="splits">
-                    <Map />
+                    <Map session={session}/>
                 </div>
                 <div className="end">
                     <Link to={{ pathname: '/' }} style={{ marginRight: '10px', textDecoration: 'none' }}>
