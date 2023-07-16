@@ -22,7 +22,7 @@ const Featured = () => {
   return (
     <Card
       sx={{
-        backgroundColor: '#737373',
+        backgroundColor: '#1C1E25',
         maxWidth: '100%',
         margin: '0 auto',
         borderRadius: '10px'
@@ -41,11 +41,11 @@ const Featured = () => {
               </Typography>
             </CardContent>
             <CardActions>
-              <Button sx={{ color: 'white', backgroundColor: '#FF5757', textTransform: 'none', '&:hover': { backgroundColor: '#FF6E6E' } }} size="small">
+              <Button sx={{ color: 'white', backgroundColor: '#DD4D2B', textTransform: 'none', '&:hover': { backgroundColor: '#FF6E6E' } }} size="small">
                 Join
               </Button>
               <Button
-                sx={{ color: 'black', backgroundColor: '#FDB501', textTransform: 'none', '&:hover': { backgroundColor: '#FFD43D' } }}
+                sx={{ color: 'black', backgroundColor: '#4D96B6', textTransform: 'none', '&:hover': { backgroundColor: '#FFD43D' } }}
                 size="small"
               >                More Info
               </Button>

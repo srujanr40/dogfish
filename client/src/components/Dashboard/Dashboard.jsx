@@ -41,9 +41,6 @@ export default function Dashboard() {
   };
 
   // only display sessions not joined
-  const availableSessions = sessions.filter(
-    (element) => element.members && !element.members.includes(profile.name)
-  );
 
   return (
     <div className="container">
@@ -74,7 +71,7 @@ export default function Dashboard() {
         </div>
         <Divider />
         <ul className="sessionsList">
-          {availableSessions.map((element, index) => (
+          {sessions.map((element, index) => (
             <SessionCard
               key={index}
               session={element}
@@ -85,7 +82,7 @@ export default function Dashboard() {
         <h3>Soccer</h3>
         <Divider />
         <ul className="sessionsList">
-          {availableSessions.map((element, index) => (
+          {sessions.map((element, index) => (
             <SessionCard
               key={index}
               session={element}
