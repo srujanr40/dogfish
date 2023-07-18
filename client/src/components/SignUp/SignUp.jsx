@@ -6,6 +6,9 @@ import Navbar from '../Navbar/Navbar.jsx';
 import { updateProfileAsync } from "../../redux/profile/profileThunks";
 import './SignUp.css'
 
+import logo from '../../assets/logo.png'
+
+
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Input from '@mui/material/Input';
@@ -65,8 +68,8 @@ export default function SignUp() {
 
   return (
     <div className="SignUpScreen">
+      <img src={logo} height="100px"></img>
       <div className="SignUpContainer">
-        <h2>dogFish</h2>
         <div>
           <TextField
             sx={{ m: 1, width: '25ch' }}

@@ -21,6 +21,8 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Divider from '@mui/material/Divider';
 
+import logo from '../../assets/logo.png'
+
 
 export default function Login() {
 
@@ -33,13 +35,13 @@ export default function Login() {
 
     return (
         <div className="LoginScreen">
+            <img src={logo} height="100px"></img>
             <div className="LoginContainer">
-                <h2>dogFish</h2>
                 <div>
                     <TextField sx={{m: 1, width: '25ch' }} id="outlined-basic" label="Username" variant="outlined" />
                 </div>
                 <div>
-                    <FormControl sx={{m: 1, width: '25ch' }} variant="outlined">
+                    <FormControl sx={{m: 1, width: '25ch' }} variant="filled">
                         <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                         <OutlinedInput
                             id="outlined-adornment-password"
