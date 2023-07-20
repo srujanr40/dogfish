@@ -5,7 +5,7 @@ const getChat = async () => {
     return await response.json();
 };
 
-const addChat = async (chat) => {
+const createNewChat = async (chat) => {
     const response = await fetch('http://localhost:3001/chat', {
         method: "POST",
         headers: {
@@ -17,7 +17,20 @@ const addChat = async (chat) => {
     return await response.json()
 }
 
+const updateChat = async (chat) => {
+    const response = await fetch('http://localhost:3001/chat', {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(chat)
+    })
+
+    return await response.json()
+}
+
 export default {
     getChat,
-    addChat
+    createNewChat: createNewChat,
+    updateChat
 };
