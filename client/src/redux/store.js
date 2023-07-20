@@ -9,7 +9,7 @@ import authReducer from "./auth/authReducer"
 const rootReducer = combineReducers({
     sessionReducer,
     profileReducer,
-    chatRed: chatReducer,
+    chatReducer,
     auth: authReducer
 });
 
