@@ -7,6 +7,8 @@ import Profile from './components/Profile/Profile.jsx'
 import { Provider } from 'react-redux';
 import JoinSession from "./components/JoinSession/JoinSession";
 import MySessions from './components/MySessions/MySessions';
+import Login from './components/Login/Login';
+import SignUp from './components/SignUp/SignUp';
 import store from "./redux/store"
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
             <Route path="/join" element={<JoinSession />} />
             <Route path="/mysessions" element={<MySessions />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
           </Routes>
         </main>
     </Router>
