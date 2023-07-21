@@ -38,14 +38,15 @@ export default function Login() {
             <img src={logo} height="100px"></img>
             <div className="LoginContainer">
                 <div>
-                    <TextField sx={{m: 1, width: '25ch' }} id="outlined-basic" label="Username" variant="outlined" />
+                    <TextField sx={{m: 1, width: '25ch' }} id="outlined-basic" label="Email" variant="outlined" />
                 </div>
                 <div>
-                    <FormControl sx={{m: 1, width: '25ch' }} variant="filled">
-                        <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                    <FormControl sx={{m: 1, width: '25ch' }} variant="outlined">
+                    <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                         <OutlinedInput
                             id="outlined-adornment-password"
                             type={showPassword ? 'text' : 'password'}
+                            label="Password"
                             endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton
@@ -58,7 +59,6 @@ export default function Login() {
                                     </IconButton>
                                 </InputAdornment>
                             }
-                            label="Password"
                         />
                     </FormControl>
                 </div>

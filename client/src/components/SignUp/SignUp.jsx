@@ -122,7 +122,7 @@ export default function SignUp() {
                   </IconButton>
                 </InputAdornment>
               }
-              label="Password"
+              label="Confirm rPassword"
               value={confirmPassword}
               onChange={handleConfirmPasswordChange}
             />
