@@ -6,11 +6,11 @@ const router = express.Router();
 
 // GET all sessions
 router.get('/', async function (req, res, next) {
-    if (req.query.sport) {
-        let filteredSessions = await sessionQueries.getSessions({sport: req.query.sport});
-        return res.status(200).send(filteredSessions);
+    let sessions = [];
+    if (req.query.filter) {
+        sessions = await sessionQueries.getSessions({filter: req.query.filter});
     }
-    let sessions = await sessionQueries.getSessions({});
+    else sessions = await sessionQueries.getSessions({filter: ''});
     return res.status(200).send(sessions);
 });
 

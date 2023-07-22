@@ -1,12 +1,14 @@
-const getSessions = async (sport = '') => {
-    var response = {}
-    if (sport !== "") {
-        response = await fetch('http://localhost:3001/session' + '?sport=' + sport)
-    } else {
-        response = await fetch('http://localhost:3001/session')
-    }
+const getSessions = async (filter) => {
 
-    return await response.json()
+    console.log(filter)
+    const queryParams = new URLSearchParams({ filter: filter });
+    const url = `http://localhost:3001/session?${queryParams}`;
+    var response = {}  
+    response = await fetch(url)
+    response = await response.json()
+    // console.log("^^^^^^^^^^^^^^^^^^^")
+    // console.log(response)
+    return response
 }
 
 const getFeaturedSessions = async (profile, sessions) => {

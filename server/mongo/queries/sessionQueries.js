@@ -2,7 +2,14 @@ const Session = require('../models/sessionModel');
 
 const sessionQueries = {
     getSessions: async function (filter) {
-        let sessions = await Session.find(filter);
+        let sessions;
+        if(filter.filter == ''){
+            sessions = await Session.find()
+        }
+        else{      
+            sessions = await Session.find({ sport: filter.filter });
+        }
+
         if (sessions === null) {
             profile = [];
         }
