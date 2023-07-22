@@ -8,6 +8,8 @@ import './SignUp.css'
 
 import logo from '../../assets/logo.png'
 
+import { Link } from 'react-router-dom';
+
 
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -27,27 +29,25 @@ import { setEmail, setPassword, signUpAsync } from '../../redux/auth/authThunks'
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = React.useState(false);
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
   const [confirmPassword, setConfirmPassword] = React.useState('');
+  const [displayError, setDisplayError] = React.useState(false);
+  const [errorText, setErrorText] = React.useState('Error');
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
 
-  const email = useSelector((state) => state.auth.email);
-  const password = useSelector((state) => state.auth.password);
-
   const navigate = useNavigate();
 
-
-
-  const dispatch = useDispatch();
-
   const handleEmailChange = event => {
-    dispatch(setEmail(event.target.value)); // Dispatch the setEmail action
+    setDisplayError(false); 
+    setEmail(event.target.value);
   };
 
   const handlePasswordChange = (event) => {
-    dispatch(setPassword(event.target.value));
+    setPassword(event.target.value);
   };
 
   const handleConfirmPasswordChange = (event) => {
@@ -56,13 +56,29 @@ export default function SignUp() {
 
   const handleSignUp = async () => {
     try {
-      await dispatch(signUpAsync(email, password));
-      navigate('/');
-    } catch (error) {
-      console.error(error);
-    }
-  };
+      const response = await fetch('http://localhost:3001/auth', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email,
+          password
+        })
+      });
+      setDisplayError(false);
 
+      if (!response.ok) {
+        setDisplayError(true);
+        const data = await response.json();
+        setErrorText(data.error);
+      } else {
+        navigate('/');
+      }
+    } catch (error) {
+      alert(error);
+    }
+  };  
 
   const isPasswordMatch = password === confirmPassword;
 
@@ -78,6 +94,7 @@ export default function SignUp() {
             variant="outlined"
             value={email}
             onChange={handleEmailChange}
+            required={true}
           />
         </div>
         <div>
@@ -101,6 +118,7 @@ export default function SignUp() {
               label="Password"
               value={password}
               onChange={handlePasswordChange}
+              required={true}
             />
           </FormControl>
         </div>
@@ -125,9 +143,13 @@ export default function SignUp() {
               label="Confirm rPassword"
               value={confirmPassword}
               onChange={handleConfirmPasswordChange}
+              required={true}
             />
             {!isPasswordMatch && (
               <FormHelperText error>Passwords do not match</FormHelperText>
+            )}
+            {displayError && (
+              <FormHelperText error>{errorText}</FormHelperText>
             )}
           </FormControl>
         </div>
@@ -136,10 +158,14 @@ export default function SignUp() {
             sx={{ m: 1, width: '33ch' }}
             variant="contained"
             onClick={handleSignUp}
-            disabled={!isPasswordMatch}
+            disabled={!isPasswordMatch || !email || !confirmPassword}
           >
             Sign up
           </Button>
+          <Divider>Or</Divider>
+          <Link to="/login" style={{ color: 'white' }}>
+            <Button sx={{m: 1, width: '33ch' }} variant="contained">Back to Login</Button>
+          </Link>
         </div>
       </div>
     </div>

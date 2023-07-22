@@ -36,7 +36,7 @@ router.post('/', async (req, res) => {
     }
   });
 
-  router.get('/', async (req, res) => {
+  router.post('/login', async (req, res) => {
     try {
       const { email, password } = req.body;
   
@@ -44,6 +44,7 @@ router.post('/', async (req, res) => {
       if (!profile) {
         return res.status(400).json({ error: 'Invalid email or password' });
       }
+      console.log(profile);
   
       // Compare the provided password with the hashed password stored in the database
       const passwordMatch = await bcrypt.compare(password, profile.password);
@@ -51,13 +52,12 @@ router.post('/', async (req, res) => {
         return res.status(400).json({ error: 'Invalid email or password' });
       }
   
-      // Passwords match, so login is successful
       res.status(200).json({ message: 'Login successful' });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Server error' });
     }
-  });
+  });  
   
   module.exports = router;
 

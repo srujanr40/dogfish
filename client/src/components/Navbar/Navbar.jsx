@@ -147,7 +147,9 @@ export default function Navbar() {
                 Profile
               </MenuItem>
             </Link>
+            <Link to="/login" style={{ color: 'black' }}>
             <MenuItem onClick={handleClose}>Log out</MenuItem>
+            </Link>
           </Menu>
         </Toolbar>
       </AppBar>
