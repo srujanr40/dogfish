@@ -89,9 +89,10 @@ export default function Dashboard() {
         <Featured />
       </div>
       <div className="sessionsContainer">
-        <Card sessions={sessions} name={'All'} />
+        <Card sessions={nearYouSessions} name={'Activities near you'} />
         <Card sessions={frisbeeSessions} name={'Frisbee'} />
         <Card sessions={soccerSessions} name={'Soccer'} />
+        <Card sessions={sessions} name={'All'} />
       </div>
     </div>
   );

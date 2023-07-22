@@ -6,7 +6,11 @@ const router = express.Router();
 
 // GET all sessions
 router.get('/', async function (req, res, next) {
-    const sessions = await sessionQueries.getSessions({filter: req.query.filter});
+    let sessions = []
+    if(req.query.filter === 'near_you'){
+        sessions = await sessionQueries.getNearBySessions();
+    }
+    else sessions = await sessionQueries.getSessions({filter: req.query.filter});
     return res.status(200).send(sessions);
 });
 

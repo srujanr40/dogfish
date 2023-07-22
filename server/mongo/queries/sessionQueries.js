@@ -3,8 +3,6 @@ const Session = require('../models/sessionModel');
 const sessionQueries = {
     getSessions: async function (filter) {
         let sessions;
-        console.log("*************************")
-        console.log(filter.filter)
         if(filter.filter == ''){
             sessions = await Session.find()
         }
@@ -14,6 +12,10 @@ const sessionQueries = {
         if (sessions === null) {
             profile = [];
         }
+        return sessions;
+    },
+    getNearBySessions: async function() {
+        let sessions = await Session.find();
         return sessions;
     },
     addSession: async function (session) {
