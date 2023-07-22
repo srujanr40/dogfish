@@ -1,4 +1,29 @@
 const Session = require('../models/sessionModel');
+const axios = require('axios');
+
+const getGeocode = async (address) => {
+    try {
+      const apiUrl = 'https://maps.googleapis.com/maps/api/geocode/json';
+  
+      const response = await axios.get(apiUrl, {
+        params: {
+          address,
+          key: "AIzaSyDK3owllk7Xn-ZzsAHRjZ3YzZx_4DRMVV0",
+        },
+      });
+  
+      if (response.data.status === 'OK') {
+        const result = response.data.results[0];
+        const { lat, lng } = result.geometry.location;
+        return { latitude: lat, longitude: lng };
+      } else {
+        throw new Error('Geocoding API returned an error.');
+      }
+    } catch (error) {
+      console.error('Error getting geocode:', error.message);
+      return null;
+    }
+  };
 
 const sessionQueries = {
     getSessions: async function (filter) {
@@ -15,8 +40,35 @@ const sessionQueries = {
         return sessions;
     },
     getNearBySessions: async function() {
-        let sessions = await Session.find();
-        return sessions;
+        console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+        const geocodeResult = await getGeocode('Vancouver');
+        if (geocodeResult) {
+            console.log(geocodeResult.latitude)
+            console.log(geocodeResult.longitude)
+        } else return [];
+        try {
+            const distanceThreshold = 5000;
+            const userLongitude = geocodeResult.longitude;
+            const userLatitude = geocodeResult.latitude;
+          
+            // Convert the distance in meters to radians (for use with $geoWithin)
+            const distanceInRadians = distanceThreshold / 6371000; // 6371000 is the approximate radius of the Earth in meters
+          
+            const sessions = await Session.find({
+              city: {
+                $geoWithin: {
+                  $centerSphere: [[userLongitude, userLatitude], distanceInRadians]
+                }
+              }
+            });
+            console.log(sessions)
+            return sessions;
+          } catch (error) {
+            console.error('Error fetching nearby sessions:', error);
+            return null;
+          }
+        // let sessions = await Session.find();
+        // return sessions;
     },
     addSession: async function (session) {
         const newSession = new Session({
