@@ -73,7 +73,7 @@ export default function SignUp() {
         const data = await response.json();
         setErrorText(data.error);
       } else {
-        navigate('/');
+        navigate('/profile');
       }
     } catch (error) {
       alert(error);

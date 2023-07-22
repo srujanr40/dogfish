@@ -68,7 +68,7 @@ export default function Login() {
                 setErrorText(data.error);
             } else {
                 setDisplayError(false);
-                navigate('/');
+                navigate('/dashboard');
             }
         } catch (error) {
             alert('Error occurred during login.');

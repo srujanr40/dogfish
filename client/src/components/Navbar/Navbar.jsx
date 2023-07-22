@@ -96,7 +96,7 @@ export default function Navbar() {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            <Link to="/"><img src={logo} height="70px"/></Link>
+            <Link to="/dashboard"><img src={logo} height="70px"/></Link>
           </Typography>
           <Search>
             <SearchIconWrapper>
