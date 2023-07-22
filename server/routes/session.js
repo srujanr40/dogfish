@@ -1,9 +1,12 @@
+const sessionRecommendationAlgorithm = require('../algorithms/sessionRecommendationAlgorithm');
+
 const express = require('express');
+const sessionQueries = require('../mongo/queries/sessionQueries');
 const router = express.Router();
 const { v4: uuidv4 } = require('uuid');
 
 const image = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnRjjzK1bkG_CBDBHsxCD_lW9DtGRS-kiqbA&usqp=CAU'
-const sessions = [
+const oldSessions = [
     {
         name: "Frisbee Meetup",
         description: "Ultimate at the field behind the Nest, going to meet around 3pm tomorrow",
@@ -15,8 +18,7 @@ const sessions = [
         image: image,
         sport: "Frisbee",
         joined: false,
-        dateTime:" dayjs('2022-04-17T15:30')",
-        type: "outdoor",
+        dateTime:" dayjs('2022-04-17T15:30')"
     },
     {
         name: "Frisbee",
@@ -29,8 +31,7 @@ const sessions = [
         image: image,
         sport: "Frisbee",
         joined: false,
-        dateTime:" dayjs('2022-04-17T15:30')",
-        type: "indoor",
+        dateTime:" dayjs('2022-04-17T15:30')"
     },
     {
         name: "Soccer Evening",
@@ -43,8 +44,7 @@ const sessions = [
         image: image,
         sport: "Soccer",
         joined: false,
-        dateTime:" dayjs('2022-04-17T15:30')",
-        type: "outdoor"
+        dateTime:" dayjs('2022-04-17T15:30')"
     },
     {
       name: "Basketball",
@@ -156,26 +156,49 @@ const featuredSessions = [
 ]
 
 // GET all sessions
-router.get('/', function (req, res, next) {
-    if (req.query) {
-        let filteredSessions = sessions.filter(session => session.sport === req.query.sport)
-        return res.status(200).send(filteredSessions)
-    } 
-  return res.status(200).send(sessions);
+router.get('/', async function (req, res, next) {
+    if (req.query.sport) {
+        let filteredSessions = await sessionQueries.getSessions({sport: req.query.sport});
+        return res.status(200).send(filteredSessions);
+    }
+    let sessions = await sessionQueries.getSessions({});
+    return res.status(200).send(sessions);
 });
 
 // ADD a new session
-router.post('/', function (req, res, next) {
-    let new_session = req.body
-    new_session.groupId = uuidv4()
-    sessions.push(new_session)
+router.post('/', async function (req, res, next) {
+    let new_session = req.body;
+    await sessionQueries.addSession(new_session);
 
     return res.status(200).send(new_session);
 });
 
+// UPDATE a session
+router.patch('/', async function (req, res, next) {
+    let session = req.body;
+    await sessionQueries.updateSession(session);
+
+    return res.status(200).send(session);
+});
+
 // GET featured sessions
-router.get('/featured', function (req, res, next) {
+router.post('/featured', function (req, res, next) {
+    let profile = req.body.profile;
+    let sessions = req.body.sessions;
+
+    let featuredSessions = sessionRecommendationAlgorithm(profile, sessions, 3);
+
     return res.status(200).send(featuredSessions);
+});
+
+// GET Recommended session for magic join
+router.post('/recommended', function (req, res, next) {
+    let profile = req.body.profile;
+    let sessions = req.body.sessions;
+
+    let session = sessionRecommendationAlgorithm(profile, sessions, 1)[0];
+
+    return res.status(200).send(session);
 });
 
 module.exports = router;

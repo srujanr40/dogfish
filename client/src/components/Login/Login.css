@@ -1,0 +1,30 @@
+.LoginScreen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    height: 100vh;
+    background-color: #DD4D2B;
+}
+
+.LoginContainer {
+    width: 400px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: whitesmoke;
+    border-radius: 20px;
+
+}
+
+.loginButton {
+    display: flex;
+    flex-direction: column;
+    margin: 1;
+    justify-content: center;
+    align-items: center;
+
+}

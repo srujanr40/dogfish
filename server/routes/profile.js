@@ -1,7 +1,8 @@
 const express = require('express');
+const profileQueries = require('../mongo/queries/profileQueries');
 const router = express.Router();
 
-var profile = {
+var oldProfile = {
     name: 'Taqdeer',
     equipment: ['Rackets'],
     interests: ['Handball', 'Badminton'],
@@ -9,15 +10,34 @@ var profile = {
     image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTiYqZov0ldg_3RvHvEAnc98CAcPe9XrCcOFdzguShdQ&s"
 } 
 
+var profile = {
+    name: '',
+    equipment: [],
+    interests: [],
+    location: '',
+    image: ""
+}
+
 
 // GET profile data
-router.get('/', function (req, res, next) {
+router.get('/', async function (req, res, next) {
+    if (profile.name !== '') {
+        return res.status(200).send(profile);
+    }
+    profile = await profileQueries.getProfile('Taqdeer')
     return res.status(200).send(profile);
 });
 
 // UPDATE profile data
-router.patch('/', function (req, res, next) {
-    profile = req.body
+router.patch('/', async function (req, res, next) {
+    profile = {
+        name: req.body.name,
+        equipment: req.body.equipment,
+        interests: req.body.interests,
+        location: req.body.location,
+        image: req.body.image
+    }
+    await profileQueries.updateProfile(req.body);
     return res.status(201).send(profile);
 });
 
