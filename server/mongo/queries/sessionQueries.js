@@ -3,13 +3,14 @@ const Session = require('../models/sessionModel');
 const sessionQueries = {
     getSessions: async function (filter) {
         let sessions;
+        console.log("*************************")
+        console.log(filter.filter)
         if(filter.filter == ''){
             sessions = await Session.find()
         }
         else{      
             sessions = await Session.find({ sport: filter.filter });
         }
-
         if (sessions === null) {
             profile = [];
         }

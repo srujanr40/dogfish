@@ -1,13 +1,9 @@
-const getSessions = async (filter) => {
-
-    console.log(filter)
+const getSessions = async (filter = '') => {
     const queryParams = new URLSearchParams({ filter: filter });
     const url = `http://localhost:3001/session?${queryParams}`;
     var response = {}  
     response = await fetch(url)
     response = await response.json()
-    // console.log("^^^^^^^^^^^^^^^^^^^")
-    // console.log(response)
     return response
 }
 

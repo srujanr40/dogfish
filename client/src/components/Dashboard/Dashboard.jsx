@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../Navbar/Navbar.jsx";
 import Featured from "../FeaturedCard/Featured.jsx";
+import Card from "../Card/Card.jsx";
 import SessionCard from "../SessionCard/SessionCard.jsx";
 import Filter from "../Filter/Filter.jsx";
 import "./Dashboard.css";
@@ -18,10 +19,6 @@ export default function Dashboard() {
 
   const [isCreateSessionModalOpen, setIsCreateSessionModalOpen] =
     useState(false);
-  const [isSessionMoreInfoModalOpen, setIsSessionMoreInfoModalOpen] =
-    useState(false);
-  const [selectedSessionId, setSelectedItemId] = useState(null);
-  const profile = useSelector((store) => store.profileReducer).profile;
   const sessions = useSelector((store) => store.sessionReducer).sessions;
 
   const dispatch = useDispatch();
@@ -66,95 +63,35 @@ export default function Dashboard() {
     setIsCreateSessionModalOpen(false);
   };
 
-  const openSessionMoreInfoModal = (itemId) => {
-    setSelectedItemId(itemId);
-    setIsSessionMoreInfoModalOpen(true);
-  };
-
-  const closeSessionMoreInfoModal = () => {
-    setSelectedItemId(null);
-    setIsSessionMoreInfoModalOpen(false);
-  };
-
-  // only display sessions not joined
-
   return (
     <div className="container">
       <Navbar />
+      <div className="createSessionButton">
+        {!isCreateSessionModalOpen && (
+          <Fab
+            variant="extended"
+            color="primary"
+            aria-label="create"
+            onClick={openCreateSessionModal}
+          >
+            <AddIcon />
+            Create Session
+          </Fab>
+        )}
+
+        {isCreateSessionModalOpen && (
+          <div>
+            <CreateSessionPopup closeModal={closeCreateSessionModal} />
+          </div>
+        )}
+      </div>
       <div className="featuredContainer">
         <Featured />
       </div>
       <div className="sessionsContainer">
-        <div className="featuredAndCreate">
-          <h3>Activities near you</h3>
-          {!isCreateSessionModalOpen && (
-            <Fab
-              variant="extended"
-              color="primary"
-              aria-label="create"
-              onClick={openCreateSessionModal}
-            >
-              <AddIcon />
-              Create Session
-            </Fab>
-          )}
-
-          {isCreateSessionModalOpen && (
-            <div>
-              <CreateSessionPopup closeModal={closeCreateSessionModal} />
-            </div>
-          )}
-        </div>
-        <Divider />
-        <ul className="sessionsList">
-          {sessions.map((element, index) => (
-            <SessionCard
-              key={index}
-              session={element}
-              onMoreInfo={openSessionMoreInfoModal}
-            />
-          ))}
-        </ul>
-        <h3>Frisbee</h3>
-        <Divider />
-        <ul className="sessionsList">
-          {frisbeeSessions.map((element, index) => (
-            <SessionCard
-              key={index}
-              session={element}
-              onMoreInfo={openSessionMoreInfoModal}
-            />
-          ))}
-        </ul>
-
-        {isSessionMoreInfoModalOpen && (
-          <div>
-            <SessionMoreInfoPopup
-              sessionID={selectedSessionId}
-              closeModal={closeSessionMoreInfoModal}
-            />
-          </div>
-        )}
-        <h3>Soccer</h3>
-        <Divider />
-        <ul className="sessionsList">
-          {soccerSessions.map((element, index) => (
-            <SessionCard
-              key={index}
-              session={element}
-              onMoreInfo={openSessionMoreInfoModal}
-            />
-          ))}
-        </ul>
-
-        {isSessionMoreInfoModalOpen && (
-          <div>
-            <SessionMoreInfoPopup
-              sessionID={selectedSessionId}
-              closeModal={closeSessionMoreInfoModal}
-            />
-          </div>
-        )}
+        <Card sessions={sessions} name={'All'} />
+        <Card sessions={frisbeeSessions} name={'Frisbee'} />
+        <Card sessions={soccerSessions} name={'Soccer'} />
       </div>
     </div>
   );
