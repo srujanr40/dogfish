@@ -1,4 +1,5 @@
 
+const axios = require('axios');
 const getGeocode = async (address) => {
     try {
       const apiUrl = 'https://maps.googleapis.com/maps/api/geocode/json';
@@ -6,7 +7,7 @@ const getGeocode = async (address) => {
       const response = await axios.get(apiUrl, {
         params: {
           address,
-          key: "AIzaSyDK3owllk7Xn-ZzsAHRjZ3YzZx_4DRMVV0",
+          key: "",
         },
       });
   
@@ -22,3 +23,5 @@ const getGeocode = async (address) => {
       return null;
     }
   };
+
+module.exports = getGeocode;
