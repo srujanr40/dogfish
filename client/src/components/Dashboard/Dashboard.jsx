@@ -19,7 +19,6 @@ export default function Dashboard() {
 
   const [isCreateSessionModalOpen, setIsCreateSessionModalOpen] =
     useState(false);
-  const sessions = useSelector((store) => store.sessionReducer).sessions;
 
   const dispatch = useDispatch();
 
