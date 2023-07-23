@@ -32,6 +32,14 @@ export default function Dashboard() {
       .catch((error) => {
         console.error('Error fetching near you sessions:', error);
       });
+    dispatch(getSessionsAsync(''))
+    .then((sessions) => {
+      const all = sessions.payload
+      setAllSessions(all);
+    })
+    .catch((error) => {
+      console.error('Error fetching near you sessions:', error);
+    });
 
     dispatch(getSessionsAsync('Frisbee'))
       .then((sessions) => {
@@ -54,6 +62,7 @@ export default function Dashboard() {
   const [nearYouSessions, setNearYouSessions] = useState([]);
   const [frisbeeSessions, setFrisbeeSessions] = useState([]);
   const [soccerSessions, setSoccerSessions] = useState([]);
+  const [allSessions, setAllSessions] = useState([]);
 
   const openCreateSessionModal = () => {
     setIsCreateSessionModalOpen(true);
@@ -92,7 +101,7 @@ export default function Dashboard() {
         <Card sessions={nearYouSessions} name={'Activities near you'} />
         <Card sessions={frisbeeSessions} name={'Frisbee'} />
         <Card sessions={soccerSessions} name={'Soccer'} />
-        <Card sessions={sessions} name={'All'} />
+        <Card sessions={allSessions} name={'All'} />
       </div>
     </div>
   );
