@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
 const sessionSchema = new mongoose.Schema({
     name: {
@@ -18,7 +19,7 @@ const sessionSchema = new mongoose.Schema({
         required: true,
     },
     equipment: {
-        type: [String],
+        type: [Schema.Types.Mixed],
         required: true,
     },
     playersNeeded: {
