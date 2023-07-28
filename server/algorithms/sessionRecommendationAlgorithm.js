@@ -29,8 +29,10 @@ function sessionRecommendationAlgorithm(profile, sessions, number) {
         let sessionScore = 0;
 
         profile.equipment.forEach((item) => {
+            if (session.equipment) {
             if (session.equipment[0].includes(item)) {
                 sessionScore = sessionScore + pointValues.MATCHING_EQUIPMENT;
+            }
             }
         })
 

@@ -68,6 +68,7 @@ export default function Login() {
                 setErrorText(data.error);
             } else {
                 setDisplayError(false);
+                localStorage.setItem("currentUser", email);
                 navigate('/dashboard');
             }
         } catch (error) {

@@ -21,6 +21,7 @@ router.post('/', async (req, res) => {
       const newProfile = new Profile({
         email,
         password: hashedPassword,
+        name: '',
         equipment: [],
         interests: [],
         location: '',
