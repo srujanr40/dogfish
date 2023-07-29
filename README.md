@@ -1,5 +1,9 @@
 # dogFish
 
+## High level Description
+
+Dogfish is a place to meet with others for all sport activities. Do you lack the equipment or people to play your favourite sport? Dogfish can match you with what you need and have fun!
+
 ## Project Description
 
 This application is for people trying to find other people to play a sport with (especially groups that aren’t formal). It will provide a platform for people who want groups to play casual sports with to find each other, share equipment, organize locations and dates to play together. Users will be able to create sessions manually, and others can either join those sessions manually or through an automatic matching algorithm based on user preferences and equipment. The application will store data on usernames, emails, ages, sports equipment, locations, preferred sports and groups, user groups and teams, lists of sports, equipments, and available sessions, and chat histories. With this data, users will be able to access their account, view and join available games, create new sessions, chat with their groups, and update their profile information and preferences. Some additional functionality that can be added based on time constraints are google map integrations for locations, public forums to discuss popular sports, and mobile/email login authentication instead of plaintext ID.
