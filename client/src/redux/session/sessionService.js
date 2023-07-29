@@ -1,9 +1,9 @@
 const getSessions = async (sport = '') => {
     var response = {}
     if (sport !== "") {
-        response = await fetch('http://localhost:3001/session' + '?sport=' + sport)
+        response = await fetch(`${process.env.REACT_APP_REST_API_URL}/session` + '?sport=' + sport)
     } else {
-        response = await fetch('http://localhost:3001/session')
+        response = await fetch(`${process.env.REACT_APP_REST_API_URL}/session`)
     }
 
     return await response.json()
@@ -15,7 +15,7 @@ const getFeaturedSessions = async (profile, sessions) => {
         sessions: sessions
     }
 
-    const response = await fetch('http://localhost:3001/session/featured', {
+    const response = await fetch(`${process.env.REACT_APP_REST_API_URL}/session/featured`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -31,7 +31,7 @@ const getRecommendedSession = async (profile, sessions) => {
         profile: profile,
         sessions: sessions
     }
-    const response = await fetch('http://localhost:3001/session/recommended', {
+    const response = await fetch(`${process.env.REACT_APP_REST_API_URL}/session/recommended`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -43,7 +43,7 @@ const getRecommendedSession = async (profile, sessions) => {
 }
 
 const createNewSession = async (new_session) => {
-    var response = await fetch('http://localhost:3001/session', {
+    var response = await fetch(`${process.env.REACT_APP_REST_API_URL}/session`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -55,7 +55,7 @@ const createNewSession = async (new_session) => {
 }
 
 const updateSession = async (session) => {
-    var response = await fetch('http://localhost:3001/session', {
+    var response = await fetch(`${process.env.REACT_APP_REST_API_URL}/session`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json"
