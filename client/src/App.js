@@ -17,7 +17,7 @@ function App() {
     <Router>
         <main>
           <Routes>
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/join" element={<JoinSession />} />
             <Route path="/mysessions" element={<MySessions />} />
