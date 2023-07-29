@@ -1,0 +1,24 @@
+{
+  "name": "dogfish",
+  "version": "1.0.0",
+  "description": "This application is for people trying to find other people to play a sport with.",
+  "main": "index.js",
+  "scripts": {
+    "install-server": "cd server && npm install",
+    "start-server": "cd server && npm run start",
+    "install-client": "cd client && npm install",
+    "build-client": "cd client && npm run build",
+    "start-client": "cd client && npm run start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/srujanr40/dogfish.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/srujanr40/dogfish/issues"
+  },
+  "homepage": "https://github.com/srujanr40/dogfish#readme"
+}
