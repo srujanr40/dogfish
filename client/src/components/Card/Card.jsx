@@ -6,9 +6,6 @@ import SessionMoreInfoPopup from "../SessionMoreInfo/SessionMoreInfoPopup.jsx";
 
 
 export default function Card (props) {
-
-    const [isCreateSessionModalOpen, setIsCreateSessionModalOpen] =
-        useState(false);
     const [isSessionMoreInfoModalOpen, setIsSessionMoreInfoModalOpen] =
         useState(false);
     const [selectedSessionId, setSelectedItemId] = useState(null);

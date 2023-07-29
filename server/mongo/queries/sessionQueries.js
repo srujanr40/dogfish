@@ -1,4 +1,5 @@
 const Session = require('../models/sessionModel');
+const getGeocode = require('../queries/apis/google_api')
 
 const sessionQueries = {
     getSessions: async function (filter) {
@@ -15,30 +16,67 @@ const sessionQueries = {
         return sessions;
     },
     getNearBySessions: async function() {
-        let sessions = await Session.find();
-        return sessions;
-    },
+        const geocodeResult = await getGeocode('V6T1K2');
+        if (!geocodeResult) {
+          console.error('Invalid location data.');
+          return [];
+        }
+      
+        try {
+          const distanceThreshold = 10000;
+          const userLongitude = geocodeResult.longitude;
+          const userLatitude = geocodeResult.latitude;
+      
+          // Convert the distance in meters to radians (for use with $geoWithin)
+          const distanceInRadians = distanceThreshold / 6371000; // 6371000 is the approximate radius of the Earth in meters
+      
+          const sessions = await Session.find({
+            location_coordinates: {
+              $geoWithin: {
+                $centerSphere: [[userLongitude, userLatitude], distanceInRadians]
+              }
+            }
+          });
+          return sessions;
+        } catch (error) {
+          console.error('Error fetching nearby sessions:', error);
+          return null;
+        }
+    },      
     addSession: async function (session) {
+        const geocodeResult = await getGeocode(session.location);
+        if (!geocodeResult) {
+          console.error('Invalid location data.');
+        }
+      
+        const { longitude, latitude } = geocodeResult;
+      
         const newSession = new Session({
-            name: session.name,
-            description: session.description,
-            city: session.city,
-            location: session.location,
-            equipment: session.equipment,
-            playersNeeded: session.playersNeeded,
-            groupId: session.groupId,
-            image: session.image,
-            sport: session.sport,
-            members: session.members,
-            dateTime: session.dateTime
+          name: session.name,
+          description: session.description,
+          city: session.city,
+          location: session.location,
+          location_coordinates: {
+            type: 'Point',
+            coordinates: [longitude, latitude],
+          },
+          equipment: session.equipment,
+          playersNeeded: session.playersNeeded,
+          groupId: session.groupId,
+          image: session.image,
+          sport: session.sport,
+          members: session.members,
+          dateTime: session.dateTime,
         });
-        newSession.save()
-            .then((savedSession) => {
-                console.log('Session saved:', savedSession);
-            })
-            .catch((error) => {
-                console.error('Error saving session:', error);
-            })
+      
+        newSession
+          .save()
+          .then((savedSession) => {
+            console.log('Session saved:', savedSession);
+          })
+          .catch((error) => {
+            console.error('Error saving session:', error);
+          });
     },
     updateSession: async function (session) {
         Session.findOneAndUpdate(
@@ -48,6 +86,7 @@ const sessionQueries = {
                 description: session.description,
                 city: session.city,
                 location: session.location,
+                location_coordinates: session.location_coordinates,
                 equipment: session.equipment,
                 playersNeeded: session.playersNeeded,
                 image: session.image,
