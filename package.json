@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/srujanr40/dogfish/issues"
   },
-  "homepage": "https://github.com/srujanr40/dogfish#readme"
+  "homepage": "https://github.com/srujanr40/dogfish#readme",
+  "dependencies": {
+    "dotenv": "^16.3.1"
+  }
 }

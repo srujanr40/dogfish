@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
+import 'dotenv/config'
 
 const containerStyle = {
   width: '400px',
