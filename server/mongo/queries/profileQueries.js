@@ -1,8 +1,8 @@
 const Profile = require('../models/profileModel');
 
 const profileQueries = {
-    getProfileByEmail: async function (email) {
-        let profile = await Profile.findOne({ email: email });
+    getProfile: async function (name) {
+        let profile = await Profile.findOne({ name: name });
         if (profile === null) {
             profile = {
                 name: '',

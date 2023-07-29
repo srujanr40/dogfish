@@ -42,7 +42,7 @@ export default function Dashboard() {
     setIsSessionMoreInfoModalOpen(false);
   };
 
-  
+  // only display sessions not joined
 
   return (
     <div className="container">

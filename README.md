@@ -24,10 +24,11 @@ This application is for people trying to find other people to play a sport with 
 ### Standard
 
 1. Google Maps integration for user and sports facilities locations
-2. Users looking to join a session get automatically assigned to groups with matching preferences (location, equipment, etc.)
-3. Add animations to improve User Experience
-4. Users should be able to chat with users in user groups
-5. If users want to manually join group, they should be able to filter/sort from available sessions.
+2. If any costs were incurred as a result of a session, the users are notified of the split costs they owe to the session organizer
+3. Users looking to join a session get automatically assigned to groups with matching preferences (location, equipment, etc.)
+4. Add animations to improve User Experience
+5. Users should be able to chat with users in user groups
+6. If users want to manually join group, they should be able to filter/sort from available sessions.
 
 ### Stretch
 

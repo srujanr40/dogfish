@@ -21,23 +21,12 @@ var profile = {
 
 // GET profile data
 router.get('/', async function (req, res, next) {
-    const email = req.query.email;
-
-    if (!email) {
-        return res.status(400).send('Email parameter is missing.');
-    }
-
-    try {
-        const profile = await profileQueries.getProfileByEmail(email);
-        if (!profile) {
-            return res.status(404).send('Profile not found.');
-        }
+    if (profile.name !== '') {
         return res.status(200).send(profile);
-    } catch (err) {
-        return res.status(500).send('Internal server error.');
     }
+    profile = await profileQueries.getProfile('Taqdeer')
+    return res.status(200).send(profile);
 });
-
 
 // UPDATE profile data
 router.patch('/', async function (req, res, next) {
