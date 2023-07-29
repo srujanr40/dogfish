@@ -22,9 +22,6 @@ const sessionQueries = {
           return [];
         }
       
-        console.log(geocodeResult.latitude);
-        console.log(geocodeResult.longitude);
-      
         try {
           const distanceThreshold = 10000;
           const userLongitude = geocodeResult.longitude;
