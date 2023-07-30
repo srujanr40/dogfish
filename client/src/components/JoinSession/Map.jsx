@@ -9,7 +9,7 @@ const containerStyle = {
 export default function Map(props) {
   const [center, setCenter] = useState(null);
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: process.env.GOOGLE_MAPS_API,
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API,
   });
 
   useEffect(() => {
