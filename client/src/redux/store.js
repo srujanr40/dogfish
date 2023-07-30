@@ -5,12 +5,14 @@ import sessionReducer from './session/sessionReducer';
 import profileReducer from './profile/profileReducer';
 import chatReducer from "./chat/chatReducer";
 import authReducer from "./auth/authReducer"
+import forumReducer from "./forum/forumReducer";
 
 const rootReducer = combineReducers({
     sessionReducer,
     profileReducer,
     chatReducer,
-    auth: authReducer
+    auth: authReducer,
+    forumReducer,
 });
 
 const store = configureStore({

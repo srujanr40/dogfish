@@ -117,6 +117,11 @@ export default function Navbar() {
               My Sessions
             </MenuItem>
           </Link>
+          <Link to="/forum" style={{ color: 'white' }}>
+            <MenuItem>
+              Forum
+            </MenuItem>
+          </Link>
           <IconButton
             size="large"
             aria-label="account of current user"
