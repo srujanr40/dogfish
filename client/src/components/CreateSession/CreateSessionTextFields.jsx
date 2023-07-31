@@ -92,7 +92,7 @@ export default function CreateSessionTextFields(props) {
             image: session_image,
             sport: session_sport,
             dateTime: session_date_time,
-            members: [profile.name],
+            members: [profile],
             groupId: groupId,
         };
 

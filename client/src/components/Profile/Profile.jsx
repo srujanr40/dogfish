@@ -12,12 +12,12 @@ export default function Profile() {
   const profile = useSelector((store) => store.profileReducer).profile;
 
   const [formData, setFormData] = useState({
+    email: profile.email || '',
     name: profile.name || '',
     equipment: profile.equipment || [],
     interests: profile.interests || [],
     location: profile.location || '',
-    image: profile.image || '',
-    storedName: profile.name || '',
+    image: profile.image || ''
   });
   const [selectedEquipment, setSelectedEquipment] = useState('');
   const [interest, setInterest] = useState('');
@@ -54,7 +54,6 @@ export default function Profile() {
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(updateProfileAsync(formData)).then(() => {
-      formData.storedName = formData.name;
       window.location.reload(false);
     });
   };

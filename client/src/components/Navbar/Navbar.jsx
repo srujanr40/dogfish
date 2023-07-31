@@ -81,7 +81,7 @@ export default function Navbar() {
 
   const updateSession = () => {
     let session = recommendedSession;
-    let updatedMembers = [...session.members, profile.name];
+    let updatedMembers = [...session.members, profile];
     let updatedSession = { ...session, members: updatedMembers };
     dispatch(updateSessionAsync(updatedSession));
   }
