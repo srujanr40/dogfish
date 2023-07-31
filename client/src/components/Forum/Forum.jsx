@@ -1,3 +1,4 @@
+import './Forum.css';
 import Navbar from "../Navbar/Navbar";
 import React, {useEffect, useState} from "react";
 import AppBar from "@mui/material/AppBar";
@@ -7,9 +8,8 @@ import Box from "@mui/material/Box";
 import {useDispatch, useSelector} from "react-redux";
 import {Input, MessageList} from "react-chat-elements";
 import Button from "@mui/material/Button";
-// import {getChatAsync, updateChatAsync} from "../../redux/chat/chatThunks";
-import {createNewForumAsync, getForumAsync, updateForumAsync} from "../../redux/forum/forumThunks";
-import {createNewChatAsync} from "../../redux/chat/chatThunks";
+import {getForumAsync, updateForumAsync} from "../../redux/forum/forumThunks";
+import Divider from "@mui/material/Divider";
 
 const listReference = React.createRef();
 const inputReference = React.createRef();
@@ -18,15 +18,8 @@ export default function Forum() {
     const dispatch = useDispatch();
     const [currentForum, setCurrentForum] = useState("basketball");
     const profile = useSelector(state => state.profileReducer).profile;
-    let forums = useSelector(state => state.forumReducer);
-    // console.log(forums)
-    if (forums === undefined) {
-        chat = []
-    } else {
-        forums = forums.chats
-    }
-    // let chats = useSelector(state => state.chatReducer).chats;
-    let chat = forums.find(element => element.groupId === currentForum)
+    let chats = useSelector(state => state.forumReducer).chats;
+    let chat = chats.find(element => element.groupId === currentForum)
     if (chat === undefined) {
         chat = []
     } else {
@@ -78,44 +71,56 @@ export default function Forum() {
         });
     }
 
+    function handleClick(event, selection) {
+        setCurrentForum(selection)
+    }
+
     return (
         <div>
             <Navbar/>
             <div>
                 <div className="forumBar">
                     <Box sx={{flexGrow: 1}}>
-                        <AppBar position="static" sx={{backgroundColor: '#FFFFFF', color: '#253341'}}>
+                        <AppBar position="static" sx={{
+                            backgroundColor: '#FFFFFF', color: '#253341', height: '7vh',
+                            justifyContent: 'center'
+                        }}>
                             <Toolbar>
-                                <MenuItem onClick={() => setCurrentForum("basketball")}>
+                                <MenuItem selected={currentForum === "basketball"}
+                                          onClick={(event) => handleClick(event, "basketball")}>
                                     Basketball
                                 </MenuItem>
-                                <MenuItem onClick={() => {
-                                    console.log('ff')
-                                    setCurrentForum("soccer")
-                                }}>
+                                <MenuItem selected={currentForum === "soccer"}
+                                          onClick={(event) => handleClick(event, "soccer")}>
                                     Soccer
                                 </MenuItem>
-                                <MenuItem onClick={() => setCurrentForum("frisbee")}>
+                                <MenuItem selected={currentForum === "frisbee"}
+                                          onClick={(event) => handleClick(event, "frisbee")}>
                                     Frisbee
                                 </MenuItem>
-                                <MenuItem onClick={() => setCurrentForum("baseball")}>
+                                <MenuItem selected={currentForum === "baseball"}
+                                          onClick={(event) => handleClick(event, "baseball")}>
                                     Baseball
                                 </MenuItem>
-                                <MenuItem onClick={() => setCurrentForum("tennis")}>
+                                <MenuItem selected={currentForum === "tennis"}
+                                          onClick={(event) => handleClick(event, "tennis")}>
                                     Tennis
                                 </MenuItem>
-                                <MenuItem onClick={() => setCurrentForum("volleyball")}>
+                                <MenuItem selected={currentForum === "volleyball"}
+                                          onClick={(event) => handleClick(event, "volleyball")}>
                                     Volleyball
                                 </MenuItem>
-                                <MenuItem onClick={() => setCurrentForum("other")}>
+                                <MenuItem selected={currentForum === "other"}
+                                          onClick={(event) => handleClick(event, "other")}>
                                     Other
                                 </MenuItem>
                             </Toolbar>
                         </AppBar>
                     </Box>
                 </div>
-                <div>
-                    <Box sx={{overflow: "auto"}}>
+                <Divider sx={{backgroundColor: 'lightgray', height: '0.1vh'}}/>
+                <div style={{paddingTop: '1.5vh', backgroundColor: 'whitesmoke'}}>
+                    <Box sx={{height: 560, overflow: "auto"}}>
                         <MessageList
                             referance={listReference}
                             className='message-list'
@@ -125,9 +130,13 @@ export default function Forum() {
 
                     </Box>
 
-                    <Box>
+                    <Box sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        paddingLeft: '2vw',
+                        paddingRight: '2vw',
+                    }}>
                         <Input
-                            className='rce-example-input'
                             placeholder='Write your message here.'
                             defaultValue=''
                             referance={inputReference}
@@ -141,7 +150,7 @@ export default function Forum() {
                                 }
                             }}
 
-                            rightButtons={<Button sx={{
+                            rightButtons={<Button sx={{ width: '8vw',
                                 color: 'white', backgroundColor: 'lightsalmon', '&:hover': {
                                     backgroundColor: '#ffc4ad'
                                 }, textTransform: 'none'

@@ -8,10 +8,8 @@ import { Link, useLocation } from "react-router-dom";
 import "react-chat-elements/dist/main.css"
 import { MessageList, Input } from "react-chat-elements"
 import Button from "@mui/material/Button";
-import {addChatAsync, createNewChatAsync} from "../../redux/chat/chatThunks";
 import Map from "./Map"
 import { getChatAsync, updateChatAsync } from "../../redux/chat/chatThunks";
-import {createNewSessionAsync} from "../../redux/session/sessionThunks";
 const listReference = React.createRef();
 const inputReference = React.createRef();
 
@@ -116,7 +114,6 @@ export default function JoinSession() {
 
                     <Box>
                         <Input
-                            className='rce-example-input'
                             placeholder='Write your message here.'
                             defaultValue=''
                             referance={inputReference}
