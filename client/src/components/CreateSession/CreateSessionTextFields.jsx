@@ -82,7 +82,6 @@ export default function CreateSessionTextFields(props) {
 
         const groupId = uuidv4();
         let parsedEquipment = equipmentParse(session_equipment_needed)
-        console.log(session_location.label)
 
         const new_session = {
             name: session_name,
