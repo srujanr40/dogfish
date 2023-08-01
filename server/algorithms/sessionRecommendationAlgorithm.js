@@ -60,7 +60,7 @@ function sessionRecommendationAlgorithm(profile, sessions, number) {
             }
 
             if (prevSession.members && session.members) {
-                sessionScore = sessionScore + prevSession.members.filter(prevMember => session.members.some(member => member && member.email === prevMember.email)).length * pointValues.HISTORY_SIMILARITY;
+                sessionScore = sessionScore + prevSession.members.filter(prevMember => session.members.some(member => member && prevMember && member.email === prevMember.email)).length * pointValues.HISTORY_SIMILARITY;
             }
 
             if (session.sport && prevSession.sport && session.sport === prevSession.sport) {
