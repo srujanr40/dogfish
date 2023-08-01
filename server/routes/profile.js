@@ -42,6 +42,7 @@ router.get('/', async function (req, res, next) {
 // UPDATE profile data
 router.patch('/', async function (req, res, next) {
     profile = {
+        email: req.body.email,
         name: req.body.name,
         equipment: req.body.equipment,
         interests: req.body.interests,

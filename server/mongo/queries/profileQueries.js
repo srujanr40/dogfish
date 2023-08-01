@@ -16,6 +16,7 @@ const profileQueries = {
     },
     addProfile: async function (profile) {
         const newProfile = new Profile({
+            email: profile.email,
             name: profile.name,
             equipment: profile.equipment,
             interests: profile.interests,
@@ -32,7 +33,7 @@ const profileQueries = {
     },
     updateProfile: async function (profile) {
         Profile.findOneAndUpdate(
-            { name: profile.storedName },
+            { email: profile.email },
             { name: profile.name, equipment: profile.equipment, interests: profile.interests, location: profile.location, image: profile.image },
             { new: true })
             .then((updatedProfile) => {

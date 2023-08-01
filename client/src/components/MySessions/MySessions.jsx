@@ -31,9 +31,9 @@ export default function MySessions() {
 
     // filters so that only sessions that are joined are displayed
     const joinedSessions = sessions.filter(
-        (element) => element.members && element.members.includes(profile.name)
-      );
-    
+        (element) => element.members && element.members.some(member => member && member.email === profile.email)
+    );
+
 
 
     return (
@@ -42,16 +42,16 @@ export default function MySessions() {
             <div className="sessionsCont">
                 <ul className="sessions">
                     {joinedSessions.map((element, index) => (
-                        <SessionCard key={index} session={element} onMoreInfo={openSessionMoreInfoModal} /> 
+                        <SessionCard key={index} session={element} onMoreInfo={openSessionMoreInfoModal} />
                     ))}
-                </ul>            
+                </ul>
 
                 {isSessionMoreInfoModalOpen && (
-                <div>
-                    <SessionMoreInfoPopup sessionID={selectedSessionId} closeModal={closeSessionMoreInfoModal} />
-                </div>
+                    <div>
+                        <SessionMoreInfoPopup sessionID={selectedSessionId} closeModal={closeSessionMoreInfoModal} />
+                    </div>
                 )}
-                
+
             </div>
         </div>
     )

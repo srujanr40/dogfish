@@ -24,19 +24,19 @@ export default function SessionCard(props) {
 
   function joinButton() {
     let session = props.session;
-    let updatedMembers = [...session.members, profile.name];
+    let updatedMembers = [...session.members, profile];
     let updatedSession = { ...session, members: updatedMembers };
     dispatch(updateSessionAsync(updatedSession));
   }
 
   const leaveButton = () => {
     let session = props.session;
-    let updatedMembers = session.members.filter((member) => member !== profile.name);
+    let updatedMembers = session.members.filter((member) => member.email !== profile.email);
     let updatedSession = { ...session, members: updatedMembers };
     dispatch(updateSessionAsync(updatedSession));
   }
 
-  const isMember = props.session.members.includes(profile.name);
+  const isMember = props.session.members.some(member => member && member.email === profile.email)
 
   const formattedDate = new Date(props.session.dateTime).toLocaleDateString('en-US', {
     // weekday: 'short',

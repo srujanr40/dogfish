@@ -39,7 +39,7 @@ const sessionSchema = new mongoose.Schema({
         required: true,
     },
     members: {
-        type: [String],
+        type: [],
         required: true,
     },
     dateTime: {
