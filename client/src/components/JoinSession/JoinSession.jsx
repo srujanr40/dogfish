@@ -141,7 +141,7 @@ export default function JoinSession() {
                     <Map session={session}/>
                 </div>
                 <div className="end">
-                    <Link to={{ pathname: '/' }} style={{ marginRight: '10px', textDecoration: 'none' }}>
+                    <Link to={{ pathname: '/dashboard' }} style={{ marginRight: '10px', textDecoration: 'none' }}>
                         <span className="closeButton">
                             &times;
                         </span>

@@ -14,6 +14,7 @@ import { createNewSessionAsync } from "../../redux/session/sessionThunks";
 import "./CreateSession.css";
 import { createNewChatAsync } from "../../redux/chat/chatThunks";
 import equipmentParse from "../../common/equipmentParse";
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 const { v4: uuidv4 } = require('uuid');
 
 const equipmentInfo = (
@@ -86,13 +87,13 @@ export default function CreateSessionTextFields(props) {
             name: session_name,
             description: session_description,
             city: session_city,
-            location: session_location,
+            location: session_location.label,
             equipment: parsedEquipment,
             playersNeeded: session_players_needed,
             image: session_image,
             sport: session_sport,
             dateTime: session_date_time,
-            members: [profile.name],
+            members: [profile],
             groupId: groupId,
         };
 
@@ -231,20 +232,6 @@ export default function CreateSessionTextFields(props) {
                             }}
                         >
                             <TextField
-                                required
-                                fullWidth
-                                id="session-location"
-                                label="Field Location"
-                                margin="normal"
-                                value={session_location}
-                                onChange={(e) => {
-                                    setLocation(e.target.value);
-                                }}
-                            />
-                            <br />
-
-                            <TextField
-                                required
                                 sx={{
                                     width: 320
                                 }}
@@ -308,6 +295,17 @@ export default function CreateSessionTextFields(props) {
                                     }}
                                 />
                             </LocalizationProvider>
+                            <Box sx={{paddingTop: 1, paddingBottom: 0.5}}>
+                            <GooglePlacesAutocomplete
+                                apiKey= {process.env.REACT_APP_GOOGLE_MAPS_API}
+                                selectProps={{
+                                    session_location,
+                                    onChange: setLocation,
+                                    placeholder:'Location',
+                                }}
+                            />
+                            <br />
+                            </Box>
                         </Box>
                     </Box>
                 </Box>

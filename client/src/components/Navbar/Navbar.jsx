@@ -81,7 +81,7 @@ export default function Navbar() {
 
   const updateSession = () => {
     let session = recommendedSession;
-    let updatedMembers = [...session.members, profile.name];
+    let updatedMembers = [...session.members, profile];
     let updatedSession = { ...session, members: updatedMembers };
     dispatch(updateSessionAsync(updatedSession));
   }
@@ -96,7 +96,7 @@ export default function Navbar() {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            <Link to="/"><img src={logo} height="70px"/></Link>
+            <Link to="/dashboard"><img src={logo} height="70px"/></Link>
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -152,7 +152,9 @@ export default function Navbar() {
                 Profile
               </MenuItem>
             </Link>
+            <Link to="/login" style={{ color: 'black' }}>
             <MenuItem onClick={handleClose}>Log out</MenuItem>
+            </Link>
           </Menu>
         </Toolbar>
       </AppBar>
