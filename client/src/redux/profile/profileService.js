@@ -12,8 +12,6 @@ const getProfile = async () => {
         }
 
         const message = await response.json();
-        console.log(email);
-        console.log(message);
         return message;
     } catch (error) {
         console.error('Error fetching profile:', error.message);
