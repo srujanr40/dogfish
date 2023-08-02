@@ -42,8 +42,6 @@ export default function Dashboard() {
     setIsSessionMoreInfoModalOpen(false);
   };
 
-  
-
   return (
     <div className="container">
       <Navbar />

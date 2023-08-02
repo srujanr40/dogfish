@@ -8,13 +8,15 @@ import { Link, useLocation } from "react-router-dom";
 import "react-chat-elements/dist/main.css"
 import { MessageList, Input } from "react-chat-elements"
 import Button from "@mui/material/Button";
-import { addChatAsync } from "../../redux/chat/chatThunks";
+import { deleteSessionAsync } from "../../redux/session/sessionThunks";
 import Map from "./Map"
+import { useNavigate } from "react-router-dom";
 import { getChatAsync, updateChatAsync } from "../../redux/chat/chatThunks";
 const listReference = React.createRef();
 const inputReference = React.createRef();
 
 export default function JoinSession() {
+    const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useDispatch();
     const searchParams = new URLSearchParams(location.search);
@@ -74,6 +76,13 @@ export default function JoinSession() {
             }
         });
     }
+
+    const handleDeleteSession = async () => {
+        dispatch(deleteSessionAsync(groupId)).then(() => {
+            navigate("/dashboard");
+            navigate(0);
+        })
+    };
 
     return (
         <div className="container">
@@ -140,7 +149,7 @@ export default function JoinSession() {
                     </Box>
                 </div>
                 <div className="splits">
-                    <Map session={session}/>
+                    <Map session={session} />
                 </div>
                 <div className="end">
                     <Link to={{ pathname: '/dashboard' }} style={{ marginRight: '10px', textDecoration: 'none' }}>
@@ -149,6 +158,25 @@ export default function JoinSession() {
                         </span>
                     </Link>
 
+                    {session.owner === profile.email && (
+                        <Button
+                            sx={{
+                                color: 'white',
+                                backgroundColor: 'red',
+                                '&:hover': {
+                                    backgroundColor: '#ff0000'
+                                },
+                                textTransform: 'none',
+                                position: 'absolute',
+                                bottom: '10px',
+                                right: '10px',
+                            }}
+                            variant="contained"
+                            onClick={handleDeleteSession}
+                        >
+                            Delete Session
+                        </Button>
+                    )}
                 </div>
             </div>
         </div>
