@@ -8,6 +8,8 @@ import "../styles.module.css";
 import Divider from "@mui/material/Divider";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
+import Fade from '@mui/material/Fade';
+import { Grid } from "@mui/material";
 import CreateSessionPopup from "../CreateSession/CreateSessionPopup.jsx";
 import SessionMoreInfoPopup from "../SessionMoreInfo/SessionMoreInfoPopup.jsx";
 import { useSelector } from "react-redux";
@@ -40,7 +42,7 @@ export default function Dashboard() {
     setIsSessionMoreInfoModalOpen(false);
   };
 
-  // only display sessions not joined
+  
 
   return (
     <div className="container">
@@ -51,6 +53,7 @@ export default function Dashboard() {
       <div className="sessionsContainer">
         <div className="featuredAndCreate">
           <h3>Activities near you</h3>
+          <Grid sx = {{marginLeft: -20}} container justifyContent="flex-end">
           {!isCreateSessionModalOpen && (
             <Fab
               variant="extended"
@@ -62,12 +65,13 @@ export default function Dashboard() {
               Create Session
             </Fab>
           )}
+          </Grid>
 
-          {isCreateSessionModalOpen && (
+          <Fade in={isCreateSessionModalOpen}>
             <div>
               <CreateSessionPopup closeModal={closeCreateSessionModal} />
             </div>
-          )}
+          </Fade>
         </div>
         <Divider />
         <ul className="sessionsList">
