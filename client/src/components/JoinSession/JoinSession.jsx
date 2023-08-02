@@ -11,6 +11,7 @@ import Button from "@mui/material/Button";
 import { updateSessionAsync, deleteSessionAsync } from "../../redux/session/sessionThunks";
 import Map from "./Map"
 import { getChatAsync, updateChatAsync } from "../../redux/chat/chatThunks";
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 const listReference = React.createRef();
 const inputReference = React.createRef();
 
@@ -102,6 +103,10 @@ export default function JoinSession() {
         });
     };
 
+    const handleGoogleAutocompleteChange = async (location) => {
+        setEditedSession({ ...editedSession, location: location.label })
+    };
+
     return (
         <div className="container">
             <Navbar />
@@ -123,13 +128,15 @@ export default function JoinSession() {
                         )}
                         <h5>Location</h5>
                         {isEditable ? (
-                            <input
-                                type="text"
-                                value={editedSession.location}
-                                onChange={(e) =>
-                                    setEditedSession({ ...editedSession, location: e.target.value })
-                                }
-                            />
+                            <div>
+                                <GooglePlacesAutocomplete
+                                    apiKey={process.env.REACT_APP_GOOGLE_MAPS_API}
+                                    selectProps={{
+                                        onChange: handleGoogleAutocompleteChange,
+                                        placeholder: editedSession.location,
+                                    }}
+                                />
+                            </div>
                         ) : (
                             <h4>{curSession.location}</h4>
                         )}
