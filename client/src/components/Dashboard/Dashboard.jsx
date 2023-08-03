@@ -9,6 +9,8 @@ import "../styles.module.css";
 import Divider from "@mui/material/Divider";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
+import Fade from '@mui/material/Fade';
+import { Grid } from "@mui/material";
 import CreateSessionPopup from "../CreateSession/CreateSessionPopup.jsx";
 import SessionMoreInfoPopup from "../SessionMoreInfo/SessionMoreInfoPopup.jsx";
 import { useSelector } from "react-redux";

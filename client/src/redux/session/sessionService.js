@@ -1,6 +1,6 @@
 const getSessions = async (filter = '') => {
     const queryParams = new URLSearchParams({ filter: filter });
-    const url = `http://localhost:3001/session?${queryParams}`;
+    const url = `${process.env.REACT_APP_REST_API_URL}/session?${queryParams}`;
     var response = {}  
     response = await fetch(url)
     response = await response.json()
@@ -13,7 +13,7 @@ const getFeaturedSessions = async (profile, sessions) => {
         sessions: sessions
     }
 
-    const response = await fetch('http://localhost:3001/session/featured', {
+    const response = await fetch(`${process.env.REACT_APP_REST_API_URL}/session/featured`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -29,7 +29,7 @@ const getRecommendedSession = async (profile, sessions) => {
         profile: profile,
         sessions: sessions
     }
-    const response = await fetch('http://localhost:3001/session/recommended', {
+    const response = await fetch(`${process.env.REACT_APP_REST_API_URL}/session/recommended`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -41,7 +41,7 @@ const getRecommendedSession = async (profile, sessions) => {
 }
 
 const createNewSession = async (new_session) => {
-    var response = await fetch('http://localhost:3001/session', {
+    var response = await fetch(`${process.env.REACT_APP_REST_API_URL}/session`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -53,7 +53,7 @@ const createNewSession = async (new_session) => {
 }
 
 const updateSession = async (session) => {
-    var response = await fetch('http://localhost:3001/session', {
+    var response = await fetch(`${process.env.REACT_APP_REST_API_URL}/session`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json"

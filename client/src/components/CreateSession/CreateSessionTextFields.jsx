@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { Tooltip } from "@mui/material";
+import { Tooltip, Chip } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -13,6 +13,8 @@ import Stack from "@mui/material/Stack";
 import { createNewSessionAsync } from "../../redux/session/sessionThunks";
 import "./CreateSession.css";
 import { createNewChatAsync } from "../../redux/chat/chatThunks";
+import equipmentParse from "../../common/equipmentParse";
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 const { v4: uuidv4 } = require('uuid');
 
 const equipmentInfo = (
@@ -38,7 +40,8 @@ export default function CreateSessionTextFields(props) {
     const [session_description, setDescription] = useState("");
     const [session_city, setCity] = useState("");
     const [session_location, setLocation] = useState("");
-    const [session_equipment_needed, setEquipmentNeeded] = useState("");
+    const [session_equipment_needed, setEquipmentNeeded] = useState([]);
+    const [new_equipment, setNewEquipment] = useState('2, bat');
     const [session_players_needed, setPlayersNeeded] = useState("");
     const [session_image, setSessionImage] = useState("");
     const [session_date_time, setDateTime] = useState(dayjs("2023-10-17T15:30"));
@@ -63,22 +66,34 @@ export default function CreateSessionTextFields(props) {
         }
     };
 
+    const handleAddEquipment = () => {
+        if (session_equipment_needed) {
+            setEquipmentNeeded([...session_equipment_needed, new_equipment]);
+            setNewEquipment('');
+        }
+    };
+
+    const handleDeleteEquipment = (equipment) => {
+        setEquipmentNeeded(session_equipment_needed.filter(item => item !== equipment))
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
         const groupId = uuidv4();
+        let parsedEquipment = equipmentParse(session_equipment_needed)
 
         const new_session = {
             name: session_name,
             description: session_description,
             city: session_city,
-            location: session_location,
-            equipment: session_equipment_needed,
+            location: session_location.label,
+            equipment: parsedEquipment,
             playersNeeded: session_players_needed,
             image: session_image,
             sport: session_sport,
             dateTime: session_date_time,
-            members: [profile.name],
+            members: [profile],
             groupId: groupId,
         };
 
@@ -110,7 +125,6 @@ export default function CreateSessionTextFields(props) {
             session_sport !== "" &&
             session_city !== "" &&
             session_location !== "" &&
-            session_equipment_needed !== "" &&
             session_players_needed !== "" &&
             session_date_time !== "" &&
             session_date_time.unix() >= Date.now() / 1000
@@ -218,35 +232,42 @@ export default function CreateSessionTextFields(props) {
                             }}
                         >
                             <TextField
-                                required
-                                fullWidth
-                                id="session-location"
-                                label="Field Location"
-                                margin="normal"
-                                value={session_location}
-                                onChange={(e) => {
-                                    setLocation(e.target.value);
+                                sx={{
+                                    width: 320
                                 }}
-                            />
-                            <br />
-
-                            <TextField
-                                required
-                                multiline
-                                fullWidth
-                                rows={3}
                                 id="session-equipment-needed"
                                 label="Equipment Needed"
                                 margin="normal"
-                                value={session_equipment_needed}
+                                value={new_equipment}
                                 onChange={(e) => {
-                                    setEquipmentNeeded(e.target.value);
+                                    setNewEquipment(e.target.value);
                                 }}
                             />
+                            <Button
+                                variant="contained"
+                                sx={{mt: 1, p: 2}}
+                                color="primary"
+                                onClick={handleAddEquipment}
+                                disabled={!new_equipment}
+                                style={{ marginBottom: '20px' }}
+                            >
+                                Add
+                            </Button>
                             <Tooltip title={equipmentInfo} arrow>
                                 <Button>MORE INFO</Button>
                             </Tooltip>
                             <br />
+
+                            <div style={{ marginBottom: '20px' }}>
+                                {session_equipment_needed && session_equipment_needed.map((equipment) => (
+                                    <Chip
+                                        key={equipment}
+                                        label={equipment}
+                                        onDelete={() => handleDeleteEquipment(equipment)}
+                                        style={{ margin: '5px' }}
+                                    />
+                                ))}
+                            </div>
 
                             <TextField
                                 required
@@ -274,6 +295,17 @@ export default function CreateSessionTextFields(props) {
                                     }}
                                 />
                             </LocalizationProvider>
+                            <Box sx={{paddingTop: 1, paddingBottom: 0.5}}>
+                            <GooglePlacesAutocomplete
+                                apiKey= {process.env.REACT_APP_GOOGLE_MAPS_API}
+                                selectProps={{
+                                    session_location,
+                                    onChange: setLocation,
+                                    placeholder:'Location',
+                                }}
+                            />
+                            <br />
+                            </Box>
                         </Box>
                     </Box>
                 </Box>
