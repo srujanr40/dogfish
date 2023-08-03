@@ -222,7 +222,6 @@ export default function JoinSession() {
 
                     <Box>
                         <Input
-                            className='rce-example-input'
                             placeholder='Write your message here.'
                             defaultValue=''
                             referance={inputReference}

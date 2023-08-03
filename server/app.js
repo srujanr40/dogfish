@@ -11,6 +11,7 @@ var sessionsRouter = require('./routes/session');
 var profileRouter = require('./routes/profile');
 var chatRouter = require('./routes/chat');
 var authRouter = require('./routes/auth');
+var forumRouter = require('./routes/forum');
 
 
 var app = express();
@@ -33,6 +34,8 @@ app.use('/session', sessionsRouter);
 app.use('/profile', profileRouter);
 app.use('/chat', chatRouter);
 app.use('/auth', authRouter);
+app.use('/forum', forumRouter);
+
   
 
 module.exports = app;
