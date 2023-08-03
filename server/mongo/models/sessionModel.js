@@ -42,6 +42,10 @@ const sessionSchema = new mongoose.Schema({
         type: [],
         required: true,
     },
+    owner: {
+        type: String,
+        required: false
+    },
     dateTime: {
         type: Date,
         required: true,

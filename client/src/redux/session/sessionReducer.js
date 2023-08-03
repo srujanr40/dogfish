@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { REQUEST_STATE } from '../utils';
-import { getSessionsAsync, getFeaturedSessionsAsync, getRecommendedSessionAsync, createNewSessionAsync, updateSessionAsync } from './sessionThunks';
+import { getSessionsAsync, getFeaturedSessionsAsync, getRecommendedSessionAsync, createNewSessionAsync, updateSessionAsync, deleteSessionAsync } from './sessionThunks';
 import sessionService from './sessionService';
 import profileService from '../profile/profileService'
 
@@ -19,6 +19,7 @@ const INITIAL_STATE = {
     getRecommendedSession: REQUEST_STATE.IDLE,
     createNewSession: REQUEST_STATE.IDLE,
     updateSession: REQUEST_STATE.IDLE,
+    deleteSession: REQUEST_STATE.IDLE,
     error: null
 };
 
@@ -138,6 +139,32 @@ const sessionSlice = createSlice({
                 return {
                     ...state,
                     updateSession: REQUEST_STATE.REJECTED,
+                    error: action.error
+                }
+            })
+            .addCase(deleteSessionAsync.pending, (state) => {
+                return {
+                    ...state,
+                    deleteSession: REQUEST_STATE.PENDING,
+                    error: null
+                }
+            })
+            .addCase(deleteSessionAsync.fulfilled, (state, action) => {
+                const groupId = action.payload;
+                const updatedSessions = state.sessions.filter(
+                    (session) => session.groupId !== groupId
+                );
+
+                return {
+                    ...state,
+                    deleteSession: REQUEST_STATE.FULFILLED,
+                    sessions: updatedSessions
+                };
+            })
+            .addCase(deleteSessionAsync.rejected, (state, action) => {
+                return {
+                    ...state,
+                    deleteSession: REQUEST_STATE.REJECTED,
                     error: action.error
                 }
             });

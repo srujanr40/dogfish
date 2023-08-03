@@ -1,4 +1,3 @@
-
 .mainPart {
     display: flex;
     align-items: center;
@@ -22,7 +21,6 @@
     align-items: end;
 }
 
-
 .closeButton {
     color: #aaa;
     font-size: 3vw;
@@ -30,7 +28,29 @@
     cursor: pointer;
 }
 
-.placeholder-image{
+.placeholder-image {
     height: 15vh;
     width: auto;
+}
+
+.buttonWrapper {
+    position: absolute;
+    flex-direction: column;
+    gap: 10px;
+    width: 130px;
+    margin-top: 10px;
+    right: 15px;
+    bottom: 20px;
+    align-items: end;
+}
+
+.editButtons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    justify-content: flex-start;
+    height: 30px;
+    width: 100px;
 }

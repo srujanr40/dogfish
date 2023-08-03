@@ -201,4 +201,16 @@ router.post('/recommended', function (req, res, next) {
     return res.status(200).send(session);
 });
 
+// DELETE a session
+router.delete('/:groupId', async function (req, res, next) {
+    let groupId = req.params.groupId;
+
+    try {
+        await sessionQueries.deleteSession(groupId);
+        return res.status(200).send(groupId);
+    } catch(err) {
+        return res.status(500).send('Internal server error.');
+    }
+});
+
 module.exports = router;
