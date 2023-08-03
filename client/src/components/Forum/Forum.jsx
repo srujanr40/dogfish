@@ -17,6 +17,7 @@ const inputReference = React.createRef();
 export default function Forum() {
     const dispatch = useDispatch();
     const [currentForum, setCurrentForum] = useState("basketball");
+    const [chatExists, setChatExists] = useState(false);
     const profile = useSelector(state => state.profileReducer).profile;
     let chats = useSelector(state => state.forumReducer).chats;
     let chat = chats.find(element => element.groupId === currentForum)
@@ -28,17 +29,22 @@ export default function Forum() {
             sortChat()
         }
     }
+    // console.log('outside')
+    // console.log(chat)
 
     useEffect(() => {
         const intervalId = setInterval(() => {
             dispatch(getForumAsync());
+            // console.log('effect')
+            console.log(chat)
+            setChatExists(chat.length !== 0)
         }, 1500);
 
         // Clean up the interval when the component unmounts
         return () => {
             clearInterval(intervalId);
         };
-    }, [dispatch]);
+    }, [dispatch, chat]);
 
     const AddMessage = () => {
         const value = inputReference.current.value;
@@ -121,12 +127,21 @@ export default function Forum() {
                 <Divider sx={{backgroundColor: 'lightgray', height: '0.1vh'}}/>
                 <div style={{paddingTop: '1.5vh', backgroundColor: 'whitesmoke'}}>
                     <Box sx={{height: 560, overflow: "auto"}}>
-                        <MessageList
-                            referance={listReference}
-                            className='message-list'
-                            lockable={true}
-                            toBottomHeight={'100%'}
-                            dataSource={chat}/>
+                        {chatExists ? (
+                            <>
+                                <MessageList
+                                    referance={listReference}
+                                    className='message-list'
+                                    lockable={true}
+                                    toBottomHeight={'100%'}
+                                    dataSource={chat}/>
+                            </>
+                        ) : (
+                            <>
+                                <h3 style={{marginLeft: '4vw'}}>No chat has been sent in this forum, start a conversation!</h3>
+                            </>
+                        )}
+
 
                     </Box>
 
@@ -150,7 +165,8 @@ export default function Forum() {
                                 }
                             }}
 
-                            rightButtons={<Button sx={{ width: '8vw',
+                            rightButtons={<Button sx={{
+                                width: '8vw',
                                 color: 'white', backgroundColor: 'lightsalmon', '&:hover': {
                                     backgroundColor: '#ffc4ad'
                                 }, textTransform: 'none'
