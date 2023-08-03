@@ -94,6 +94,7 @@ export default function CreateSessionTextFields(props) {
             sport: session_sport,
             dateTime: session_date_time,
             members: [profile],
+            owner: profile.email,
             groupId: groupId,
         };
 
