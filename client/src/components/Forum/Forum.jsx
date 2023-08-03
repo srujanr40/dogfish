@@ -29,14 +29,10 @@ export default function Forum() {
             sortChat()
         }
     }
-    // console.log('outside')
-    // console.log(chat)
 
     useEffect(() => {
         const intervalId = setInterval(() => {
             dispatch(getForumAsync());
-            // console.log('effect')
-            console.log(chat)
             setChatExists(chat.length !== 0)
         }, 1500);
 

@@ -16,14 +16,13 @@ const forumQueries = {
         });
         newForum.save()
             .then((savedForum) => {
-                console.log('forum saved:', savedForum);
+                console.log('Forum saved:', savedForum);
             })
             .catch((error) => {
                 console.error('Error saving forum:', error);
             })
     },
     updateForum: async function (forum) {
-        console.log(forum)
         const newForum = forum.chat
         Forum.findOne({groupId: forum.currentForum})
             .then(forumGroup => {
@@ -35,7 +34,7 @@ const forumQueries = {
 
                 forumGroup.save()
                     .then(updatedForumGroup => {
-                        console.log('forum updated:', updatedForumGroup);
+                        console.log('Forum updated:', updatedForumGroup);
                     })
                     .catch(error => {
                         console.error('Error updating forum:', error);
