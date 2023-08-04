@@ -17,6 +17,10 @@ export default function Dashboard() {
     useState(false);
 
   const dispatch = useDispatch();
+  const [nearYouSessions, setNearYouSessions] = useState([]);
+  const [frisbeeSessions, setFrisbeeSessions] = useState([]);
+  const [soccerSessions, setSoccerSessions] = useState([]);
+  const [allSessions, setSessions] = useState([]);
 
   const [nearYouSessions, setNearYouSessions] = useState([]);
   const [frisbeeSessions, setFrisbeeSessions] = useState([]);
@@ -50,15 +54,16 @@ export default function Dashboard() {
       .catch((error) => {
         console.error('Error fetching Frisbee sessions:', error);
       });
-      dispatch(getSessionsAsync('Soccer'))
-      .then((sessions) => {
-        const soccer = sessions.payload;
-        setSoccerSessions(soccer);
-      })
-      .catch((error) => {
-        console.error('Error fetching Frisbee sessions:', error);
-      });
-  }, [dispatch]);
+
+    dispatch(getSessionsAsync('Soccer'))
+    .then((sessions) => {
+      const soccer = sessions.payload;
+      setSoccerSessions(soccer);
+    })
+    .catch((error) => {
+      console.error('Error fetching Frisbee sessions:', error);
+    });
+  }, [dispatch, allSessions]);
 
   const openCreateSessionModal = () => {
     setIsCreateSessionModalOpen(true);
