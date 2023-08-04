@@ -3,17 +3,17 @@ const Session = require('../models/sessionModel');
 const sessionQueries = {
     getSessions: async function (filter) {
         let sessions;
-        if(filter.filter == ''){
-            sessions = await Session.find()
+        if (filter.filter === '') {
+          sessions = await Session.find();
+        } else {
+          const regex = new RegExp(filter.filter, 'i');
+          sessions = await Session.find({ sport: { $regex: regex } });
         }
-        else{      
-            sessions = await Session.find({ sport: filter.filter });
-        }
-        if (sessions === null) {
-            profile = [];
+        if (!sessions || sessions.length === 0) {
+          sessions = [];
         }
         return sessions;
-    },
+      },
     getNearBySessions: async function() {
         let sessions = await Session.find();
         return sessions;
