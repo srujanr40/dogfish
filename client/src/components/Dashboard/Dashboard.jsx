@@ -24,14 +24,6 @@ export default function Dashboard() {
   const [allSessions, setAllSessions] = useState([]);
 
   useEffect(() => {
-    dispatch(getSessionsNearYouAsync(profile.location))
-      .then((sessions) => {
-        const near_you = sessions.payload
-        setNearYouSessions(near_you);
-      })
-      .catch((error) => {
-        console.error('Error fetching near you sessions:', error);
-      });
     dispatch(getSessionsAsync(''))
     .then((sessions) => {
       const all = sessions.payload
@@ -40,6 +32,15 @@ export default function Dashboard() {
     .catch((error) => {
       console.error('Error fetching near you sessions:', error);
     });
+
+    dispatch(getSessionsNearYouAsync(profile.location))
+      .then((sessions) => {
+        const near_you = sessions.payload
+        setNearYouSessions(near_you);
+      })
+      .catch((error) => {
+        console.error('Error fetching near you sessions:', error);
+      });
 
     dispatch(getSessionsAsync('Frisbee'))
       .then((sessions) => {
