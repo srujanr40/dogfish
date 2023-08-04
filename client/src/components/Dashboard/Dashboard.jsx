@@ -21,11 +21,23 @@ export default function Dashboard() {
 
   const [isCreateSessionModalOpen, setIsCreateSessionModalOpen] =
     useState(false);
-  const sessions = useSelector((store) => store.sessionReducer).sessions;
 
   const dispatch = useDispatch();
+  const [nearYouSessions, setNearYouSessions] = useState([]);
+  const [frisbeeSessions, setFrisbeeSessions] = useState([]);
+  const [soccerSessions, setSoccerSessions] = useState([]);
+  const [allSessions, setSessions] = useState([]);
 
   useEffect(() => {
+    dispatch(getSessionsAsync(''))
+      .then((sessions) => {
+        const allSessions = sessions.payload
+        setSessions(allSessions);
+      })
+      .catch((error) => {
+        console.error('Error fetching near you sessions:', error);
+      });
+
     dispatch(getSessionsAsync('near_you'))
       .then((sessions) => {
         const near_you = sessions.payload
@@ -43,19 +55,16 @@ export default function Dashboard() {
       .catch((error) => {
         console.error('Error fetching Frisbee sessions:', error);
       });
-      dispatch(getSessionsAsync('Soccer'))
-      .then((sessions) => {
-        const soccer = sessions.payload;
-        setSoccerSessions(soccer);
-      })
-      .catch((error) => {
-        console.error('Error fetching Frisbee sessions:', error);
-      });
-  }, [dispatch]);
 
-  const [nearYouSessions, setNearYouSessions] = useState([]);
-  const [frisbeeSessions, setFrisbeeSessions] = useState([]);
-  const [soccerSessions, setSoccerSessions] = useState([]);
+    dispatch(getSessionsAsync('Soccer'))
+    .then((sessions) => {
+      const soccer = sessions.payload;
+      setSoccerSessions(soccer);
+    })
+    .catch((error) => {
+      console.error('Error fetching Frisbee sessions:', error);
+    });
+  }, [dispatch, allSessions]);
 
   const openCreateSessionModal = () => {
     setIsCreateSessionModalOpen(true);
@@ -94,7 +103,7 @@ export default function Dashboard() {
         <Card sessions={nearYouSessions} name={'Activities near you'} />
         <Card sessions={frisbeeSessions} name={'Frisbee'} />
         <Card sessions={soccerSessions} name={'Soccer'} />
-        <Card sessions={sessions} name={'All'} />
+        <Card sessions={allSessions} name={'All'} />
       </div>
     </div>
   );
