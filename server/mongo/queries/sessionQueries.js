@@ -15,8 +15,8 @@ const sessionQueries = {
         }
         return sessions;
       },
-    getNearBySessions: async function() {
-        const geocodeResult = await getGeocode('V6T1K2');
+    getNearBySessions: async function(location) {
+        const geocodeResult = await getGeocode(location.location);
         if (!geocodeResult) {
           console.error('Invalid location data.');
           return [];

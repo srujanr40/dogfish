@@ -7,8 +7,8 @@ import "../styles.module.css";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import CreateSessionPopup from "../CreateSession/CreateSessionPopup.jsx";
-import { getSessionsAsync } from "../../redux/session/sessionThunks.js";
-import {useDispatch} from 'react-redux';
+import { getSessionsAsync, getSessionsNearYouAsync } from "../../redux/session/sessionThunks.js";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Dashboard() {
 
@@ -16,9 +16,10 @@ export default function Dashboard() {
     useState(false);
 
   const dispatch = useDispatch();
+  const profile = useSelector(state => state.profileReducer).profile;
 
   useEffect(() => {
-    dispatch(getSessionsAsync('near_you'))
+    dispatch(getSessionsNearYouAsync(profile.location))
       .then((sessions) => {
         const near_you = sessions.payload
         setNearYouSessions(near_you);
