@@ -1,12 +1,10 @@
-const getSessions = async (sport = '') => {
-    var response = {}
-    if (sport !== "") {
-        response = await fetch(`${process.env.REACT_APP_REST_API_URL}/session` + '?sport=' + sport)
-    } else {
-        response = await fetch(`${process.env.REACT_APP_REST_API_URL}/session`)
-    }
-
-    return await response.json()
+const getSessions = async (filter = '') => {
+    const queryParams = new URLSearchParams({ filter: filter });
+    const url = `${process.env.REACT_APP_REST_API_URL}/session?${queryParams}`;
+    var response = {}  
+    response = await fetch(url)
+    response = await response.json()
+    return response
 }
 
 const getFeaturedSessions = async (profile, sessions) => {

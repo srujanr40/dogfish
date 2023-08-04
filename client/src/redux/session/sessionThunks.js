@@ -4,7 +4,7 @@ import sessionService from "./sessionService"
 
 export const getSessionsAsync = createAsyncThunk(
     actionTypes.GET_SESSIONS,
-    async (filter = '') => {
+    async (filter) => {
         return await sessionService.getSessions(filter);
     }
 );

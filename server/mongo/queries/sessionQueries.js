@@ -2,10 +2,20 @@ const Session = require('../models/sessionModel');
 
 const sessionQueries = {
     getSessions: async function (filter) {
-        let sessions = await Session.find(filter);
-        if (sessions === null) {
-            profile = [];
+        let sessions;
+        if (filter.filter === '') {
+          sessions = await Session.find();
+        } else {
+          const regex = new RegExp(filter.filter, 'i');
+          sessions = await Session.find({ sport: { $regex: regex } });
         }
+        if (!sessions || sessions.length === 0) {
+          sessions = [];
+        }
+        return sessions;
+      },
+    getNearBySessions: async function() {
+        let sessions = await Session.find();
         return sessions;
     },
     addSession: async function (session) {
