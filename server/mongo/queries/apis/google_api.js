@@ -7,7 +7,7 @@ const getGeocode = async (address) => {
       const response = await axios.get(apiUrl, {
         params: {
           address,
-          key: "",
+          key: process.env.REACT_APP_GOOGLE_MAPS_API,
         },
       });
   
