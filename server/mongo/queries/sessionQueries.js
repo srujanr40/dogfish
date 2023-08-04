@@ -4,17 +4,17 @@ const getGeocode = require('../queries/apis/google_api')
 const sessionQueries = {
     getSessions: async function (filter) {
         let sessions;
-        if(filter.filter == ''){
-            sessions = await Session.find()
+        if (filter.filter === '') {
+          sessions = await Session.find();
+        } else {
+          const regex = new RegExp(filter.filter, 'i');
+          sessions = await Session.find({ sport: { $regex: regex } });
         }
-        else{      
-            sessions = await Session.find({ sport: filter.filter });
-        }
-        if (sessions === null) {
-            profile = [];
+        if (!sessions || sessions.length === 0) {
+          sessions = [];
         }
         return sessions;
-    },
+      },
     getNearBySessions: async function() {
         const geocodeResult = await getGeocode('V6T1K2');
         if (!geocodeResult) {
@@ -92,6 +92,7 @@ const sessionQueries = {
                 image: session.image,
                 sport: session.sport,
                 members: session.members,
+                owner: session.owner,
                 dateTime: session.date
             },
             { new: true })

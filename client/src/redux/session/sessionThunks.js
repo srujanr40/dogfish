@@ -36,3 +36,10 @@ export const updateSessionAsync = createAsyncThunk(
         return await sessionService.updateSession(session);
     }
 );
+
+export const deleteSessionAsync = createAsyncThunk(
+    actionTypes.DELETE_SESSION,
+    async (groupId) => {
+        return await sessionService.deleteSession(groupId);
+    }
+);

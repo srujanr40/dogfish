@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
 const sessionSchema = new mongoose.Schema({
     name: {
@@ -31,7 +32,7 @@ const sessionSchema = new mongoose.Schema({
         },
     },
     equipment: {
-        type: [String],
+        type: [Schema.Types.Mixed],
         required: true,
     },
     playersNeeded: {
@@ -51,8 +52,12 @@ const sessionSchema = new mongoose.Schema({
         required: true,
     },
     members: {
-        type: [String],
+        type: [],
         required: true,
+    },
+    owner: {
+        type: String,
+        required: false
     },
     dateTime: {
         type: Date,
