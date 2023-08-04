@@ -2,18 +2,11 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../Navbar/Navbar.jsx";
 import Featured from "../FeaturedCard/Featured.jsx";
 import Card from "../Card/Card.jsx";
-import SessionCard from "../SessionCard/SessionCard.jsx";
-import Filter from "../Filter/Filter.jsx";
 import "./Dashboard.css";
 import "../styles.module.css";
-import Divider from "@mui/material/Divider";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
-import Fade from '@mui/material/Fade';
-import { Grid } from "@mui/material";
 import CreateSessionPopup from "../CreateSession/CreateSessionPopup.jsx";
-import SessionMoreInfoPopup from "../SessionMoreInfo/SessionMoreInfoPopup.jsx";
-import { useSelector } from "react-redux";
 import { getSessionsAsync } from "../../redux/session/sessionThunks.js";
 import {useDispatch} from 'react-redux';
 
