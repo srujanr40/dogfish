@@ -18,6 +18,11 @@ export default function Dashboard() {
   const dispatch = useDispatch();
   const profile = useSelector(state => state.profileReducer).profile;
 
+  const [nearYouSessions, setNearYouSessions] = useState([]);
+  const [frisbeeSessions, setFrisbeeSessions] = useState([]);
+  const [soccerSessions, setSoccerSessions] = useState([]);
+  const [allSessions, setAllSessions] = useState([]);
+
   useEffect(() => {
     dispatch(getSessionsNearYouAsync(profile.location))
       .then((sessions) => {
@@ -53,11 +58,6 @@ export default function Dashboard() {
         console.error('Error fetching Frisbee sessions:', error);
       });
   }, [dispatch]);
-
-  const [nearYouSessions, setNearYouSessions] = useState([]);
-  const [frisbeeSessions, setFrisbeeSessions] = useState([]);
-  const [soccerSessions, setSoccerSessions] = useState([]);
-  const [allSessions, setAllSessions] = useState([]);
 
   const openCreateSessionModal = () => {
     setIsCreateSessionModalOpen(true);
