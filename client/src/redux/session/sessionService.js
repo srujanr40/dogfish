@@ -64,10 +64,19 @@ const updateSession = async (session) => {
     return await response.json()
 }
 
+const deleteSession = async (groupId) => {
+    var response = await fetch(`${process.env.REACT_APP_REST_API_URL}/session/${groupId}`, {
+        method: "DELETE"
+    })
+
+    return await response.json()
+}
+
 export default {
     getSessions,
     getFeaturedSessions,
     getRecommendedSession,
     createNewSession,
-    updateSession
+    updateSession,
+    deleteSession
 };
