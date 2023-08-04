@@ -28,7 +28,7 @@ export default function Card(props) {
       <h3>{props.name}</h3>
       <Divider />
       {props.sessions.length === 0 ? (
-        <p>No activities nearby</p>
+        <p>No activities</p>
       ) : (
         <ul className="sessionsList">
           {props.sessions.map((element, index) => (
