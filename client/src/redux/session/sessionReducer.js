@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { REQUEST_STATE } from '../utils';
-import { getSessionsAsync, getFeaturedSessionsAsync, getRecommendedSessionAsync, createNewSessionAsync, updateSessionAsync, deleteSessionAsync } from './sessionThunks';
+import { getSessionsAsync, getSessionsNearYouAsync, getFeaturedSessionsAsync, getRecommendedSessionAsync, createNewSessionAsync, updateSessionAsync, deleteSessionAsync } from './sessionThunks';
 import sessionService from './sessionService';
 import profileService from '../profile/profileService'
 
@@ -15,6 +15,7 @@ const INITIAL_STATE = {
     featuredSessions: await featuredSessions,
     recommendedSession: featuredSessions[0],
     getSessions: REQUEST_STATE.IDLE,
+    getSessionsNearYou: REQUEST_STATE.IDLE,
     getFeaturedSessions: REQUEST_STATE.IDLE,
     getRecommendedSession: REQUEST_STATE.IDLE,
     createNewSession: REQUEST_STATE.IDLE,
@@ -44,6 +45,27 @@ const sessionSlice = createSlice({
                 }
             })
             .addCase(getSessionsAsync.rejected, (state, action) => {
+                return {
+                    ...state,
+                    getSessions: REQUEST_STATE.REJECTED,
+                    error: action.error
+                }
+            })
+            .addCase(getSessionsNearYouAsync.pending, (state) => {
+                return {
+                    ...state,
+                    getSessions: REQUEST_STATE.PENDING,
+                    error: null
+                }
+            })
+            .addCase(getSessionsNearYouAsync.fulfilled, (state, action) => {
+                return {
+                    ...state,
+                    getSessions: REQUEST_STATE.FULFILLED,
+                    sessions: action.payload
+                }
+            })
+            .addCase(getSessionsNearYouAsync.rejected, (state, action) => {
                 return {
                     ...state,
                     getSessions: REQUEST_STATE.REJECTED,

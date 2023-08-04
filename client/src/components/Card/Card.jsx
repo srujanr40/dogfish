@@ -4,25 +4,32 @@ import SessionCard from "../SessionCard/SessionCard.jsx";
 import "../styles.module.css";
 import SessionMoreInfoPopup from "../SessionMoreInfo/SessionMoreInfoPopup.jsx";
 
+export default function Card(props) {
+  const [isSessionMoreInfoModalOpen, setIsSessionMoreInfoModalOpen] =
+    useState(false);
+  const [selectedSessionId, setSelectedItemId] = useState(null);
 
-export default function Card (props) {
-    const [isSessionMoreInfoModalOpen, setIsSessionMoreInfoModalOpen] =
-        useState(false);
-    const [selectedSessionId, setSelectedItemId] = useState(null);
-    
-    const openSessionMoreInfoModal = (itemId) => {
+  const openSessionMoreInfoModal = (itemId) => {
     setSelectedItemId(itemId);
     setIsSessionMoreInfoModalOpen(true);
-    };
+  };
 
-    const closeSessionMoreInfoModal = () => {
+  const closeSessionMoreInfoModal = () => {
     setSelectedItemId(null);
     setIsSessionMoreInfoModalOpen(false);
-    };
+  };
 
-    return (<>
-        <h3>{props.name}</h3>
-        <Divider />
+  if (!props.sessions) {
+    return null;
+  }
+
+  return (
+    <>
+      <h3>{props.name}</h3>
+      <Divider />
+      {props.sessions.length === 0 ? (
+        <p>No activities</p>
+      ) : (
         <ul className="sessionsList">
           {props.sessions.map((element, index) => (
             <SessionCard
@@ -32,15 +39,17 @@ export default function Card (props) {
             />
           ))}
         </ul>
+      )}
 
-        {isSessionMoreInfoModalOpen && (
-          <div>
-            <SessionMoreInfoPopup
-              sessionID={selectedSessionId}
-              closeModal={closeSessionMoreInfoModal}
-            />
-          </div>
-        )}
-        <Divider />
-    </>)
+      {isSessionMoreInfoModalOpen && (
+        <div>
+          <SessionMoreInfoPopup
+            sessionID={selectedSessionId}
+            closeModal={closeSessionMoreInfoModal}
+          />
+        </div>
+      )}
+      <Divider />
+    </>
+  );
 }

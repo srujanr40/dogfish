@@ -9,6 +9,13 @@ export const getSessionsAsync = createAsyncThunk(
     }
 );
 
+export const getSessionsNearYouAsync = createAsyncThunk(
+    actionTypes.GET_SESSIONS_NEAR_YOU,
+    async (location) => {
+        return await sessionService.getSessionsNearYou(location);
+    }
+);
+
 export const getFeaturedSessionsAsync = createAsyncThunk(
     actionTypes.GET_FEATURED_SESSIONS,
     async ({profile, sessions}) => {

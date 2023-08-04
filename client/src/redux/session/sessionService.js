@@ -7,6 +7,15 @@ const getSessions = async (filter = '') => {
     return response
 }
 
+const getSessionsNearYou = async (location) => {
+    const queryParams = new URLSearchParams({ filter: location });
+    const url = `${process.env.REACT_APP_REST_API_URL}/session/near_you?${queryParams}`;
+    var response = {}  
+    response = await fetch(url)
+    response = await response.json()
+    return response
+}
+
 const getFeaturedSessions = async (profile, sessions) => {
     let body = {
         profile: profile,
@@ -74,6 +83,7 @@ const deleteSession = async (groupId) => {
 
 export default {
     getSessions,
+    getSessionsNearYou,
     getFeaturedSessions,
     getRecommendedSession,
     createNewSession,
