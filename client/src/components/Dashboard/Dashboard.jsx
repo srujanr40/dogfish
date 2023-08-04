@@ -12,11 +12,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 export default function Dashboard() {
 
+  const profile = useSelector(state => state.profileReducer).profile;
   const [isCreateSessionModalOpen, setIsCreateSessionModalOpen] =
     useState(false);
 
   const dispatch = useDispatch();
-  const profile = useSelector(state => state.profileReducer).profile;
 
   const [nearYouSessions, setNearYouSessions] = useState([]);
   const [frisbeeSessions, setFrisbeeSessions] = useState([]);
