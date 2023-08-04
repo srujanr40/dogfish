@@ -9,7 +9,7 @@ const getSessions = async (filter = '') => {
 
 const getSessionsNearYou = async (location) => {
     const queryParams = new URLSearchParams({ filter: location });
-    const url = `${process.env.REACT_APP_REST_API_URL}/session/near_you?${queryParams}`;
+    const url = `${process.env.REACT_APP_REST_API_URL}/session/near_youS?${queryParams}`;
     var response = {}  
     response = await fetch(url)
     response = await response.json()
