@@ -55,7 +55,6 @@ const sessionQueries = {
         } else {
           console.error('Invalid location data.');
         }
-    
         const newSession = new Session({
           name: session.name,
           description: session.description,
@@ -73,7 +72,6 @@ const sessionQueries = {
           members: session.members,
           dateTime: session.dateTime,
         });
-    
         newSession
           .save()
           .then((savedSession) => {
