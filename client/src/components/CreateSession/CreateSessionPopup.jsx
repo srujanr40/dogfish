@@ -22,7 +22,7 @@ export default function CreateSessionPopup(props) {
           >
             Create a new Session
           </Typography>
-          <CreateSessionTextFields closeModal={props.closeModal}/>
+          <CreateSessionTextFields closeModal={props.closeModal} onSessionCreated={props.onSessionCreated} />
         </Box>
 
         <span className="close" onClick={props.closeModal}>

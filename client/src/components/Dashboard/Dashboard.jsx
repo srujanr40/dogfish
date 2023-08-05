@@ -17,10 +17,6 @@ export default function Dashboard() {
 
   const [allSessions, setAllSessions] = useState([]);
 
-  useEffect(() => {
-    fetchSessions();
-  }, [dispatch, profile.location]);
-
   const fetchSessions = async () => {
     try {
       const allSessionsRes = await dispatch(getSessionsAsync(""));
@@ -62,6 +58,14 @@ export default function Dashboard() {
     setIsCreateSessionModalOpen(false);
   };
 
+  useEffect(() => {
+    fetchSessions();
+  }, [dispatch, profile.location]);
+
+  const handleSessionCreated = () => {
+    fetchSessions();
+  };
+
   return (
     <div className="container">
       <Navbar />
@@ -80,7 +84,7 @@ export default function Dashboard() {
 
         {isCreateSessionModalOpen && (
           <div>
-            <CreateSessionPopup closeModal={closeCreateSessionModal} />
+            <CreateSessionPopup closeModal={closeCreateSessionModal} onSessionCreated={handleSessionCreated} />
           </div>
         )}
       </div>

@@ -104,7 +104,13 @@ export default function CreateSessionTextFields(props) {
             chats: []
         }
 
-        dispatch(createNewSessionAsync(new_session)); //add function here that handles what happens with the data at submit
+        dispatch(createNewSessionAsync(new_session))
+        .then(() => {
+            props.onSessionCreated();
+        })
+        .catch((error) => {
+            console.error('Error creating new session:', error);
+        }); //add function here that handles what happens with the data at submit
         dispatch(createNewChatAsync(new_chat))
 
         setName("");
