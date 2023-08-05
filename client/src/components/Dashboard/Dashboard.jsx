@@ -33,12 +33,12 @@ export default function Dashboard() {
       });
 
       const frisbeeSessionsData = allSessionsData.filter(
-        (session) => session.sport === "Frisbee"
+        (session) => session.sport.toLowerCase() === "frisbee"
       );
       setFrisbeeSessions(frisbeeSessionsData);
-
+      
       const soccerSessionsData = allSessionsData.filter(
-        (session) => session.sport === "Soccer"
+        (session) => session.sport.toLowerCase() === "soccer"
       );
       setSoccerSessions(soccerSessionsData);
     } catch (error) {
