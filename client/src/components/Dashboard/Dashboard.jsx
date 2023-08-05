@@ -66,9 +66,17 @@ export default function Dashboard() {
     fetchSessions();
   };
 
+  const [filteredSessions, setFilteredSessions] = useState([]);
+  const handleSearchSessions = (searchTerm) => {
+    const filtered = allSessions.filter((session) =>
+      session.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredSessions(filtered);
+  };
+
   return (
     <div className="container">
-      <Navbar />
+      <Navbar onSearch={handleSearchSessions} />
       <div className="createSessionButton">
         {!isCreateSessionModalOpen && (
           <Fab
@@ -96,6 +104,7 @@ export default function Dashboard() {
         <Card sessions={frisbeeSessions} name={'Frisbee'} />
         <Card sessions={soccerSessions} name={'Soccer'} />
         <Card sessions={allSessions} name={'All'} />
+        <Card sessions={filteredSessions} name={'Filtered Sessions'} />
       </div>
     </div>
   );
