@@ -1,6 +1,11 @@
 const getSessions = async (filter = '') => {
-    const queryParams = new URLSearchParams({ filter: filter });
-    const url = `${process.env.REACT_APP_REST_API_URL}/session?${queryParams}`;
+    let url=''
+    if (filter === ''){
+        url = `${process.env.REACT_APP_REST_API_URL}/session`;
+    } else{
+        const queryParams = new URLSearchParams({ filter: filter });
+        url = `${process.env.REACT_APP_REST_API_URL}/session?${queryParams}`;
+    }
     var response = {}  
     response = await fetch(url)
     response = await response.json()
