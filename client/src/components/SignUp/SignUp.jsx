@@ -1,4 +1,3 @@
-import UploadImage from "../UploadImage/UploadImage";
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TextField, Button, MenuItem, Chip } from '@mui/material';
