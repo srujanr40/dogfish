@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const sgMail = require('@sendgrid/mail');
+const crypto = require('crypto');
 
 
 const SENDGRID_API_KEY = process.env.REACT_APP_SENDGRID_API;
@@ -22,16 +23,8 @@ router.post('/', async (req, res) => {
         return res.status(400).json({ error: 'Email already registered' });
       }
 
-      const msg = {
-        to: email,
-        from: 'grewaltaqdeer1@gmail.com', // Set your sender email here
-        subject: 'Welcome to Our Website Dogfish',
-        html: `<h1>Welcome to dogFish!</h1><p> We are <strong>excited</strong> to have you on board.</p>`,
-      };
-
-    await sgMail.send(msg);
-
       const hashedPassword = await bcrypt.hash(password, 10);
+      const verificationCode = await sendVerificationCode(email)
 
     
       const newProfile = new Profile({
@@ -41,7 +34,8 @@ router.post('/', async (req, res) => {
         equipment: [],
         interests: [],
         location: '',
-        image: ''
+        image: '',
+        verificationCode: verificationCode,
       });
   
       await newProfile.save();
@@ -75,6 +69,21 @@ router.post('/', async (req, res) => {
       res.status(500).json({ error: 'Server error' });
     }
   });  
+
+
+  async function sendVerificationCode(email) {
+    const verificationCode = crypto.randomBytes(3).toString('hex').toUpperCase();
+    const msg = {
+      to: email,
+      from: 'grewaltaqdeer1@gmail.com',
+      subject: 'Welcome to Our Website Dogfish',
+      html: `<h1>Welcome to dogFish!</h1><p> We are <strong>excited</strong> to have you on board.</p><p>Your code is ${verificationCode}</p>`,
+    };
+
+    await sgMail.send(msg);
+    return verificationCode
+  }
+
   
   module.exports = router;
 

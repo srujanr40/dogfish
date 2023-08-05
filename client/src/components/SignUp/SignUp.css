@@ -28,3 +28,18 @@
     align-items: center;
 
 }
+
+.verification-label {
+    margin: 16px;
+    padding: 25rem;
+}
+
+.verification-input {
+    padding: 8px;
+    margin-bottom: 16px;
+}
+
+.verify-button {
+    width: 33ch;
+}
+  

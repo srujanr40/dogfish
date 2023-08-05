@@ -73,7 +73,8 @@ export default function SignUp() {
         const data = await response.json();
         setErrorText(data.error);
       } else {
-        navigate('/profile');
+        navigate(`/email-verification?email=${encodeURIComponent(email)}`);
+
       }
     } catch (error) {
       alert(error);

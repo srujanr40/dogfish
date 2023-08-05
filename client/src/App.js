@@ -9,6 +9,7 @@ import JoinSession from "./components/JoinSession/JoinSession";
 import MySessions from './components/MySessions/MySessions';
 import Login from './components/Login/Login';
 import SignUp from './components/SignUp/SignUp';
+import EmailVerification from './components/SignUp/EmailVerification';
 import store from "./redux/store"
 import Forum from "./components/Forum/Forum";
 
@@ -26,6 +27,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/forum" element={<Forum />} />
+            <Route path="/email-verification" element={<EmailVerification />} />
           </Routes>
         </main>
     </Router>
