@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateSessionAsync } from '../../redux/session/sessionThunks';
 import './SessionCard.css';
 import DateRangeIcon from '@mui/icons-material/DateRange';
+import MoreInfoModal from './MoreInfoModal';
 
 export default function SessionCard(props) {
   const dispatch = useDispatch();
@@ -19,7 +20,10 @@ export default function SessionCard(props) {
 
   const handleOpenMoreInfo = () => {
     setIsMoreInfoOpen(true);
-    props.onMoreInfo(props.session.groupId);
+  };
+
+  const handleCloseMoreInfo = () => {
+    setIsMoreInfoOpen(false);
   };
 
   function joinButton() {
@@ -46,7 +50,81 @@ export default function SessionCard(props) {
 
   return (
     isMember ? (
-      <Link to={`/join?groupId=${props.session.groupId}`} className="session-card-link">
+      <div>
+        <Link to={`/join?groupId=${props.session.groupId}`} className="session-card-link">
+          <Card
+            className={`session-card ${isMember ? 'member' : ''}`}
+            sx={{
+              maxWidth: '250px',
+              minWidth: '250px',
+              minHeight: '315px',
+              maxHeight: '315px',
+              backgroundColor: '#1C1E25',
+              display: 'flex',
+              flexDirection: 'column',
+              borderRadius: '10px',
+              transition: 'transform 0.2s',
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.02)')}
+            onMouseLeave={(e) => (e.currentTarget.style.transform = 'none')}
+            onClick={handleOpenMoreInfo}
+          >
+            <CardMedia
+              component="img"
+              height="150"
+              image={props.session.image}
+              alt="image"
+            />
+            <CardContent sx={{ color: 'white' }}>
+              <div className="card-title">
+                <Typography gutterBottom variant="h5" component="div">
+                  {props.session.name}
+                </Typography>
+              </div>
+              <div className="card-description">
+                <Typography gutterBottom variant="p" component="div">
+                  {props.session.description}
+                </Typography>
+              </div>
+            </CardContent>
+            <CardActions style={{ marginTop: 'auto', justifyContent: 'space-between' }}>
+              {!isMember && (
+                <Link to={`/join?groupId=${props.session.groupId}`} style={{ marginRight: '10px' }}>
+                  <Button
+                    sx={{ color: 'white', backgroundColor: '#DD4D2B', textTransform: 'none', '&:hover': { backgroundColor: '#FF6E6E' } }}
+                    size="small" onClick={joinButton}
+                  >
+                    Join
+                  </Button>
+                </Link>
+              )}
+              {isMember && (
+                <Button sx={{ color: 'white', backgroundColor: '#DD4D2B', textTransform: 'none', '&:hover': { backgroundColor: '#FF6E6E' } }} size="small"       onClick={(event) => {
+                  event.stopPropagation();
+                  event.preventDefault();
+                  leaveButton();
+                }}>
+                  Leave
+                </Button>
+              )}
+              <Button 
+              startIcon={<DateRangeIcon />}
+              size="small" 
+              sx={{ color: 'black', backgroundColor: '#4D96B6', textTransform: 'none', '&:hover': { backgroundColor: '#4D96B6' } }}
+              >
+                  {formattedDate}
+                </Button>
+            </CardActions>
+          </Card>
+        </Link>
+        <MoreInfoModal
+          open={isMoreInfoOpen}
+          onClose={handleCloseMoreInfo}
+          session={props.session}
+        />
+      </div>
+    ) : (
+      <div>
         <Card
           className={`session-card ${isMember ? 'member' : ''}`}
           sx={{
@@ -60,8 +138,10 @@ export default function SessionCard(props) {
             borderRadius: '10px',
             transition: 'transform 0.2s',
           }}
+
           onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.02)')}
           onMouseLeave={(e) => (e.currentTarget.style.transform = 'none')}
+          onClick={handleOpenMoreInfo}
         >
           <CardMedia
             component="img"
@@ -88,12 +168,12 @@ export default function SessionCard(props) {
                   sx={{ color: 'white', backgroundColor: '#DD4D2B', textTransform: 'none', '&:hover': { backgroundColor: '#FF6E6E' } }}
                   size="small" onClick={joinButton}
                 >
-                  Join
+                  Quick Join
                 </Button>
               </Link>
             )}
             {isMember && (
-              <Button sx={{ color: 'white', backgroundColor: '#DD4D2B', textTransform: 'none', '&:hover': { backgroundColor: '#FF6E6E' } }} size="small"       onClick={(event) => {
+              <Button sx={{color: 'white', backgroundColor: '#DD4D2B', textTransform: 'none', '&:hover': { backgroundColor: '#FF6E6E' } }} size="small"       onClick={(event) => {
                 event.stopPropagation();
                 event.preventDefault();
                 leaveButton();
@@ -103,80 +183,19 @@ export default function SessionCard(props) {
             )}
             <Button 
             startIcon={<DateRangeIcon />}
-             size="small" 
-             sx={{ color: 'black', backgroundColor: '#4D96B6', textTransform: 'none', '&:hover': { backgroundColor: '#4D96B6' } }}
-             >
+            size="small" 
+            sx={{color: 'black', backgroundColor: '#4D96B6', textTransform: 'none', '&:hover': { backgroundColor: '#4D96B6' } }}
+            >
                 {formattedDate}
               </Button>
           </CardActions>
         </Card>
-      </Link>
-    ) : (
-      <Card
-        className={`session-card ${isMember ? 'member' : ''}`}
-        sx={{
-          maxWidth: '250px',
-          minWidth: '250px',
-          minHeight: '315px',
-          maxHeight: '315px',
-          backgroundColor: '#1C1E25',
-          display: 'flex',
-          flexDirection: 'column',
-          borderRadius: '10px',
-          transition: 'transform 0.2s',
-        }}
-
-        onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.02)')}
-        onMouseLeave={(e) => (e.currentTarget.style.transform = 'none')}
-        onClick={handleOpenMoreInfo}
-      >
-        <CardMedia
-          component="img"
-          height="150"
-          image={props.session.image}
-          alt="image"
+        <MoreInfoModal
+          open={isMoreInfoOpen}
+          onClose={handleCloseMoreInfo}
+          session={props.session}
         />
-        <CardContent sx={{ color: 'white' }}>
-          <div className="card-title">
-            <Typography gutterBottom variant="h5" component="div">
-              {props.session.name}
-            </Typography>
-          </div>
-          <div className="card-description">
-            <Typography gutterBottom variant="p" component="div">
-              {props.session.description}
-            </Typography>
-          </div>
-        </CardContent>
-        <CardActions style={{ marginTop: 'auto', justifyContent: 'space-between' }}>
-          {!isMember && (
-            <Link to={`/join?groupId=${props.session.groupId}`} style={{ marginRight: '10px' }}>
-              <Button
-                sx={{ color: 'white', backgroundColor: '#DD4D2B', textTransform: 'none', '&:hover': { backgroundColor: '#FF6E6E' } }}
-                size="small" onClick={joinButton}
-              >
-                Quick Join
-              </Button>
-            </Link>
-          )}
-          {isMember && (
-            <Button sx={{color: 'white', backgroundColor: '#DD4D2B', textTransform: 'none', '&:hover': { backgroundColor: '#FF6E6E' } }} size="small"       onClick={(event) => {
-              event.stopPropagation();
-              event.preventDefault();
-              leaveButton();
-            }}>
-              Leave
-            </Button>
-          )}
-          <Button 
-          startIcon={<DateRangeIcon />}
-           size="small" 
-           sx={{color: 'black', backgroundColor: '#4D96B6', textTransform: 'none', '&:hover': { backgroundColor: '#4D96B6' } }}
-           >
-              {formattedDate}
-            </Button>
-        </CardActions>
-      </Card>
+      </div>
     )
   );
 }
