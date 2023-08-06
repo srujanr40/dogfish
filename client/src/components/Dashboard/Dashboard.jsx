@@ -7,7 +7,7 @@ import "../styles.module.css";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import CreateSessionPopup from "../CreateSession/CreateSessionPopup.jsx";
-import { getSessionsAsync, getSessionsNearYouAsync } from "../../redux/session/sessionThunks.js";
+import { getSessionsNearYouAsync } from "../../redux/session/sessionThunks.js";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Dashboard() {
@@ -24,23 +24,8 @@ export default function Dashboard() {
   const [soccerSessions, setSoccerSessions] = useState([]);
 
   useEffect(() => {
-    dispatch(getSessionsAsync('Frisbee'))
-      .then((sessions) => {
-        const frisbeeSessionsData = sessions.payload;
-        setFrisbeeSessions(frisbeeSessionsData);
-      })
-      .catch((error) => {
-        console.error('Error fetching Frisbee sessions:', error);
-      });
-
-    dispatch(getSessionsAsync('Soccer'))
-      .then((sessions) => {
-        const soccer = sessions.payload;
-        setSoccerSessions(soccer);
-      })
-      .catch((error) => {
-        console.error('Error fetching Frisbee sessions:', error);
-      });
+    setFrisbeeSessions(sessions.filter((session) => session.sport.toLowerCase() === 'frisbee'));
+    setSoccerSessions(sessions.filter((session) => session.sport.toLowerCase() === 'soccer'));
   }, [dispatch, sessions]);
 
   useEffect(() => {
