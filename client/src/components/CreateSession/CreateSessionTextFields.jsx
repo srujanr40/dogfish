@@ -47,6 +47,8 @@ export default function CreateSessionTextFields(props) {
     const [session_date_time, setDateTime] = useState(dayjs("2023-10-17T15:30"));
     const [isFormValid, setIsFormValid] = useState(false);
 
+    const [imageUrl, setImageUrl] = useState('');
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -55,15 +57,12 @@ export default function CreateSessionTextFields(props) {
     }, [session_name, session_sport, session_description, session_city, session_location, session_equipment_needed,
         session_players_needed, session_image, session_date_time])
 
-    const handleImageUpload = (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = () => {
-                setSessionImage(reader.result);
-            };
-            reader.readAsDataURL(file);
-        }
+    const handleInputChange = (event) => {
+        setImageUrl(event.target.value);
+    };
+
+    const handleAddButtonClick = () => {
+        setSessionImage(imageUrl);
     };
 
     const handleAddEquipment = () => {
@@ -323,7 +322,13 @@ export default function CreateSessionTextFields(props) {
                         </div>
                     )}
                     <br />
-                    <input type="file" onChange={handleImageUpload} accept="image/*" />
+                    <input
+                        type="text"
+                        placeholder="Enter image URL"
+                        value={imageUrl}
+                        onChange={handleInputChange}
+                    />
+                    <button onClick={handleAddButtonClick}>Add</button>
                 </Box>
             </Box>
             <Stack
