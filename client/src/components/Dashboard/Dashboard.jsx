@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 export default function Dashboard() {
 
+  const sessions = useSelector(state => state.sessionReducer).sessions;
   const profile = useSelector(state => state.profileReducer).profile;
   const [isCreateSessionModalOpen, setIsCreateSessionModalOpen] =
     useState(false);
@@ -21,27 +22,8 @@ export default function Dashboard() {
   const [nearYouSessions, setNearYouSessions] = useState([]);
   const [frisbeeSessions, setFrisbeeSessions] = useState([]);
   const [soccerSessions, setSoccerSessions] = useState([]);
-  const [allSessions, setAllSessions] = useState([]);
 
   useEffect(() => {
-    dispatch(getSessionsAsync(''))
-    .then((sessions) => {
-      const all = sessions.payload
-      setAllSessions(all);
-    })
-    .catch((error) => {
-      console.error('Error fetching near you sessions:', error);
-    });
-
-    dispatch(getSessionsNearYouAsync(profile.location))
-      .then((sessions) => {
-        const near_you = sessions.payload
-        setNearYouSessions(near_you);
-      })
-      .catch((error) => {
-        console.error('Error fetching near you sessions:', error);
-      });
-
     dispatch(getSessionsAsync('Frisbee'))
       .then((sessions) => {
         const frisbeeSessionsData = sessions.payload;
@@ -52,14 +34,25 @@ export default function Dashboard() {
       });
 
     dispatch(getSessionsAsync('Soccer'))
-    .then((sessions) => {
-      const soccer = sessions.payload;
-      setSoccerSessions(soccer);
-    })
-    .catch((error) => {
-      console.error('Error fetching Frisbee sessions:', error);
-    });
-  }, [dispatch, allSessions, profile.location]);
+      .then((sessions) => {
+        const soccer = sessions.payload;
+        setSoccerSessions(soccer);
+      })
+      .catch((error) => {
+        console.error('Error fetching Frisbee sessions:', error);
+      });
+  }, [dispatch, sessions]);
+
+  useEffect(() => {
+    dispatch(getSessionsNearYouAsync(profile.location))
+      .then((sessions) => {
+        const near_you = sessions.payload
+        setNearYouSessions(near_you);
+      })
+      .catch((error) => {
+        console.error('Error fetching near you sessions:', error);
+      });
+  }, [dispatch, sessions, profile.location]);
 
   const openCreateSessionModal = () => {
     setIsCreateSessionModalOpen(true);
@@ -95,10 +88,10 @@ export default function Dashboard() {
         <Featured />
       </div>
       <div className="sessionsContainer">
+        <Card sessions={sessions} name={'All'} />
         <Card sessions={nearYouSessions} name={'Activities near you'} />
         <Card sessions={frisbeeSessions} name={'Frisbee'} />
         <Card sessions={soccerSessions} name={'Soccer'} />
-        <Card sessions={allSessions} name={'All'} />
       </div>
     </div>
   );
