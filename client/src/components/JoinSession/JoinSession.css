@@ -26,13 +26,6 @@
     height: 0.1vh
 }
 
-.verticalDivider{
-    orientation: vertical;
-    background-color: lightgray;
-    height: 0.1vh
-
-}
-
 .closeButton {
     color: #aaa;
     font-size: 3vw;
