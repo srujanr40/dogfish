@@ -20,13 +20,15 @@ export default function Dashboard() {
   const dispatch = useDispatch();
 
   const [nearYouSessions, setNearYouSessions] = useState([]);
-  const [frisbeeSessions, setFrisbeeSessions] = useState([]);
-  const [soccerSessions, setSoccerSessions] = useState([]);
+  const [interestedSportsSessions, setInterestedSportsSessions] = useState([]);
 
   useEffect(() => {
-    setFrisbeeSessions(sessions.filter((session) => session.sport.toLowerCase() === 'frisbee'));
-    setSoccerSessions(sessions.filter((session) => session.sport.toLowerCase() === 'soccer'));
-  }, [dispatch, sessions]);
+    let sportCategoriesArrays = [];
+    profile.interests.forEach((sport) => {
+      sportCategoriesArrays.push(sessions.filter((session) => session.sport.toLowerCase() === sport.toLowerCase()))
+    })
+    setInterestedSportsSessions(sportCategoriesArrays)
+  }, [dispatch, sessions, profile.interests]);
 
   useEffect(() => {
     dispatch(getSessionsNearYouAsync(profile.location))
@@ -75,8 +77,9 @@ export default function Dashboard() {
       <div className="sessionsContainer">
         <Card sessions={sessions} name={'All'} />
         <Card sessions={nearYouSessions} name={'Activities near you'} />
-        <Card sessions={frisbeeSessions} name={'Frisbee'} />
-        <Card sessions={soccerSessions} name={'Soccer'} />
+        {interestedSportsSessions.map((sessionsArray, index) => (
+          sessionsArray && sessionsArray[0] && <Card key={index} sessions={sessionsArray} name={sessionsArray[0].sport} />
+        ))}
       </div>
     </div>
   );
