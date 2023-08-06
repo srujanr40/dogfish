@@ -107,11 +107,14 @@ export default function Navbar() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
-          <Link to={`/join?groupId=${recommendedSession.groupId}`} style={{ color: 'white' }}>
-            <MenuItem onClick={updateSession}>
-              Magic Join
-            </MenuItem>
-          </Link>
+          <div>
+            {recommendedSession && <Link to={`/join?groupId=${recommendedSession.groupId}`} style={{ color: 'white' }}>
+              <MenuItem onClick={updateSession}>
+                Magic Join
+              </MenuItem>
+            </Link>
+            }
+            </div>
           <Link to="/mysessions" style={{ color: 'white' }}>
             <MenuItem>
               My Sessions
