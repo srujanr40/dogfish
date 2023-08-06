@@ -1,6 +1,5 @@
 const getProfile = async () => {
     const email = localStorage.getItem("currentUser");
-    console.log(email);
     try {
         const url = `${process.env.REACT_APP_REST_API_URL}/profile?email=${encodeURIComponent(email)}`;
         const response = await fetch(url, {
