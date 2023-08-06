@@ -7,10 +7,6 @@ import CloseIcon from '@mui/icons-material/Close';
 
 const MoreInfoModal = (props) => {
   const { open, onClose, session } = props;
-  const youtubeOpts = {
-    height: '250',
-    width: '100%',
-  };
 
   const formattedDate = new Date(session.dateTime).toLocaleDateString('en-US', {
     month: 'short',
