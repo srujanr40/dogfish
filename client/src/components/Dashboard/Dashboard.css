@@ -55,3 +55,9 @@
     /* otherwise it just cus sessions*/
     /* overflow: hidden */
 }
+
+.searchContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
