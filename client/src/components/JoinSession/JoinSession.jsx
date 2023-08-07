@@ -1,17 +1,18 @@
 import './JoinSession.css';
 import Navbar from '../Navbar/Navbar.jsx';
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {useDispatch, useSelector} from 'react-redux';
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import "react-chat-elements/dist/main.css"
-import { MessageList, Input } from "react-chat-elements"
+import {MessageList, Input} from "react-chat-elements"
 import Button from "@mui/material/Button";
-import { updateSessionAsync, deleteSessionAsync } from "../../redux/session/sessionThunks";
+import {updateSessionAsync, deleteSessionAsync} from "../../redux/session/sessionThunks";
 import Map from "./Map"
-import { getChatAsync, updateChatAsync } from "../../redux/chat/chatThunks";
+import {getChatAsync, updateChatAsync} from "../../redux/chat/chatThunks";
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+
 const listReference = React.createRef();
 const inputReference = React.createRef();
 
@@ -23,6 +24,7 @@ export default function JoinSession() {
     const groupId = searchParams.get('groupId');
     const sessions = useSelector(state => state.sessionReducer).sessions;
     const session = sessions.find(element => element.groupId === groupId);
+    const sessionDate = new Date(session.dateTime)
     const profile = useSelector(state => state.profileReducer).profile;
     let chats = useSelector(state => state.chatReducer).chats;
     let chat = chats.find(element => element.groupId === groupId)
@@ -34,10 +36,14 @@ export default function JoinSession() {
             sortChat()
         }
     }
+    let updatedPlayersNeeded = session.playersNeeded - (session.members.length - 1);
+    if(updatedPlayersNeeded < 0) {
+        updatedPlayersNeeded = 0;
+    }
 
     const [isEditable, setIsEditable] = useState(false);
-    const [editedSession, setEditedSession] = useState({ ...session });
-    const [curSession, setCurSession] = useState({ ...session });
+    const [editedSession, setEditedSession] = useState({...session});
+    const [curSession, setCurSession] = useState({...session});
 
     useEffect(() => {
         const intervalId = setInterval(() => {
@@ -62,7 +68,7 @@ export default function JoinSession() {
             date: new Date(),
         }
         inputReference.current.value = ''
-        dispatch(updateChatAsync({ groupId, chat }))
+        dispatch(updateChatAsync({groupId, chat}))
     }
 
     function sortChat() {
@@ -87,7 +93,7 @@ export default function JoinSession() {
 
     const handleCancelEdit = () => {
         setIsEditable(false);
-        setEditedSession({ ...curSession });
+        setEditedSession({...curSession});
     };
 
     const handleSaveEdit = () => {
@@ -104,31 +110,58 @@ export default function JoinSession() {
     };
 
     const handleGoogleAutocompleteChange = async (location) => {
-        setEditedSession({ ...editedSession, location: location.label })
+        setEditedSession({...editedSession, location: location.label})
     };
+
+    function arrayToString(arr) {
+        let result = '';
+        for (let i = 0; i < arr.length - 1; i++) {
+            result += arr[i].name;
+            result += ', ';
+        }
+        result += arr[arr.length - 1].name;
+        return result;
+    }
+
+    function arrayToEquipmentString(equipment) {
+        let result = '';
+        for (let i = 0; i < equipment.length - 1; i++) {
+            result += equipment[i][0];
+            result += ' ';
+            result += equipment[i][1];
+            result += ', ';
+        }
+        result += equipment[equipment.length - 1][0];
+        result += ' ';
+        result += equipment[equipment.length - 1][1];
+        return result;
+    }
 
     return (
         <div className="container">
-            <Navbar />
+            <Navbar/>
             <div className="mainPart">
-                <div className="splits">
-                    <div className="mainInfo">
-                        <img className="placeholder-image" src={curSession.image} alt="placeholder" />
-                        <h5>Event</h5>
+                <div className={`splits${isEditable ? 'Edit' : ''}`}>
+                    <div className='mainInfo'>
+                        <img className="session-image" src={curSession.image} alt="placeholder"/>
                         {isEditable ? (
-                            <input
-                                type="text"
-                                value={editedSession.name}
-                                onChange={(e) =>
-                                    setEditedSession({ ...editedSession, name: e.target.value })
-                                }
-                            />
+                            <div style={{marginBottom: '2vh'}}>
+                                <h4 className='textMargin'>Event: </h4>
+                                <input
+                                    type="text"
+                                    value={editedSession.name}
+                                    onChange={(e) =>
+                                        setEditedSession({...editedSession, name: e.target.value})
+                                    }
+                                />
+                            </div>
                         ) : (
-                            <h4>{curSession.name}</h4>
+                            <h4 className='textMargin'>Event: {curSession.name}</h4>
                         )}
-                        <h5>Location</h5>
+                        <Divider className='divider'/>
                         {isEditable ? (
-                            <div>
+                            <div style={{marginBottom: '2vh'}}>
+                                <h4 className='textMargin'>Location: </h4>
                                 <GooglePlacesAutocomplete
                                     apiKey={process.env.REACT_APP_GOOGLE_MAPS_API}
                                     selectProps={{
@@ -138,32 +171,48 @@ export default function JoinSession() {
                                 />
                             </div>
                         ) : (
-                            <h4>{curSession.location}</h4>
+                            <h4 className='textMargin'>Location: {curSession.location}</h4>
                         )}
-                        <h5>City</h5>
+                        <Divider className='divider'/>
                         {isEditable ? (
-                            <input
-                                type="text"
-                                value={editedSession.city}
-                                onChange={(e) =>
-                                    setEditedSession({ ...editedSession, city: e.target.value })
-                                }
-                            />
+                            <div style={{marginBottom: '2vh'}}>
+                                <h4 className='textMargin'>City: </h4>
+                                <input
+                                    type="text"
+                                    value={editedSession.city}
+                                    onChange={(e) =>
+                                        setEditedSession({...editedSession, city: e.target.value})
+                                    }
+                                />
+                            </div>
                         ) : (
-                            <h4>{curSession.city}</h4>
+                            <h4 className='textMargin'>City: {curSession.city}</h4>
                         )}
-                        <h5>Description</h5>
+                        <Divider className='divider'/>
+                        <h4 className='textMargin'>Players Needed: {updatedPlayersNeeded}</h4>
+                        <h4 className='textMargin'>Members: {arrayToString(session.members)}</h4>
+                        <Divider className='divider'/>
+                        <h4 className='textMargin'>Date: {sessionDate.toLocaleDateString("en-US")}</h4>
+                        <Divider className='divider'/>
                         {isEditable ? (
-                            <input
-                                type="text"
-                                value={editedSession.description}
-                                onChange={(e) =>
-                                    setEditedSession({ ...editedSession, description: e.target.value })
-                                }
-                            />
+                            <div style={{marginBottom: '2vh'}}>
+                                <h4 className='textMargin'>Description: </h4>
+                                <input
+                                    type="text"
+                                    value={editedSession.description}
+                                    onChange={(e) =>
+                                        setEditedSession({...editedSession, description: e.target.value})
+                                    }
+                                />
+                            </div>
                         ) : (
-                            <h4>{curSession.description}</h4>
+                            <h4 className='textMargin'>Description: {curSession.description}</h4>
                         )}
+                        <Divider className='divider'/>
+                        <div className="equipmentInfo">
+                            <h4 className='textMargin'>Equipment Needed:</h4>
+                            <h4 className='textMargin'>{arrayToEquipmentString(curSession.equipment)}</h4>
+                        </div>
                         {isEditable && (
                             <div className="editButtons">
                                 <Button
@@ -197,18 +246,12 @@ export default function JoinSession() {
                             </div>
                         )}
                     </div>
-                    <Divider />
-                    <div className="equipmentInfo">
-                        <h5>Equipment Needed</h5>
-                        <h4>{curSession.equipment}</h4>
-                        <h5>Players Needed</h5>
-                        <h4>{curSession.playersNeeded}</h4>
-                    </div>
                 </div>
-                <div className="splits">
+                <div className={`splits${isEditable ? 'Edit' : ''}`}>
                     <Box sx={{
                         width: 400,
                         height: 550,
+                        backgroundColor: 'white',
                         overflow: "auto",
                     }}>
                         <MessageList
@@ -216,10 +259,10 @@ export default function JoinSession() {
                             className='message-list'
                             lockable={true}
                             toBottomHeight={'100%'}
-                            dataSource={chat} />
+                            dataSource={chat}/>
 
                     </Box>
-
+                    <Divider className='divider'/>
                     <Box>
                         <Input
                             placeholder='Write your message here.'
@@ -240,13 +283,13 @@ export default function JoinSession() {
                                     backgroundColor: '#ffc4ad'
                                 }, textTransform: 'none'
                             }}
-                                size="small" text='Submit' onClick={() => AddMessage()}>Send</Button>}
+                                                  size="small" text='Submit' onClick={() => AddMessage()}>Send</Button>}
                         />
 
                     </Box>
                 </div>
-                <div className="splits">
-                    <Map session={session} />
+                <div className={`splits${isEditable ? 'Edit' : ''}`}>
+                    <Map session={session}/>
                 </div>
                 <div className="ownerButtons">
                     {session.owner === profile.email && (
@@ -286,7 +329,7 @@ export default function JoinSession() {
                     )}
                 </div>
                 <div className="end">
-                    <Link to={{ pathname: '/dashboard' }} style={{ marginRight: '10px', textDecoration: 'none' }}>
+                    <Link to={{pathname: '/dashboard'}} style={{marginRight: '10px', textDecoration: 'none'}}>
                         <span className="closeButton">
                             &times;
                         </span>
@@ -294,5 +337,6 @@ export default function JoinSession() {
                 </div>
             </div>
         </div>
-    );
+    )
+        ;
 }
