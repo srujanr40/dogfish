@@ -16,6 +16,17 @@ export default function Dashboard() {
   const profile = useSelector(state => state.profileReducer).profile;
   const [isCreateSessionModalOpen, setIsCreateSessionModalOpen] =
     useState(false);
+  const [filteredSessions, setFilteredSessions] = useState([]);
+
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearchSessions = (searchTerm) => {
+    setSearchTerm(searchTerm);
+    const filtered = sessions.filter((session) =>
+      session.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredSessions(filtered);
+  };
 
   const dispatch = useDispatch();
 
@@ -51,7 +62,19 @@ export default function Dashboard() {
 
   return (
     <div className="container">
-      <Navbar />
+      <Navbar onSearch={handleSearchSessions} />
+      {searchTerm ? (
+          <div className='searchContainer'>
+            <div className="createSessionButton">
+              <Fab variant="extended" color="primary" aria-label="create" onClick={openCreateSessionModal}>
+                <AddIcon/>
+                Create Session
+              </Fab>
+            </div>
+            <Card sessions={filteredSessions} name={'Filtered Sessions'}/>
+          </div>
+        ) : (
+      <>
       <div className="createSessionButton">
         {!isCreateSessionModalOpen && (
           <Fab
@@ -81,6 +104,7 @@ export default function Dashboard() {
           sessionsArray && sessionsArray[0] && <Card key={index} sessions={sessionsArray} name={sessionsArray[0].sport} />
         ))}
       </div>
+      </>)}
     </div>
   );
 }
