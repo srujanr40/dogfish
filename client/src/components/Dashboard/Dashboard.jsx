@@ -64,7 +64,15 @@ export default function Dashboard() {
     <div className="container">
       <Navbar onSearch={handleSearchSessions} />
       {searchTerm ? (
-          <Card sessions={filteredSessions} name={'Filtered Sessions'} />
+          <div className='searchContainer'>
+            <div className="createSessionButton">
+              <Fab variant="extended" color="primary" aria-label="create" onClick={openCreateSessionModal}>
+                <AddIcon/>
+                Create Session
+              </Fab>
+            </div>
+            <Card sessions={filteredSessions} name={'Filtered Sessions'}/>
+          </div>
         ) : (
       <>
       <div className="createSessionButton">
