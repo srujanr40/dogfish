@@ -70,6 +70,7 @@ const sessionQueries = {
           image: session.image,
           sport: session.sport,
           members: session.members,
+            owner: session.owner,
           dateTime: session.dateTime,
         });
         newSession
