@@ -127,12 +127,12 @@ export default function JoinSession() {
         let result = '';
         for (let i = 0; i < equipment.length - 1; i++) {
             result += equipment[i][0];
-            result += ', ';
+            result += ' ';
             result += equipment[i][1];
-            result += '; ';
+            result += ', ';
         }
         result += equipment[equipment.length - 1][0];
-        result += ', ';
+        result += ' ';
         result += equipment[equipment.length - 1][1];
         return result;
     }

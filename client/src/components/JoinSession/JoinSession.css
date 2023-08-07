@@ -8,7 +8,7 @@
     padding-left: 2vw;
     padding-right: 3vw;
     width: 30vw;
-    height: 86vh;
+    min-height: 86vh;
 }
 
 .end {
