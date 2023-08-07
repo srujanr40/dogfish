@@ -42,15 +42,19 @@ const sessionQueries = {
           console.error('Error fetching nearby sessions:', error);
           return null;
         }
-    },      
+    },
     addSession: async function (session) {
+      try {
         const geocodeResult = await getGeocode(session.location);
-        if (!geocodeResult) {
+        let longitude = '';
+        let latitude = '';
+    
+        if (geocodeResult) {
+          longitude = geocodeResult.longitude;
+          latitude = geocodeResult.latitude;
+        } else {
           console.error('Invalid location data.');
         }
-      
-        const { longitude, latitude } = geocodeResult;
-      
         const newSession = new Session({
           name: session.name,
           description: session.description,
@@ -66,9 +70,9 @@ const sessionQueries = {
           image: session.image,
           sport: session.sport,
           members: session.members,
+            owner: session.owner,
           dateTime: session.dateTime,
         });
-      
         newSession
           .save()
           .then((savedSession) => {
@@ -77,6 +81,9 @@ const sessionQueries = {
           .catch((error) => {
             console.error('Error saving session:', error);
           });
+      } catch (error) {
+        console.error('Error geocoding location:', error);
+      }
     },
     updateSession: async function (session) {
         Session.findOneAndUpdate(

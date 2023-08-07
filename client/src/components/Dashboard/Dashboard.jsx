@@ -7,32 +7,41 @@ import "../styles.module.css";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import CreateSessionPopup from "../CreateSession/CreateSessionPopup.jsx";
-import { getSessionsAsync, getSessionsNearYouAsync } from "../../redux/session/sessionThunks.js";
+import { getSessionsNearYouAsync } from "../../redux/session/sessionThunks.js";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Dashboard() {
 
+  const sessions = useSelector(state => state.sessionReducer).sessions;
   const profile = useSelector(state => state.profileReducer).profile;
   const [isCreateSessionModalOpen, setIsCreateSessionModalOpen] =
     useState(false);
+  const [filteredSessions, setFilteredSessions] = useState([]);
+
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearchSessions = (searchTerm) => {
+    setSearchTerm(searchTerm);
+    const filtered = sessions.filter((session) =>
+      session.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredSessions(filtered);
+  };
 
   const dispatch = useDispatch();
 
   const [nearYouSessions, setNearYouSessions] = useState([]);
-  const [frisbeeSessions, setFrisbeeSessions] = useState([]);
-  const [soccerSessions, setSoccerSessions] = useState([]);
-  const [allSessions, setAllSessions] = useState([]);
+  const [interestedSportsSessions, setInterestedSportsSessions] = useState([]);
 
   useEffect(() => {
-    dispatch(getSessionsAsync(''))
-    .then((sessions) => {
-      const all = sessions.payload
-      setAllSessions(all);
+    let sportCategoriesArrays = [];
+    profile.interests.forEach((sport) => {
+      sportCategoriesArrays.push(sessions.filter((session) => session.sport.toLowerCase() === sport.toLowerCase()))
     })
-    .catch((error) => {
-      console.error('Error fetching near you sessions:', error);
-    });
+    setInterestedSportsSessions(sportCategoriesArrays)
+  }, [dispatch, sessions, profile.interests]);
 
+  useEffect(() => {
     dispatch(getSessionsNearYouAsync(profile.location))
       .then((sessions) => {
         const near_you = sessions.payload
@@ -41,25 +50,7 @@ export default function Dashboard() {
       .catch((error) => {
         console.error('Error fetching near you sessions:', error);
       });
-
-    dispatch(getSessionsAsync('Frisbee'))
-      .then((sessions) => {
-        const frisbeeSessionsData = sessions.payload;
-        setFrisbeeSessions(frisbeeSessionsData);
-      })
-      .catch((error) => {
-        console.error('Error fetching Frisbee sessions:', error);
-      });
-
-    dispatch(getSessionsAsync('Soccer'))
-    .then((sessions) => {
-      const soccer = sessions.payload;
-      setSoccerSessions(soccer);
-    })
-    .catch((error) => {
-      console.error('Error fetching Frisbee sessions:', error);
-    });
-  }, [dispatch, allSessions, profile.location]);
+  }, [dispatch, sessions, profile.location]);
 
   const openCreateSessionModal = () => {
     setIsCreateSessionModalOpen(true);
@@ -71,7 +62,19 @@ export default function Dashboard() {
 
   return (
     <div className="container">
-      <Navbar />
+      <Navbar onSearch={handleSearchSessions} />
+      {searchTerm ? (
+          <div className='searchContainer'>
+            <div className="createSessionButton">
+              <Fab variant="extended" color="primary" aria-label="create" onClick={openCreateSessionModal}>
+                <AddIcon/>
+                Create Session
+              </Fab>
+            </div>
+            <Card sessions={filteredSessions} name={'Filtered Sessions'}/>
+          </div>
+        ) : (
+      <>
       <div className="createSessionButton">
         {!isCreateSessionModalOpen && (
           <Fab
@@ -95,11 +98,13 @@ export default function Dashboard() {
         <Featured />
       </div>
       <div className="sessionsContainer">
+        <Card sessions={sessions} name={'All'} />
         <Card sessions={nearYouSessions} name={'Activities near you'} />
-        <Card sessions={frisbeeSessions} name={'Frisbee'} />
-        <Card sessions={soccerSessions} name={'Soccer'} />
-        <Card sessions={allSessions} name={'All'} />
+        {interestedSportsSessions.map((sessionsArray, index) => (
+          sessionsArray && sessionsArray[0] && <Card key={index} sessions={sessionsArray} name={sessionsArray[0].sport} />
+        ))}
       </div>
+      </>)}
     </div>
   );
 }

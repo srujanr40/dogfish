@@ -64,7 +64,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 // Code from Material UI docs for AppBar
-export default function Navbar() {
+export default function Navbar({ onSearch }) {
   const dispatch = useDispatch();
 
   const recommendedSession = useSelector((store) => store.sessionReducer).recommendedSession;
@@ -77,6 +77,11 @@ export default function Navbar() {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleSearchChange = (e) => {
+    const searchTerm = e.target.value;
+    onSearch(searchTerm); // Call the onSearch callback with the search term
   };
 
   const updateSession = () => {
@@ -105,13 +110,17 @@ export default function Navbar() {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
+              onChange={handleSearchChange}
             />
           </Search>
-          <Link to={`/join?groupId=${recommendedSession.groupId}`} style={{ color: 'white' }}>
-            <MenuItem onClick={updateSession}>
-              Magic Join
-            </MenuItem>
-          </Link>
+          <div>
+            {recommendedSession && <Link to={`/join?groupId=${recommendedSession.groupId}`} style={{ color: 'white' }}>
+              <MenuItem onClick={updateSession}>
+                Magic Join
+              </MenuItem>
+            </Link>
+            }
+            </div>
           <Link to="/mysessions" style={{ color: 'white' }}>
             <MenuItem>
               My Sessions
