@@ -189,7 +189,7 @@ export default function JoinSession() {
                             <h4 className='textMargin'>City: {curSession.city}</h4>
                         )}
                         <Divider className='divider'/>
-                        <h4 className='textMargin'>Players needed: {updatedPlayersNeeded}</h4>
+                        <h4 className='textMargin'>Players Needed: {updatedPlayersNeeded}</h4>
                         <h4 className='textMargin'>Members: {arrayToString(session.members)}</h4>
                         <Divider className='divider'/>
                         <h4 className='textMargin'>Date: {sessionDate.toLocaleDateString("en-US")}</h4>
