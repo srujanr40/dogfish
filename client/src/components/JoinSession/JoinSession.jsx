@@ -114,27 +114,32 @@ export default function JoinSession() {
     };
 
     function arrayToString(arr) {
-        let result = '';
-        for (let i = 0; i < arr.length - 1; i++) {
-            result += arr[i].name;
-            result += ', ';
+        if(arr.length > 0) {
+            let result = '';
+            for (let i = 0; i < arr.length - 1; i++) {
+                result += arr[i].name;
+                result += ', ';
+            }
+            result += arr[arr.length - 1].name;
+            return result;
         }
-        result += arr[arr.length - 1].name;
-        return result;
     }
 
     function arrayToEquipmentString(equipment) {
-        let result = '';
-        for (let i = 0; i < equipment.length - 1; i++) {
-            result += equipment[i][0];
+        if(equipment.length > 0) {
+            let result = '';
+            for (let i = 0; i < equipment.length - 1; i++) {
+                result += equipment[i][0];
+                result += ' ';
+                result += equipment[i][1];
+                result += ', ';
+            }
+            result += equipment[equipment.length - 1][0];
             result += ' ';
-            result += equipment[i][1];
-            result += ', ';
+            result += equipment[equipment.length - 1][1];
+            return result;
         }
-        result += equipment[equipment.length - 1][0];
-        result += ' ';
-        result += equipment[equipment.length - 1][1];
-        return result;
+
     }
 
     return (
