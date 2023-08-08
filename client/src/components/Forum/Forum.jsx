@@ -82,7 +82,7 @@ export default function Forum() {
             <Navbar/>
             <div>
                 <div className="forumBar">
-                    <Box sx={{flexGrow: 1}}>
+                    <Box sx={{flexGrow: 1, marginTop: '80px'}}>
                         <AppBar position="static" sx={{
                             backgroundColor: '#FFFFFF', color: '#253341', height: '7vh',
                             justifyContent: 'center'

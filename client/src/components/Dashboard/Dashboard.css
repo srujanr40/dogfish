@@ -26,6 +26,7 @@
 .featuredContainer {
     display: flex;
     flex-direction: column;
+    margin-top: 90px;
     padding: 20px;
     padding-bottom: 0;
     justify-content: space-between;

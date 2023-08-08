@@ -7,7 +7,6 @@
     top: 0;
     width: 100%;
     height: 100%;
-    
     background-color: rgba(0, 0, 0, 0.7);
 }
 
@@ -22,12 +21,11 @@
     padding: 50px;
 }
 
-.close {
-    color: #aaa;
-    float: left;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
+.closeButton {
+    position: relative;
+    left: 100%;
+    padding: 0;
+    font-size: "26px";
 }
 
 .close:hover,
