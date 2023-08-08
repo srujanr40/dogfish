@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TextField, Button, MenuItem, Chip } from '@mui/material';
 import Navbar from '../Navbar/Navbar.jsx';
 import { updateProfileAsync } from "../../redux/profile/profileThunks";
+import { loginSuccess } from "../../redux/auth/authThunks";
 import './Login.css'
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -48,6 +49,7 @@ export default function Login() {
     };
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleLogin = async () => {
         try {
@@ -67,8 +69,12 @@ export default function Login() {
                 setDisplayError(true);
                 setErrorText(data.error);
             } else {
+                const userData = await response.json();
+                console.log(userData)
                 setDisplayError(false);
                 localStorage.setItem("currentUser", email);
+                dispatch(loginSuccess(userData));
+                dispatch(updateProfileAsync(userData.profile));
                 navigate('/dashboard');
             }
         } catch (error) {
