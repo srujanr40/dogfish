@@ -46,7 +46,6 @@ export default function SessionMoreInfoPopup(props) {
         {formattedDate}
       </Typography>
     </DialogContent>
-    <img src={session.image} alt="Session" style={{ borderRadius: '10px', width: '100%', height: 'auto' }} />
   </Dialog>
   );
 }

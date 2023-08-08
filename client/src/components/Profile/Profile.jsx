@@ -79,6 +79,7 @@ export default function Profile() {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
+          marginTop: '90px'
         }}>
         <Box sx={{paddingTop: 20}}>
           {formData.image ? (
