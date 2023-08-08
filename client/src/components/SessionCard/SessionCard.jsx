@@ -51,6 +51,7 @@ export default function SessionCard(props) {
         <Card
           className={`session-card ${isMember ? 'member' : ''}`}
           sx={{
+            maxWidth: `${isFeatured ? '100%' : "250px"}`,
             minWidth: '250px',
             minHeight: `${isFeatured ? "415px" : "315px"}`,
             maxHeight: '315px',
@@ -116,6 +117,7 @@ export default function SessionCard(props) {
         className={`session-card ${isMember ? 'member' : ''}`}
         sx={{
           minWidth: '250px',
+          maxWidth: `${isFeatured ? '100%' : "250px"}`,
           minHeight: `${isFeatured ? "415px" : "315px"}`,
           maxHeight: '315px',
           backgroundColor: '#1C1E25',
