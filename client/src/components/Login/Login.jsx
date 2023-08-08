@@ -75,6 +75,7 @@ export default function Login() {
                 dispatch(loginSuccess(userData));
                 await dispatch(updateProfileAsync(userData.profile));
                 navigate('/dashboard');
+                navigate(0);
             }
         } catch (error) {
             alert('Error occurred during login.');
