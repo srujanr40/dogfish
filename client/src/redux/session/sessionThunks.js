@@ -46,8 +46,8 @@ export const createNewSessionAsync = createAsyncThunk(
 
 export const updateSessionAsync = createAsyncThunk(
     actionTypes.UPDATE_SESSION,
-    async (session) => {
-        return await sessionService.updateSession(session);
+    async ({session, featuredBool}) => {
+        return await sessionService.updateSession(session, featuredBool);
     }
 );
 

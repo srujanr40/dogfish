@@ -26,14 +26,14 @@ export default function SessionCard(props) {
     let session = props.session;
     let updatedMembers = [...session.members, profile];
     let updatedSession = { ...session, members: updatedMembers };
-    dispatch(updateSessionAsync(updatedSession));
+    dispatch(updateSessionAsync({session: updatedSession, featuredBool: props.featured}));
   }
 
   const leaveButton = () => {
     let session = props.session;
     let updatedMembers = session.members.filter((member) => member.email !== profile.email);
     let updatedSession = { ...session, members: updatedMembers };
-    dispatch(updateSessionAsync(updatedSession));
+    dispatch(updateSessionAsync({session: updatedSession, featuredBool: props.featured}));
   }
 
   const isMember = props.session.members.some(member => member && member.email === profile.email)
