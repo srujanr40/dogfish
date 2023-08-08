@@ -30,7 +30,7 @@ router.post('/', async (req, res) => {
   
       await newProfile.save();
   
-      res.status(201).json({ message: 'Account created successfully' });
+      res.status(200).json({ message: 'Account created successfully', profile: newProfile });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Server error' });

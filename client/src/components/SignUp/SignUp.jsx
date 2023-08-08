@@ -24,6 +24,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Divider from '@mui/material/Divider';
 import { useNavigate } from 'react-router-dom';
+import { loginSuccess } from "../../redux/auth/authThunks";
 
 import { setEmail, setPassword, signUpAsync } from '../../redux/auth/authThunks';
 
@@ -54,6 +55,8 @@ export default function SignUp() {
     setConfirmPassword(event.target.value);
   };
 
+  const dispatch = useDispatch();
+
   const handleSignUp = async () => {
     try {
       const response = await fetch(`${process.env.REACT_APP_REST_API_URL}/auth`, {
@@ -67,12 +70,15 @@ export default function SignUp() {
         })
       });
       setDisplayError(false);
+      const data = await response.json();
 
       if (!response.ok) {
         setDisplayError(true);
-        const data = await response.json();
+        
         setErrorText(data.error);
       } else {
+        dispatch(loginSuccess(data));
+        await dispatch(updateProfileAsync(data.profile));
         navigate('/profile');
       }
     } catch (error) {

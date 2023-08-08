@@ -74,7 +74,7 @@ export default function Login() {
                 setDisplayError(false);
                 localStorage.setItem("currentUser", email);
                 dispatch(loginSuccess(userData));
-                dispatch(updateProfileAsync(userData.profile));
+                await dispatch(updateProfileAsync(userData.profile));
                 navigate('/dashboard');
             }
         } catch (error) {
