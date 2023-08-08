@@ -41,7 +41,7 @@ export default function CreateSessionTextFields(props) {
     const [session_city, setCity] = useState("");
     const [session_location, setLocation] = useState("");
     const [session_equipment_needed, setEquipmentNeeded] = useState([]);
-    const [new_equipment, setNewEquipment] = useState('2, bat');
+    const [new_equipment, setNewEquipment] = useState("");
     const [session_players_needed, setPlayersNeeded] = useState("");
     const [session_image, setSessionImage] = useState("");
     const [session_date_time, setDateTime] = useState(dayjs("2023-10-17T15:30"));
@@ -135,11 +135,12 @@ export default function CreateSessionTextFields(props) {
         }
     }
 
+
     return (
-        <div id="create-session-text-fields">
+        <div id="create-session-form">
             <Box
                 sx={{
-                    display: "flex",
+                    display: "flex", width: '100%',
                     flexDirection: { xs: "column", sm: "column", md: "row", lg: "row" },
                 }}
             >
@@ -182,8 +183,6 @@ export default function CreateSessionTextFields(props) {
                                     setName(e.target.value);
                                 }}
                             />
-                            <br />
-
                             <TextField
                                 required
                                 fullWidth
@@ -195,8 +194,6 @@ export default function CreateSessionTextFields(props) {
                                     setSport(e.target.value);
                                 }}
                             />
-                            <br />
-
                             <TextField
                                 multiline
                                 fullWidth
@@ -209,8 +206,6 @@ export default function CreateSessionTextFields(props) {
                                     setDescription(e.target.value);
                                 }}
                             />
-                            <br />
-
                             <TextField
                                 required
                                 fullWidth
@@ -228,15 +223,14 @@ export default function CreateSessionTextFields(props) {
                             sx={{
                                 alignItems: "center",
                                 justifyContent: "center",
-                                width: { sm: 450, md: 300, lg: 400 },
                             }}
                         >
                             <TextField
                                 sx={{
-                                    width: 320
+                                    width: 320,
                                 }}
                                 id="session-equipment-needed"
-                                label="Equipment Needed"
+                                label='# items, equipment name'
                                 margin="normal"
                                 value={new_equipment}
                                 onChange={(e) => {
@@ -245,33 +239,46 @@ export default function CreateSessionTextFields(props) {
                             />
                             <Button
                                 variant="contained"
-                                sx={{mt: 1, p: 2}}
+                                sx={{ mt: 1, p: 2 }}
                                 color="primary"
+                                size="small"
                                 onClick={handleAddEquipment}
                                 disabled={!new_equipment}
-                                style={{ marginBottom: '20px' }}
                             >
                                 Add
                             </Button>
-                            <Tooltip title={equipmentInfo} arrow>
-                                <Button>MORE INFO</Button>
-                            </Tooltip>
-                            <br />
-
-                            <div style={{ marginBottom: '20px' }}>
-                                {session_equipment_needed && session_equipment_needed.map((equipment) => (
-                                    <Chip
-                                        key={equipment}
-                                        label={equipment}
-                                        onDelete={() => handleDeleteEquipment(equipment)}
-                                        style={{ margin: '5px' }}
-                                    />
-                                ))}
+                            <div>
+                                {session_equipment_needed &&
+                                    session_equipment_needed.map((equipment) => (
+                                        <Chip
+                                            key={equipment}
+                                            label={equipment}
+                                            onDelete={() => handleDeleteEquipment(equipment)}
+                                            style={{ margin: "5px" }}
+                                        />
+                                    ))}
                             </div>
-
+                            <Box sx={{width: '400px' }}>
+                                <TextField
+                                    sx={{width: '320px'}}
+                                    type="text"
+                                    placeholder="Enter image URL"
+                                    value={imageUrl}
+                                    onChange={handleInputChange}
+                                />
+                                <Button
+                                    variant="contained"
+                                    sx={{ mt: 1, p: 2,}}
+                                    color="primary"
+                                    size="small"
+                                    onClick={handleAddButtonClick}
+                                >
+                                    Add
+                                </Button>                            
+                            </Box>
                             <TextField
+                            sx={{width: "140px"}}
                                 required
-                                fullWidth
                                 id="session-players-needed"
                                 label="Players Needed"
                                 margin="normal"
@@ -284,10 +291,9 @@ export default function CreateSessionTextFields(props) {
                                     setPlayersNeeded(e.target.value);
                                 }}
                             />
-
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DateTimePicker
-                                    fullWidth
+                                    sx={{ width: "235px" }}
                                     label="Select Date"
                                     value={session_date_time}
                                     onChange={(e) => {
@@ -295,21 +301,22 @@ export default function CreateSessionTextFields(props) {
                                     }}
                                 />
                             </LocalizationProvider>
-                            <Box sx={{paddingTop: 1, paddingBottom: 0.5}}>
-                            <GooglePlacesAutocomplete
-                                apiKey= {process.env.REACT_APP_GOOGLE_MAPS_API}
-                                selectProps={{
-                                    session_location,
-                                    onChange: setLocation,
-                                    placeholder:'Location',
-                                }}
-                            />
-                            <br />
+                            <Box sx={{ ml: 1, mt: 1, width: '390px' }}>
+                                <GooglePlacesAutocomplete
+                                    apiKey={process.env.REACT_APP_GOOGLE_MAPS_API}
+                                    selectProps={{
+                                        session_location,
+                                        onChange: setLocation,
+                                        placeholder: "Location",
+                                    }}
+                                />
                             </Box>
+
+
                         </Box>
                     </Box>
                 </Box>
-                <Box sx={{ paddingLeft: { sm: 10, md: 20 }, paddingTop: 2 }}>
+                <Box sx={{ ml: 5, mt: 1 }}>
                     {session_image ? (
                         <img className="upload-image" src={session_image} alt="Selected" />
                     ) : (
@@ -322,28 +329,28 @@ export default function CreateSessionTextFields(props) {
                         </div>
                     )}
                     <br />
-                    <input
-                        type="text"
-                        placeholder="Enter image URL"
-                        value={imageUrl}
-                        onChange={handleInputChange}
-                    />
-                    <button onClick={handleAddButtonClick}>Add</button>
+
                 </Box>
             </Box>
-            <Stack
-                sx={{
-                    paddingTop: 3,
-                }}
-            >
+            <Box sx={{ m: 1, display: 'flex', gap: 2}}>
                 <Button
                     variant="contained"
+                    size="medium"
+                    color="success"
                     onClick={handleSubmit}
                     disabled={!isFormValid}
                 >
-                    Submit
+                    Create
                 </Button>
-            </Stack>
+                <Button
+                    variant="contained"
+                    size="medium"
+                    color="error"
+                    onClick={props.closeModal}
+                >
+                    Cancel
+                </Button>
+            </Box>
         </div>
     );
 }
