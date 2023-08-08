@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TextField, Button, MenuItem, Chip } from '@mui/material';
 import Navbar from '../Navbar/Navbar.jsx';
 import { updateProfileAsync } from "../../redux/profile/profileThunks";
+import Box from "@mui/material/Box";
 
 
 export default function Profile() {
@@ -51,6 +52,17 @@ export default function Profile() {
     });
   };
 
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData({ ...formData, image: reader.result });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(updateProfileAsync(formData)).then(() => {
@@ -68,7 +80,17 @@ export default function Profile() {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <UploadImage image={formData.image} />
+        <Box sx={{paddingTop: 2}}>
+          {formData.image ? (
+            <img className="upload-image" src={formData.image} alt="Selected"/>
+          ) : (
+            <div>
+              <img className="upload-image" src={profile.image} alt='placeholder'/>
+            </div>
+          )}
+          <br />
+          <input type="file" onChange={handleImageUpload} accept="image/*" />
+      </Box>
         <form onSubmit={handleSubmit}>
           <TextField
             name="name"
