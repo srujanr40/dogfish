@@ -119,26 +119,6 @@ export default function Navbar({ onSearch, showSearch }) {
           >
             <Link to="/dashboard"><img src={logo} height="70px" /></Link>
           </Typography>
-          {showSearch && (  // Conditionally render the search bar
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-                inputProps={{ 'aria-label': 'search' }}
-                onChange={handleSearchChange}
-              />
-            </Search>
-          )}
-          <div>
-            {recommendedSession && <Link to={`/join?groupId=${recommendedSession.groupId}`} style={{ color: 'white' }}>
-              <MenuItem onClick={updateSession}>
-                Magic Join
-              </MenuItem>
-            </Link>
-            }
-            </div>
           {showSearch && (
             <Search>
               <SearchIconWrapper>
@@ -151,41 +131,54 @@ export default function Navbar({ onSearch, showSearch }) {
               />
             </Search>
           )}
-          
+
           <Link to="/mysessions" style={{ color: 'white' }}>
-            <MenuItem sx={{paddingLeft: 3}}>
-            <b>My Sessions</b>
+            <MenuItem sx={{ paddingLeft: 3 }}>
+              <b>My Sessions</b>
             </MenuItem>
           </Link>
           <Link to="/forum" style={{ color: 'white' }}>
-            <MenuItem sx={{paddingRight: 4}}>
-            <b>Forum</b>
+            <MenuItem sx={{ paddingRight: 4 }}>
+              <b>Forum</b>
             </MenuItem>
           </Link>
           <div>
             {recommendedSession && <Link to={`/join?groupId=${recommendedSession.groupId}`} style={{ color: 'white', marginRight: '10px' }}>
               <Fab variant="extended" color="primary" aria-label="create" size="small" onClick={updateSession}>
-                <AutoAwesomeIcon sx={{paddingRight: 1}}/>
+                <AutoAwesomeIcon sx={{ paddingRight: 1 }} />
                 Auto-join
-                </Fab>
+              </Fab>
             </Link>
             }
           </div>
-          <Fab variant="extended" color="primary" aria-label="create" size="small" onClick={openCreateSessionModal}>
-              <AddIcon sx={{paddingRight: 1}}/>
-              Create Session
-            </Fab>
-          <IconButton
-            size="large"
-            aria-label="account of current user"
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
-            onClick={handleMenu}
-            color="inherit"
-            sx={{paddingLeft: 2}}
-          >
-            <AccountCircle />
-          </IconButton>
+          <div>
+            {showSearch && (
+              <>
+                <Fab
+                  variant="extended"
+                  color="primary"
+                  aria-label="create"
+                  size="small"
+                  onClick={openCreateSessionModal}
+                >
+                  <AddIcon sx={{ paddingRight: 1 }} />
+                  Create Session
+                </Fab>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleMenu}
+                  color="inherit"
+                  sx={{ paddingLeft: 2 }}
+                >
+                  <AccountCircle />
+                </IconButton>
+              </>
+            )}
+          </div>
+
           <Menu
             id="menu-appbar"
             anchorEl={anchorEl}
@@ -212,11 +205,11 @@ export default function Navbar({ onSearch, showSearch }) {
           </Menu>
         </Toolbar>
       </AppBar>
-            {isCreateSessionModalOpen && (
-              <div>
-                <CreateSessionPopup closeModal={closeCreateSessionModal} />
-              </div>
-            )}
+      {isCreateSessionModalOpen && (
+        <div>
+          <CreateSessionPopup closeModal={closeCreateSessionModal} />
+        </div>
+      )}
     </Box>
   );
 }

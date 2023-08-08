@@ -80,7 +80,7 @@ export default function Profile() {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <Box sx={{paddingTop: 2}}>
+        <Box sx={{paddingTop: 20}}>
           {formData.image ? (
             <img className="upload-image" src={formData.image} alt="Selected"/>
           ) : (
