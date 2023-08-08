@@ -131,26 +131,6 @@ export default function Navbar({ onSearch, showSearch }) {
               />
             </Search>
           )}
-          <div>
-            {recommendedSession && <Link to={`/join?groupId=${recommendedSession.groupId}`} style={{ color: 'white' }}>
-              <MenuItem onClick={updateSession}>
-                Magic Join
-              </MenuItem>
-            </Link>
-            }
-            </div>
-          {showSearch && (
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-                inputProps={{ 'aria-label': 'search' }}
-                onChange={handleSearchChange}
-              />
-            </Search>
-          )}
           
           <Link to="/mysessions" style={{ color: 'white' }}>
             <MenuItem sx={{paddingLeft: 3}}>
