@@ -7,7 +7,7 @@ import { Card } from '@mui/material';
 import SessionCard from '../SessionCard/SessionCard';
 import SessionMoreInfoPopup from '../SessionMoreInfo/SessionMoreInfoPopup';
 
-const FeaturedCard = () => {
+const Featured = () => {
   const featuredSessions = useSelector((store) => store.sessionReducer).featuredSessions;
 
   const [isSessionMoreInfoModalOpen, setIsSessionMoreInfoModalOpen] =
@@ -66,4 +66,4 @@ const closeSessionMoreInfoModal = () => {
   );
 };
 
-export default FeaturedCard;
+export default Featured;
