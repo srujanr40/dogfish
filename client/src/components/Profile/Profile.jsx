@@ -18,7 +18,7 @@ export default function Profile() {
     equipment: profile.equipment || [],
     interests: profile.interests || [],
     location: profile.location || '',
-    image: profile.image || ''
+    image: profile.image || 'https://placehold.co/200'
   });
   const [selectedEquipment, setSelectedEquipment] = useState('');
   const [interest, setInterest] = useState('');
@@ -79,9 +79,10 @@ export default function Profile() {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          marginTop: '90px'
+          marginTop: '120px',
+          marginBottom: '50px'
         }}>
-        <Box sx={{paddingTop: 20}}>
+        <Box>
           {formData.image ? (
             <img className="upload-image" src={formData.image} alt="Selected"/>
           ) : (
