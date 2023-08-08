@@ -62,7 +62,7 @@ export default function Dashboard() {
 
   return (
     <div className="container">
-      <Navbar onSearch={handleSearchSessions} />
+      <Navbar onSearch={handleSearchSessions} showSearch={true} />
       {searchTerm ? (
           <div className='searchContainer'>
             <div className="createSessionButton">

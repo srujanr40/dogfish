@@ -68,6 +68,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 
+
+// Code from Material UI docs for AppBar
 export default function Navbar({ onSearch, showSearch }) {
   const dispatch = useDispatch();
 
@@ -117,16 +119,18 @@ export default function Navbar({ onSearch, showSearch }) {
           >
             <Link to="/dashboard"><img src={logo} height="70px" /></Link>
           </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-              onChange={handleSearchChange}
-            />
-          </Search>
+          {showSearch && (  // Conditionally render the search bar
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ 'aria-label': 'search' }}
+                onChange={handleSearchChange}
+              />
+            </Search>
+          )}
           <div>
             {recommendedSession && <Link to={`/join?groupId=${recommendedSession.groupId}`} style={{ color: 'white' }}>
               <MenuItem onClick={updateSession}>
