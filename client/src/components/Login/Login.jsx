@@ -70,7 +70,6 @@ export default function Login() {
                 setErrorText(data.error);
             } else {
                 const userData = await response.json();
-                console.log(userData)
                 setDisplayError(false);
                 localStorage.setItem("currentUser", email);
                 dispatch(loginSuccess(userData));
