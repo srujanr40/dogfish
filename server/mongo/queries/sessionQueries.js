@@ -16,7 +16,7 @@ const sessionQueries = {
         return sessions;
       },
     getNearBySessions: async function(location) {
-        const geocodeResult = await getGeocode(location.location_coordinates);
+        const geocodeResult = await getGeocode(location.location);
         if (!geocodeResult) {
           console.error('Invalid location data.');
           return [];
@@ -70,6 +70,7 @@ const sessionQueries = {
           image: session.image,
           sport: session.sport,
           members: session.members,
+            owner: session.owner,
           dateTime: session.dateTime,
         });
         newSession

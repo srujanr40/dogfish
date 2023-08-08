@@ -45,7 +45,6 @@ router.post('/', async (req, res) => {
       if (!profile) {
         return res.status(400).json({ error: 'Invalid email or password' });
       }
-      console.log(profile);
   
       // Compare the provided password with the hashed password stored in the database
       const passwordMatch = await bcrypt.compare(password, profile.password);

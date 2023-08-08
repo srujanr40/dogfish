@@ -1,4 +1,5 @@
 export const actionTypes = {
+    GET_ALL_SESSIONS: 'session/getallsessions',
     GET_SESSIONS: 'session/getsessions',
     GET_SESSIONS_NEAR_YOU: 'session/getsessionsnearyou',
     GET_FEATURED_SESSIONS: 'session/getfeaturedsessions',

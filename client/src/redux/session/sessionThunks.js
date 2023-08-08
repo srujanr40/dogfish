@@ -2,6 +2,13 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { actionTypes } from './actionTypes';
 import sessionService from "./sessionService"
 
+export const getAllSessionsAsync = createAsyncThunk(
+    actionTypes.GET_ALL_SESSIONS,
+    async () => {
+        return await sessionService.getSessions();
+    }
+);
+
 export const getSessionsAsync = createAsyncThunk(
     actionTypes.GET_SESSIONS,
     async (filter) => {

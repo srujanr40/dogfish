@@ -5,20 +5,25 @@
 
 .splits {
     padding-top: 3vh;
-    padding-left: 3vw;
+    padding-left: 2vw;
     padding-right: 3vw;
     width: 30vw;
-    height: 88vh;
+    min-height: 86vh;
 }
 
 .end {
     width: 7vw;
-    height: 88vh;
+    height: 86vh;
     padding-top: 3vh;
-    padding-right: 3vw;
+    padding-right: 1vw;
     display: flex;
     flex-direction: column;
-    align-items: end;
+    align-items: flex-end;
+}
+
+.divider{
+    background-color: lightgray;
+    height: 0.1vh
 }
 
 .closeButton {
@@ -28,9 +33,9 @@
     cursor: pointer;
 }
 
-.placeholder-image {
-    height: 15vh;
-    width: auto;
+.session-image {
+    height: 25vh;
+    object-fit: contain
 }
 
 .buttonWrapper {
@@ -41,7 +46,7 @@
     margin-top: 10px;
     right: 15px;
     bottom: 20px;
-    align-items: end;
+    align-items: flex-end;
 }
 
 .editButtons {
@@ -53,4 +58,22 @@
     justify-content: flex-start;
     height: 30px;
     width: 100px;
+}
+
+.textMargin {
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}
+
+.mainInfo{
+    display: flex;
+    flex-direction: column;
+}
+
+.splitsEdit {
+    padding-top: 3vh;
+    padding-left: 2vw;
+    padding-right: 3vw;
+    width: 30vw;
+    height: 115vh;
 }
