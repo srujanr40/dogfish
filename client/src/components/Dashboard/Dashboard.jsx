@@ -75,25 +75,6 @@ export default function Dashboard() {
           </div>
         ) : (
       <>
-      <div className="createSessionButton">
-        {!isCreateSessionModalOpen && (
-          <Fab
-            variant="extended"
-            color="primary"
-            aria-label="create"
-            onClick={openCreateSessionModal}
-          >
-            <AddIcon />
-            Create Session
-          </Fab>
-        )}
-
-        {isCreateSessionModalOpen && (
-          <div>
-            <CreateSessionPopup closeModal={closeCreateSessionModal} />
-          </div>
-        )}
-      </div>
       <div className="featuredContainer">
         <Featured />
       </div>

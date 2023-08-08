@@ -60,6 +60,7 @@ export default function SessionCard(props) {
             flexDirection: 'column',
             borderRadius: '10px',
             transition: 'transform 0.2s',
+            cursor: 'pointer'
           }}
           onMouseEnter={(e) => (e.currentTarget.style.transform = `${isFeatured? '' :'scale(1.02)' }` )}
           onMouseLeave={(e) => (e.currentTarget.style.transform = 'none')}
@@ -125,6 +126,7 @@ export default function SessionCard(props) {
           flexDirection: 'column',
           borderRadius: '10px',
           transition: 'transform 0.2s',
+          cursor: 'pointer'
         }}
 
         onMouseEnter={(e) => (e.currentTarget.style.transform = `${isFeatured? '' :'scale(1.02)' }` )}

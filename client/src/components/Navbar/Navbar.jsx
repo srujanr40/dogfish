@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
@@ -12,6 +12,11 @@ import { Link } from 'react-router-dom';
 import "../styles.module.css"
 import { updateSessionAsync } from '../../redux/session/sessionThunks';
 
+import Fab from "@mui/material/Fab";
+import AddIcon from "@mui/icons-material/Add";
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+
+import CreateSessionPopup from "../CreateSession/CreateSessionPopup.jsx";
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
@@ -63,13 +68,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 
-// Code from Material UI docs for AppBar
-export default function Navbar({ onSearch }) {
+export default function Navbar({ onSearch, showSearch }) {
   const dispatch = useDispatch();
 
   const recommendedSession = useSelector((store) => store.sessionReducer).recommendedSession;
   const profile = useSelector((store) => store.profileReducer).profile;
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [isCreateSessionModalOpen, setIsCreateSessionModalOpen] =
+    useState(false);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -81,7 +87,7 @@ export default function Navbar({ onSearch }) {
 
   const handleSearchChange = (e) => {
     const searchTerm = e.target.value;
-    onSearch(searchTerm); // Call the onSearch callback with the search term
+    onSearch(searchTerm);
   };
 
   const updateSession = () => {
@@ -91,9 +97,17 @@ export default function Navbar({ onSearch }) {
     dispatch(updateSessionAsync(updatedSession));
   }
 
+  const openCreateSessionModal = () => {
+    setIsCreateSessionModalOpen(true);
+  };
+
+  const closeCreateSessionModal = () => {
+    setIsCreateSessionModalOpen(false);
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ backgroundColor: '#DD4D2B' }}>
+      <AppBar position="fixed" sx={{ backgroundColor: '#DD4D2B' }}>
         <Toolbar>
           <Typography
             variant="h6"
@@ -101,7 +115,7 @@ export default function Navbar({ onSearch }) {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            <Link to="/dashboard"><img src={logo} height="70px"/></Link>
+            <Link to="/dashboard"><img src={logo} height="70px" /></Link>
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -121,16 +135,42 @@ export default function Navbar({ onSearch }) {
             </Link>
             }
             </div>
+          {showSearch && (
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ 'aria-label': 'search' }}
+                onChange={handleSearchChange}
+              />
+            </Search>
+          )}
+          
           <Link to="/mysessions" style={{ color: 'white' }}>
-            <MenuItem>
-              My Sessions
+            <MenuItem sx={{paddingLeft: 3}}>
+            <b>My Sessions</b>
             </MenuItem>
           </Link>
           <Link to="/forum" style={{ color: 'white' }}>
-            <MenuItem>
-              Forum
+            <MenuItem sx={{paddingRight: 4}}>
+            <b>Forum</b>
             </MenuItem>
           </Link>
+          <div>
+            {recommendedSession && <Link to={`/join?groupId=${recommendedSession.groupId}`} style={{ color: 'white', marginRight: '10px' }}>
+              <Fab variant="extended" color="primary" aria-label="create" size="small" onClick={updateSession}>
+                <AutoAwesomeIcon sx={{paddingRight: 1}}/>
+                Auto-join
+                </Fab>
+            </Link>
+            }
+          </div>
+          <Fab variant="extended" color="primary" aria-label="create" size="small" onClick={openCreateSessionModal}>
+              <AddIcon sx={{paddingRight: 1}}/>
+              Create Session
+            </Fab>
           <IconButton
             size="large"
             aria-label="account of current user"
@@ -138,6 +178,7 @@ export default function Navbar({ onSearch }) {
             aria-haspopup="true"
             onClick={handleMenu}
             color="inherit"
+            sx={{paddingLeft: 2}}
           >
             <AccountCircle />
           </IconButton>
@@ -162,11 +203,16 @@ export default function Navbar({ onSearch }) {
               </MenuItem>
             </Link>
             <Link to="/login" style={{ color: 'black' }}>
-            <MenuItem onClick={handleClose}>Log out</MenuItem>
+              <MenuItem onClick={handleClose}>Log out</MenuItem>
             </Link>
           </Menu>
         </Toolbar>
       </AppBar>
+            {isCreateSessionModalOpen && (
+              <div>
+                <CreateSessionPopup closeModal={closeCreateSessionModal} />
+              </div>
+            )}
     </Box>
   );
 }
