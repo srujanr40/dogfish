@@ -59,6 +59,7 @@ const closeSessionMoreInfoModal = () => {
           <SessionMoreInfoPopup
             sessionID={selectedSessionId}
             closeModal={closeSessionMoreInfoModal}
+            open={isSessionMoreInfoModalOpen}
           />
         </div>
       )}

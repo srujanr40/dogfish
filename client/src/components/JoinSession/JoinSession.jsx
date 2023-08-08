@@ -254,7 +254,6 @@ export default function JoinSession() {
                 </div>
                 <div className={`splits${isEditable ? 'Edit' : ''}`}>
                     <Box sx={{
-                        width: 400,
                         height: 550,
                         backgroundColor: 'white',
                         overflow: "auto",
