@@ -131,30 +131,34 @@ export default function Navbar({ onSearch, showSearch }) {
               />
             </Search>
           )}
-          
+
           <Link to="/mysessions" style={{ color: 'white' }}>
-            <MenuItem sx={{paddingLeft: 3}}>
-            <b>My Sessions</b>
+            <MenuItem sx={{ paddingLeft: 3 }}>
+              <b>My Sessions</b>
             </MenuItem>
           </Link>
           <Link to="/forum" style={{ color: 'white' }}>
-            <MenuItem sx={{paddingRight: 4}}>
-            <b>Forum</b>
+            <MenuItem sx={{ paddingRight: 4 }}>
+              <b>Forum</b>
             </MenuItem>
           </Link>
           <div>
             {recommendedSession && <Link to={`/join?groupId=${recommendedSession.groupId}`} style={{ color: 'white', marginRight: '10px' }}>
               <Fab variant="extended" color="primary" aria-label="create" size="small" onClick={updateSession}>
-                <AutoAwesomeIcon sx={{paddingRight: 1}}/>
+                <AutoAwesomeIcon sx={{ paddingRight: 1 }} />
                 Auto-join
-                </Fab>
+              </Fab>
             </Link>
             }
           </div>
-          <Fab variant="extended" color="primary" aria-label="create" size="small" onClick={openCreateSessionModal}>
-              <AddIcon sx={{paddingRight: 1}}/>
-              Create Session
-            </Fab>
+          {showSearch && (
+            <div>
+              <Fab variant="extended" color="primary" aria-label="create" size="small" onClick={openCreateSessionModal}>
+                <AddIcon sx={{ paddingRight: 1 }} />
+                Create Session
+              </Fab>
+            </div>
+          )}
           <IconButton
             size="large"
             aria-label="account of current user"
@@ -162,10 +166,11 @@ export default function Navbar({ onSearch, showSearch }) {
             aria-haspopup="true"
             onClick={handleMenu}
             color="inherit"
-            sx={{paddingLeft: 2}}
+            sx={{ paddingLeft: 2 }}
           >
             <AccountCircle />
           </IconButton>
+
           <Menu
             id="menu-appbar"
             anchorEl={anchorEl}
@@ -192,11 +197,11 @@ export default function Navbar({ onSearch, showSearch }) {
           </Menu>
         </Toolbar>
       </AppBar>
-            {isCreateSessionModalOpen && (
-              <div>
-                <CreateSessionPopup closeModal={closeCreateSessionModal} />
-              </div>
-            )}
+      {isCreateSessionModalOpen && (
+        <div>
+          <CreateSessionPopup closeModal={closeCreateSessionModal} />
+        </div>
+      )}
     </Box>
   );
 }

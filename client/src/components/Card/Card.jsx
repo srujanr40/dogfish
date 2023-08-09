@@ -35,43 +35,51 @@ export default function Card(props) {
     dots: false,
     infinite: false,
     speed: 1000,
-    slidesToShow: 6,
-    slidesToScroll: 5,
+    slidesToShow: 7,
+    slidesToScroll: 7,
     autoplay: false,
     autoplaySpeed: 4000,
     arrows: true,
     responsive: [
       {
-        breakpoint: 1900,
+        breakpoint: 1920,
         settings: {
-          slidesToShow: 5,
-          slidesToScroll: 4,
+          slidesToShow: 7,
+          slidesToScroll: 7,
           infinite: false,
         }
       },
       {
-        breakpoint: 1500,
+        breakpoint: 1850,
         settings: {
-          slidesToShow: 5,
-          slidesToScroll: 4,
+          slidesToShow: 6,
+          slidesToScroll: 6,
           infinite: false,
         }
       },
       {
-        breakpoint: 1400,
+        breakpoint: 1650,
+        settings: {
+          slidesToShow: 5,
+          slidesToScroll: 5,
+          infinite: false,
+        }
+      },
+      {
+        breakpoint: 1350,
         settings: {
           slidesToShow: 4,
-          slidesToScroll: 3,
+          slidesToScroll: 4,
           initialSlide: 1,
           infinite: false,
 
         }
       },
       {
-        breakpoint: 1200,
+        breakpoint: 1100,
         settings: {
           slidesToShow: 3,
-          slidesToScroll: 1,
+          slidesToScroll: 3,
           initialSlide: 1,
           infinite: false,
         }
