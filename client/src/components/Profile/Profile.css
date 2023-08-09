@@ -1,8 +1,19 @@
-.profile_container {
+.fullContainer {
     display: flex;
+    background-color: #1C1E25;
+    flex-direction: column;
+    height: 100vh;
+    align-items: center;
+}
+.profileContainer {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: auto;
-    margin-top: 200px;
+    background-color: #ffffff;
+    height: 100%;
+    width: 750px;
+    margin-top: 100px;
+    margin-bottom: 30px;
+    border-radius: 20px;
 }
