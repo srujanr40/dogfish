@@ -1,15 +1,40 @@
 .mainPart {
     display: flex;
     align-items: center;
+    flex-direction: row;
+    margin-top: 100px;
+    width: 100%;
+    justify-content: space-between;
+    gap: 20px;
 }
 
 .splits {
-    padding-top: 12vh;
-    padding-left: 2vw;
-    padding-right: 3vw;
-    width: 30vw;
-    min-height: 86vh;
+    width: 25vw;
+    min-height: 710px;
 }
+
+.info {
+    border-radius: 20px;
+    background-color: white;
+    padding: 20px;
+    margin-left: 120px;
+}
+
+.chat {
+    border-radius: 20px;
+    background-color: white;
+    padding: 20px;
+
+
+}
+
+.map {
+    border-radius: 20px;
+    background-color: white;
+    padding: 20px;
+}
+
+
 
 .end {
     width: 7vw;
