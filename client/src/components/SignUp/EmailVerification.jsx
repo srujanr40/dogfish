@@ -31,7 +31,7 @@ function EmailVerification() {
           const data = await response.json();
           console.log(data.error)
       } else {
-          navigate('/dashboard');
+          navigate('/profile');
       }
     } catch (error) {
       alert(error.message);
