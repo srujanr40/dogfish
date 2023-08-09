@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TextField, Button, MenuItem, Chip } from '@mui/material';
 import Navbar from '../Navbar/Navbar.jsx';
-import { updateProfileAsync } from "../../redux/profile/profileThunks";
+import { changeProfileAsync } from "../../redux/profile/profileThunks";
 import { loginSuccess } from "../../redux/auth/authThunks";
 import './Login.css'
 import { Link } from 'react-router-dom';
@@ -73,9 +73,10 @@ export default function Login() {
                 setDisplayError(false);
                 localStorage.setItem("currentUser", email);
                 dispatch(loginSuccess(userData));
-                await dispatch(updateProfileAsync(userData.profile));
-                navigate('/dashboard');
-                navigate(0);
+                dispatch(changeProfileAsync(userData.profile)).then(() => {
+                    navigate('/dashboard');
+                    navigate(0);
+                })
             }
         } catch (error) {
             alert('Error occurred during login.');

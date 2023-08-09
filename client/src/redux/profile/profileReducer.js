@@ -1,12 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { REQUEST_STATE } from '../utils';
-import { getProfileAsync, updateProfileAsync } from './profileThunks';
+import { getProfileAsync, updateProfileAsync, addProfileAsync, changeProfileAsync } from './profileThunks';
 import profileService from './profileService'
 
 const INITIAL_STATE = {
     profile: await profileService.getProfile(),
     getProfile: REQUEST_STATE.IDLE,
     updateProfile: REQUEST_STATE.IDLE,
+    addProfile: REQUEST_STATE.IDLE,
+    changeProfile: REQUEST_STATE.IDLE,
     error: null
 };
 
@@ -55,6 +57,48 @@ const profileSlice = createSlice({
                 return {
                     ...state,
                     updateProfile: REQUEST_STATE.REJECTED,
+                    error: action.error
+                }
+            })
+            .addCase(addProfileAsync.pending, (state) => {
+                return {
+                    ...state,
+                    addProfile: REQUEST_STATE.PENDING,
+                    error: null
+                }
+            })
+            .addCase(addProfileAsync.fulfilled, (state, action) => {
+                return {
+                    ...state,
+                    addProfile: REQUEST_STATE.FULFILLED,
+                    profile: action.payload
+                }
+            })
+            .addCase(addProfileAsync.rejected, (state, action) => {
+                return {
+                    ...state,
+                    addProfile: REQUEST_STATE.REJECTED,
+                    error: action.error
+                }
+            })
+            .addCase(changeProfileAsync.pending, (state) => {
+                return {
+                    ...state,
+                    changeProfile: REQUEST_STATE.PENDING,
+                    error: null
+                }
+            })
+            .addCase(changeProfileAsync.fulfilled, (state, action) => {
+                return {
+                    ...state,
+                    changeProfile: REQUEST_STATE.FULFILLED,
+                    profile: action.payload
+                }
+            })
+            .addCase(changeProfileAsync.rejected, (state, action) => {
+                return {
+                    ...state,
+                    changeProfile: REQUEST_STATE.REJECTED,
                     error: action.error
                 }
             });
