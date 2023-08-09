@@ -170,11 +170,18 @@ const sessionSlice = createSlice({
                     }
                     return session;
                 });
+                const updatedFeaturedSessions = state.featuredSessions.map(featuredSession => {
+                    if (featuredSession.groupId === updatedSession.groupId) {
+                        return updatedSession;
+                    }
+                    return featuredSession;
+                });
 
                 return {
                     ...state,
                     updateSession: REQUEST_STATE.FULFILLED,
-                    sessions: updatedSessions
+                    sessions: updatedSessions,
+                    featuredSessions: updatedFeaturedSessions
                 };
             })
             .addCase(updateSessionAsync.rejected, (state, action) => {

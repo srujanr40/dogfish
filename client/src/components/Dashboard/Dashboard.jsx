@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 export default function Dashboard() {
 
+  const featuredSessions = useSelector(state => state.sessionReducer).featuredSessions;
   const sessions = useSelector(state => state.sessionReducer).sessions;
   const profile = useSelector(state => state.profileReducer).profile;
   const [isCreateSessionModalOpen, setIsCreateSessionModalOpen] =

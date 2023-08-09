@@ -12,9 +12,6 @@ export default function CreateSessionPopup(props) {
     <div id="create-session-popup">
       <div id="create-session-content">
         <Box>
-        <span className="closeButton" onClick={props.closeModal}>
-          &times;
-          </span>
           <Typography
             variant="h3"
             gutterBottom

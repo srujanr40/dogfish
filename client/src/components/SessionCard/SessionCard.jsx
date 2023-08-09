@@ -158,7 +158,7 @@ export default function SessionCard(props) {
                 sx={{ color: 'white', backgroundColor: '#DD4D2B', textTransform: 'none', '&:hover': { backgroundColor: '#FF6E6E' } }}
                 size="small" onClick={joinButton}
               >
-                Quick Join
+                Join
               </Button>
             </Link>
           )}

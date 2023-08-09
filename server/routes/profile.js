@@ -53,4 +53,18 @@ router.patch('/', async function (req, res, next) {
     return res.status(201).send(profile);
 });
 
+// POST new profile
+router.post('/', async function (req, res, next) {
+    profile = {
+        email: req.body.email,
+        name: req.body.name,
+        equipment: req.body.equipment,
+        interests: req.body.interests,
+        location: req.body.location,
+        image: req.body.image
+    }
+    await profileQueries.addProfile(req.body);
+    return res.status(201).send(profile);
+});
+
 module.exports = router;

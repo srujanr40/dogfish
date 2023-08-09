@@ -61,7 +61,7 @@ const createNewSession = async (new_session) => {
     return await response.json()
 }
 
-const updateSession = async (session) => {
+const updateSession = async (session, featured) => {
     var response = await fetch(`${process.env.REACT_APP_REST_API_URL}/session`, {
         method: "PATCH",
         headers: {
@@ -70,7 +70,7 @@ const updateSession = async (session) => {
         body: JSON.stringify(session)
     })
 
-    return await response.json()
+    return await response.json();
 }
 
 const deleteSession = async (groupId) => {
