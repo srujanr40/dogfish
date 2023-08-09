@@ -6,6 +6,10 @@ import 'slick-carousel/slick/slick-theme.css';
 import { Card } from '@mui/material';
 import SessionCard from '../SessionCard/SessionCard';
 import SessionMoreInfoPopup from '../SessionMoreInfo/SessionMoreInfoPopup';
+import { Box } from '@mui/material';
+import './Featured.css'
+
+import { Divider } from '@mui/material';
 
 const Featured = () => {
   const featuredSessions = useSelector((store) => store.sessionReducer).featuredSessions;
@@ -25,23 +29,25 @@ const closeSessionMoreInfoModal = () => {
 };
 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
-    speed: 1000,
+    speed: 2000,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 4000,
+    arrows: true,
     ltr: true,
   };
 
   return (
     <>
-    <Card
+    <Box
       sx={{
-        backgroundColor: '#1C1E25',
-        maxWidth: '100%',
+        backgroundColor: 'whitesmoke',
+        width: '100%',
         margin: '0 auto',
+        mt: 1,
         borderRadius: '10px',
         transition: 'transform 0.2s',
       }}
@@ -53,7 +59,7 @@ const closeSessionMoreInfoModal = () => {
           <SessionCard key={index} session={session} featured={true} onMoreInfo={openSessionMoreInfoModal}/>
         ))}
       </Slider>
-    </Card>
+    </Box>
     {isSessionMoreInfoModalOpen && (
         <div>
           <SessionMoreInfoPopup
