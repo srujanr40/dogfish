@@ -74,6 +74,10 @@ export default function Profile() {
     });
   };
 
+  const handleLocationChange = (location) => {
+    setFormData({ ...formData, location: location.label });
+  };
+
   return (
     <div className="fullContainer">
       <Navbar />
@@ -132,12 +136,13 @@ export default function Profile() {
             ))}
           </div>
           <GooglePlacesAutocomplete
-                                    apiKey={process.env.REACT_APP_GOOGLE_MAPS_API}
-                                    selectProps={{
-                                        onChange: FormData.location,
-                                        placeholder: "Location",
-                                    }}
-                                />
+              apiKey={process.env.REACT_APP_GOOGLE_MAPS_API}
+              selectProps={{
+                  onChange: handleLocationChange,
+                  placeholder: "Location",
+              }}
+          />
+          {formData.location && <p className="location-label">Location: {formData.location}</p>}
           <TextField
             name="interest"
             value={interest}

@@ -109,7 +109,7 @@ export default function Card(props) {
       {isSessionMoreInfoModalOpen && (
         <div>
           <SessionMoreInfoPopup
-            open={openSessionMoreInfoModal}
+            open={isSessionMoreInfoModalOpen}
             sessionID={selectedSessionId}
             closeModal={closeSessionMoreInfoModal}
           />
