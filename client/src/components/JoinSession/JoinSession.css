@@ -10,7 +10,7 @@
 
 .splits {
     width: 25vw;
-    height: 600px;
+    min-height: 600px;
 }
 
 .info {
@@ -97,5 +97,5 @@
 
 .splitsEdit {
     width: 25vw;
-    height: 600px;
+    min-height: 600px;
 }
