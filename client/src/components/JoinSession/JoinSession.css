@@ -33,7 +33,6 @@
 }
 
 
-
 .end {
     width: 7vw;
     height: 86vh;
@@ -44,7 +43,7 @@
     align-items: flex-end;
 }
 
-.divider{
+.divider {
     background-color: lightgray;
     height: 0.1vh
 }
@@ -91,15 +90,12 @@
     margin-bottom: 2vh;
 }
 
-.mainInfo{
+.mainInfo {
     display: flex;
     flex-direction: column;
 }
 
 .splitsEdit {
-    padding-top: 3vh;
-    padding-left: 2vw;
-    padding-right: 3vw;
-    width: 30vw;
-    height: 115vh;
+    width: 25vw;
+    height: 600px;
 }
