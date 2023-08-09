@@ -1,21 +1,44 @@
 .mainPart {
     display: flex;
     align-items: center;
+    flex-direction: row;
+    margin-top: 100px;
+    width: 100%;
+    justify-content: space-between;
+    gap: 50px;
 }
 
 .splits {
-    padding-top: 12vh;
-    padding-left: 2vw;
-    padding-right: 3vw;
-    width: 30vw;
-    min-height: 86vh;
+    width: 25vw;
+    height: 600px;
 }
+
+.info {
+    border-radius: 20px;
+    background-color: white;
+    padding: 20px;
+    margin-left: 3%;
+}
+
+.chat {
+    border-radius: 20px;
+    background-color: white;
+    padding: 20px;
+}
+
+.map {
+    border-radius: 20px;
+    background-color: #1C1E25;
+    padding: 20px;
+}
+
+
 
 .end {
     width: 7vw;
     height: 86vh;
     padding-top: 3vh;
-    padding-right: 1vw;
+    padding-right: 5vw;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -35,8 +58,10 @@
 }
 
 .session-image {
-    height: 25vh;
-    object-fit: contain
+    width: 75%;
+    align-self: center;
+    object-fit: contain;
+    border-radius: 10px;
 }
 
 .buttonWrapper {
