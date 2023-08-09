@@ -39,9 +39,14 @@ This application is for people trying to find others to play a sport with (espec
 2. Different front-end pages that take specific inputs for equipment available for some popular sports (reverting to text-box for sports that aren’t as common) (NOT COMPLETE)
 3. Forums for some popular sports that users can access regardless of what user groups they are in (COMPLETE)
 
-### How Tech from Class was Used (TODO)
+## How Tech from Class was Used 
+1. HTML/CSS: Although our application uses MaterialUI for most styl.ing, a lot of extra custom sytling throughout our application was implemented via custom properties present in CSS files throughout our components 
+2. React/Redux: Our front-end is built using React, and structured atomically as components that further use MaterialUI components for functionality and styling. The state of the overall application is also stored in a Redux store, and updated on user interactions as necessary.
+3. Express: The front-end makes calls to an API built using Express and hosted on Render. Most complex application logic is abstracted away with API calls to the backend.
+4. Mongo: All data that our application uses is stored on MongoDB Atlas, and is then accessed or modified through Mongooose. This includes data for sessions, profiles, chat, forums, etc.
+5. Hosting: Our back-end and front-end are both hosted on Render. 
 
-### ‘Above and Beyond’ functionality
+## ‘Above and Beyond’ functionality
 
 We believe that we went above and beyond in various ways. For starters, we worked very hard on refining the UX. We researched various designs that have been used in the past for other apps with similarities to ours, and held multiple meetings to discuss our ideas. This led to the creation of an app that feels very pleasant to use, and emphasises the user experience.
 
@@ -49,16 +54,20 @@ Next, we also utilized both the google maps external API as well as location ser
 
 Lastly, the feature that goes the most above and beyond in our app is our recommendation algorithm. This algorithm is based on all of the data collected throughout our app, and even improves as the user uses the application more. The algorithm is based on the user's profile data, as well as the user's session history. It aggregates information such as the user's location, interests, and equipment on hand, the amount of players that a session is missing to be complete, and the location, sport, and members of sessions that the user has previously attended. All of this data combines to make the algorithm quite effective, always seeming to recommend sessions that fit the user's preferences perfectly. The algorithm was set up in such a way where the exact weightings of each of these categories has been abstracted into an easily editable file, such that as more market research is conducted, the algorithm can easily be rebalanced to provide even better results. We feel that this algorithm represents something truly above and beyond what was required of us, and really helps differentiate our application from anything else. The algorithm shows up in the application in the featured sessions section, as well as the auto join button, which automatically adds the user into the session that scores the highest based on the algorithm.
 
-### Next Steps
-We think that there are two primary next steps for our application. 
+## Next Steps
+We think that there are a few possible next steps for our application: 
 
 We would want to get actual feedback on the algorithm that we created in order to fine tune the weights of each category. This could either be done through obtaining market feedback, or perhaps even exploring ML optimization strategies.
 
 We would also want to further explore our 2nd stretch goal: customizing our front-end based on certain popular sports. We think that giving session creators the option to have features such as equipment drop-downs with all relevant equipment to their selected sport, recommended nearby fields and courts for their desired sport, and other sport specific functionality could great improve the user experience of our app!
 
-### Member Contributions
+Lastly, making the application more mobile friendly by either introducing a companion mobile app or by optimizing the website for mobile would help with the user experience. People may not always have a laptop on hand when they are out and about being active. This could include the ability to provide mobile notifications for messages or recent activitiy on joined sessions, a weekly digest on trends or exciting new sessions that a user might be interested in based on the recommendation algorithm we've built, and the ability to integrate our application with other services a user might use such as messaging services or calendars.
+
+## Member Contributions
 
 Rory: My primary contributions were revamping our redux setup to make it more clean, effective, and easy to use, setting up our database, creating basic CRUD DB queries for all of our standard workflows, and refactoring our endpoints to utilize the new queries, and setting up our application's deployment/hosting. Additionally, I also fully developed the recommendation algorithm and used it in both the auto join button and featured sessions section. Lastly, I also jumped around and helped out on a ton of different features such as creating the update/delete sessions feature for session owners, reworking the sport section filters to be much more efficient and based on the user's interests, and was one of the primary people that took charge of bugfixing across the application.
+
+Srujan: I built and maintained the Create Session workflow, and worked on the intial set up for our backend -- including the addition of necessary endpoints, moving data server-side, and ensuring front-end functionality was preserved when calls were made with said endpoints. I also contributed with bugfixes, and general code and design optimization throughout.  
 
 ### Lo-fi Prototypes
 
