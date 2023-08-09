@@ -75,6 +75,8 @@ Srujan: I built and maintained the Create Session workflow, and worked on the in
 
 Taqdeer: My major contributions were implementing features related to external APIs. I set up google maps API, used it in frontend for showing the map where the sessions are held and used it on backend to show the activities happening within 10 kilometers of the user's location. I also set up sendgrid API to use it for sending verification emails with codes upon signing up before allowing users to use the application. Other than this, my contributions involved implementing main carousel component, implementing profile update page, implementing the search feature, redesigning more info component and importantly, pitching the idea of using mental model of netflix. I also contributed in setting up the server side and implemeting filtering based on sport sessions which was later optimized by my other team members.
 
+Krish: I was responsible for developing the initial design of the dashboard, card design and functionality, authentication pages, and their corresponding endpoint setup. Throughout the project, I also consistently iterated on various design aspects such as logos, themes, card designs, layouts, custom components, and more, for all frontend elements. I also suggested and implemented design ideas aimed at enhancing user-friendliness and the overall aesthetic appeal of the application, all while maintaining its functionality.
+
 ### Lo-fi Prototypes
 
 Create "Session"
