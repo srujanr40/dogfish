@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const sgMail = require('@sendgrid/mail');
 const crypto = require('crypto');
+require('dotenv').config();
 
 
 const SENDGRID_API_KEY = process.env.REACT_APP_SENDGRID_API;
