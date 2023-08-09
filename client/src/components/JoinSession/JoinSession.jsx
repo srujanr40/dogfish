@@ -152,7 +152,7 @@ export default function JoinSession() {
                             <img className="session-image" src={curSession.image} alt="placeholder" />
                             {isEditable ? (
                                 <div style={{ marginBottom: '2vh' }}>
-                                    <h4 className='textMargin'>Event: </h4>
+                                    <p className='textMargin'>Event: </p>
                                     <input
                                         type="text"
                                         value={editedSession.name}
@@ -162,12 +162,12 @@ export default function JoinSession() {
                                     />
                                 </div>
                             ) : (
-                                <h4 className='textMargin'>Event: {curSession.name}</h4>
+                                <p className='textMargin'>Event: {curSession.name}</p>
                             )}
                             <Divider />
                             {isEditable ? (
                                 <div style={{ marginBottom: '2vh' }}>
-                                    <h4 className='textMargin'>Location: </h4>
+                                    <p className='textMargin'>Location: </p>
                                     <GooglePlacesAutocomplete
                                         apiKey={process.env.REACT_APP_GOOGLE_MAPS_API}
                                         selectProps={{
@@ -177,12 +177,12 @@ export default function JoinSession() {
                                     />
                                 </div>
                             ) : (
-                                <h4 className='textMargin'>Location: {curSession.location}</h4>
+                                <p className='textMargin'>Location: {curSession.location}</p>
                             )}
                             <Divider />
                             {isEditable ? (
                                 <div style={{ marginBottom: '2vh' }}>
-                                    <h4 className='textMargin'>City: </h4>
+                                    <p className='textMargin'>City: </p>
                                     <input
                                         type="text"
                                         value={editedSession.city}
@@ -192,17 +192,17 @@ export default function JoinSession() {
                                     />
                                 </div>
                             ) : (
-                                <h4 className='textMargin'>City: {curSession.city}</h4>
+                                <p className='textMargin'>City: {curSession.city}</p>
                             )}
                             <Divider />
-                            <h4 className='textMargin'>Players Needed: {updatedPlayersNeeded}</h4>
-                            <h4 className='textMargin'>Members: {arrayToString(session.members)}</h4>
+                            <p className='textMargin'>Players Needed: {updatedPlayersNeeded}</p>
+                            <p className='textMargin'>Members: {arrayToString(session.members)}</p>
                             <Divider />
-                            <h4 className='textMargin'>Date: {sessionDate.toLocaleDateString("en-US")}</h4>
+                            <p className='textMargin'>Date: {sessionDate.toLocaleDateString("en-US")}</p>
                             <Divider />
                             {isEditable ? (
                                 <div style={{ marginBottom: '2vh' }}>
-                                    <h4 className='textMargin'>Description: </h4>
+                                    <p className='textMargin'>Description: </p>
                                     <input
                                         type="text"
                                         value={editedSession.description}
@@ -212,12 +212,12 @@ export default function JoinSession() {
                                     />
                                 </div>
                             ) : (
-                                <h4 className='textMargin'>Description: {curSession.description}</h4>
+                                <p className='textMargin'>Description: {curSession.description}</p>
                             )}
                             <Divider />
                             <div className="equipmentInfo">
-                                <h4 className='textMargin'>Equipment Needed:</h4>
-                                <h4 className='textMargin'>{arrayToEquipmentString(curSession.equipment)}</h4>
+                                <p className='textMargin'>Equipment Needed:</p>
+                                <p className='textMargin'>{arrayToEquipmentString(curSession.equipment)}</p>
                             </div>
                             {isEditable && (
                                 <div className="editButtons">
@@ -261,6 +261,7 @@ export default function JoinSession() {
                             backgroundColor: 'white',
                             overflow: "auto",
                         }}>
+                        <h3>Session Chat</h3>
                             <MessageList
                                 referance={listReference}
                                 className='message-list'
