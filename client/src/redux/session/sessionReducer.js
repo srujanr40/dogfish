@@ -163,37 +163,26 @@ const sessionSlice = createSlice({
                 }
             })
             .addCase(updateSessionAsync.fulfilled, (state, action) => {
-                const updatedSession = action.payload[0];
-                const featuredBool = action.payload[1];
+                const updatedSession = action.payload;
                 const updatedSessions = state.sessions.map(session => {
                     if (session.groupId === updatedSession.groupId) {
                         return updatedSession;
                     }
                     return session;
                 });
-                
-                if (!featuredBool) {
+                const updatedFeaturedSessions = state.featuredSessions.map(featuredSession => {
+                    if (featuredSession.groupId === updatedSession.groupId) {
+                        return updatedSession;
+                    }
+                    return featuredSession;
+                });
 
-                    return {
-                        ...state,
-                        updateSession: REQUEST_STATE.FULFILLED,
-                        sessions: updatedSessions
-                    };
-                } else {
-                    let updatedFeaturedSessions = state.featuredSessions.map(featuredSession => {
-                        if (featuredSession.groupId === updatedSession.groupId) {
-                            return updatedSession;
-                        }
-                        return featuredSession;
-                    });
-
-                    return {
-                        ...state,
-                        updateSession: REQUEST_STATE.FULFILLED,
-                        sessions: updatedSessions,
-                        featuredSessions: updatedFeaturedSessions
-                    };
-                }
+                return {
+                    ...state,
+                    updateSession: REQUEST_STATE.FULFILLED,
+                    sessions: updatedSessions,
+                    featuredSessions: updatedFeaturedSessions
+                };
             })
             .addCase(updateSessionAsync.rejected, (state, action) => {
                 return {
