@@ -25,6 +25,7 @@ router.post('/', async (req, res) => {
 
       const hashedPassword = await bcrypt.hash(password, 10);
       const verificationCode = await sendVerificationCode(email)
+      const encryptedVerificationCode = await bcrypt.hash(verificationCode, 10)
 
     
       const newProfile = new Profile({
@@ -35,7 +36,7 @@ router.post('/', async (req, res) => {
         interests: [],
         location: '',
         image: '',
-        verificationCode: verificationCode,
+        verificationCode: encryptedVerificationCode,
       });
   
       await newProfile.save();
@@ -67,7 +68,27 @@ router.post('/', async (req, res) => {
       console.error(error);
       res.status(500).json({ error: 'Server error' });
     }
-  });  
+  });
+
+  router.post('/verify_email', async (req, res) => {
+    try {
+      const { email, enteredCode } = req.body;
+  
+      const profile = await Profile.findOne({ email });
+      if (!profile) {
+        return res.status(400).json({ error: 'Invalid email' });
+      }
+      const codeMatch = await bcrypt.compare(enteredCode, profile.verificationCode);
+      if (!codeMatch) {
+        return res.status(400).json({ error: 'Code incorrect' });
+      }
+  
+      res.status(200).json({ message: 'Email verification successful', profile });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Server error' });
+    }
+  });
 
 
   async function sendVerificationCode(email) {

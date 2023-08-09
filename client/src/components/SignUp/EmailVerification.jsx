@@ -5,45 +5,33 @@ import InputLabel from '@mui/material/InputLabel';
 import './SignUp.css'
 import { Button } from '@mui/material';
 
+
 function EmailVerification() {
   const location = useLocation();
   const navigate = useNavigate();
   const [enteredCode, setEnteredCode] = useState('');
-  const [verificationCode, setVerificationCode] = useState('');
 
-  useEffect(() => {
-    const email = new URLSearchParams(location.search).get('email');
-    fetchUserProfile(email);
-  }, [location]);
-
-  const fetchUserProfile = async (email) => {
+  const handleCodeVerification = async (email) => {
     try {
-        const url = `${process.env.REACT_APP_REST_API_URL}/profile?email=${encodeURIComponent(email)}`;
+        const email = new URLSearchParams(location.search).get('email');
+        const url = `${process.env.REACT_APP_REST_API_URL}/auth/verify_email`;
         const response = await fetch(url, {
-            method: 'GET'
-        });
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+              email,
+              enteredCode
+          })
+      });
 
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
 
-        const data = await response.json();
-      if (data) {
-        setVerificationCode(data.verificationCode);
+      if (!response.ok) {
+          const data = await response.json();
+          console.log(data.error)
       } else {
-        throw new Error('Profile not found');
-      }
-    } catch (error) {
-      alert(error.message);
-    }
-  };
-
-  const handleCodeVerification = () => {
-    try {
-      if (enteredCode === verificationCode) {
-        navigate('/profile');
-      } else {
-        alert('Incorrect verification code. Please try again.');
+          navigate('/dashboard');
       }
     } catch (error) {
       alert(error.message);
