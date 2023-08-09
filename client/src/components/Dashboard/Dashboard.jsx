@@ -80,7 +80,7 @@ export default function Dashboard() {
         <Featured />
       </div>
       <div className="sessionsContainer">
-        <Card sessions={sessions} name={'All'} />
+        <Card sessions={sessions} name={'All Sessions'} />
         <Card sessions={nearYouSessions} name={'Activities near you'} />
         {interestedSportsSessions.map((sessionsArray, index) => (
           sessionsArray && sessionsArray[0] && <Card key={index} sessions={sessionsArray} name={sessionsArray[0].sport} />

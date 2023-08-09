@@ -131,7 +131,7 @@ export default function SessionCard(props) {
 
         onMouseEnter={(e) => (e.currentTarget.style.transform = `${isFeatured? '' :'scale(1.02)' }` )}
         onMouseLeave={(e) => (e.currentTarget.style.transform = 'none')}
-        onClick={handleOpenMoreInfo}
+        onClickCapture={handleOpenMoreInfo}
       >
         <CardMedia
           component="img"

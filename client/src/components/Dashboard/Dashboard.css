@@ -19,23 +19,21 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 20px;
-    padding-bottom: 0px;
+    padding: 10px;
+    margin-right: 20px;
+    margin-left: 20px;
 }
 
 .featuredContainer {
     display: flex;
     flex-direction: column;
     margin-top: 90px;
-    padding: 20px;
     padding-bottom: 0;
     justify-content: space-between;
     gap: 10px;
-}
-
-.featuredAndCreate {
-    display: flex;
-    justify-content: space-between;
+    padding: 10px;
+    margin-right: 20px;
+    margin-left: 20px;
 }
 
 .createSessionButton{
@@ -51,10 +49,7 @@
     padding-top: 10px;
     padding-left: 0;
     gap: 20px;
-    overflow: auto
-    /* Depending on preference we could make overflow hidden but we'd have to limit number of shown events on main page*/
-    /* otherwise it just cus sessions*/
-    /* overflow: hidden */
+    overflow: auto;
 }
 
 .searchContainer {
