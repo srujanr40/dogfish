@@ -69,9 +69,8 @@ const updateSession = async (session, featured) => {
         },
         body: JSON.stringify(session)
     })
-    response = await response.json();
 
-    return [response, featured]
+    return await response.json();
 }
 
 const deleteSession = async (groupId) => {
