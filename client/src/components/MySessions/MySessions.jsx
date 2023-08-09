@@ -48,7 +48,7 @@ export default function MySessions() {
 
                 {isSessionMoreInfoModalOpen && (
                     <div>
-                        <SessionMoreInfoPopup sessionID={selectedSessionId} closeModal={closeSessionMoreInfoModal} />
+                        <SessionMoreInfoPopup sessionID={selectedSessionId} open={openSessionMoreInfoModal} closeModal={closeSessionMoreInfoModal} />
                     </div>
                 )}
 

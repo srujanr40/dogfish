@@ -24,10 +24,6 @@ export default function CreateSessionPopup(props) {
           </Typography>
           <CreateSessionTextFields closeModal={props.closeModal}/>
         </Box>
-
-        <span className="close" onClick={props.closeModal}>
-          &times;
-        </span>
       </div>
     </div>
   );

@@ -30,7 +30,7 @@ router.post('/', async (req, res) => {
   
       await newProfile.save();
   
-      res.status(201).json({ message: 'Account created successfully' });
+      res.status(200).json({ message: 'Account created successfully', profile: newProfile });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Server error' });
@@ -45,7 +45,6 @@ router.post('/', async (req, res) => {
       if (!profile) {
         return res.status(400).json({ error: 'Invalid email or password' });
       }
-      console.log(profile);
   
       // Compare the provided password with the hashed password stored in the database
       const passwordMatch = await bcrypt.compare(password, profile.password);
@@ -53,7 +52,7 @@ router.post('/', async (req, res) => {
         return res.status(400).json({ error: 'Invalid email or password' });
       }
   
-      res.status(200).json({ message: 'Login successful' });
+      res.status(200).json({ message: 'Login successful', profile});
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Server error' });

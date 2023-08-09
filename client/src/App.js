@@ -10,6 +10,7 @@ import MySessions from './components/MySessions/MySessions';
 import Login from './components/Login/Login';
 import SignUp from './components/SignUp/SignUp';
 import store from "./redux/store"
+import Forum from "./components/Forum/Forum";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/forum" element={<Forum />} />
           </Routes>
         </main>
     </Router>

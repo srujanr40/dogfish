@@ -38,6 +38,7 @@ export default function SessionCard(props) {
 
   const isMember = props.session.members.some(member => member && member.email === profile.email)
 
+  const isFeatured = props.featured;
   const formattedDate = new Date(props.session.dateTime).toLocaleDateString('en-US', {
     // weekday: 'short',
     month: 'short',
@@ -50,22 +51,23 @@ export default function SessionCard(props) {
         <Card
           className={`session-card ${isMember ? 'member' : ''}`}
           sx={{
-            maxWidth: '250px',
+            maxWidth: `${isFeatured ? '100%' : "250px"}`,
             minWidth: '250px',
-            minHeight: '315px',
+            minHeight: `${isFeatured ? "415px" : "315px"}`,
             maxHeight: '315px',
             backgroundColor: '#1C1E25',
             display: 'flex',
             flexDirection: 'column',
             borderRadius: '10px',
             transition: 'transform 0.2s',
+            cursor: 'pointer'
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.02)')}
+          onMouseEnter={(e) => (e.currentTarget.style.transform = `${isFeatured? '' :'scale(1.02)' }` )}
           onMouseLeave={(e) => (e.currentTarget.style.transform = 'none')}
         >
           <CardMedia
             component="img"
-            height="150"
+            height={`${isFeatured ? "250" : "150"}`}
             image={props.session.image}
             alt="image"
           />
@@ -115,24 +117,25 @@ export default function SessionCard(props) {
       <Card
         className={`session-card ${isMember ? 'member' : ''}`}
         sx={{
-          maxWidth: '250px',
           minWidth: '250px',
-          minHeight: '315px',
+          maxWidth: `${isFeatured ? '100%' : "250px"}`,
+          minHeight: `${isFeatured ? "415px" : "315px"}`,
           maxHeight: '315px',
           backgroundColor: '#1C1E25',
           display: 'flex',
           flexDirection: 'column',
           borderRadius: '10px',
           transition: 'transform 0.2s',
+          cursor: 'pointer'
         }}
 
-        onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.02)')}
+        onMouseEnter={(e) => (e.currentTarget.style.transform = `${isFeatured? '' :'scale(1.02)' }` )}
         onMouseLeave={(e) => (e.currentTarget.style.transform = 'none')}
         onClick={handleOpenMoreInfo}
       >
         <CardMedia
           component="img"
-          height="150"
+          height={`${isFeatured ? "250" : "150"}`}
           image={props.session.image}
           alt="image"
         />
@@ -155,7 +158,7 @@ export default function SessionCard(props) {
                 sx={{ color: 'white', backgroundColor: '#DD4D2B', textTransform: 'none', '&:hover': { backgroundColor: '#FF6E6E' } }}
                 size="small" onClick={joinButton}
               >
-                Quick Join
+                Join
               </Button>
             </Link>
           )}

@@ -1,34 +1,89 @@
 const Session = require('../models/sessionModel');
+const getGeocode = require('../queries/apis/google_api')
 
 const sessionQueries = {
     getSessions: async function (filter) {
-        let sessions = await Session.find(filter);
-        if (sessions === null) {
-            profile = [];
+        let sessions;
+        if (filter.filter === '') {
+          sessions = await Session.find();
+        } else {
+          const regex = new RegExp(filter.filter, 'i');
+          sessions = await Session.find({ sport: { $regex: regex } });
+        }
+        if (!sessions || sessions.length === 0) {
+          sessions = [];
         }
         return sessions;
+      },
+    getNearBySessions: async function(location) {
+        const geocodeResult = await getGeocode(location.location);
+        if (!geocodeResult) {
+          console.error('Invalid location data.');
+          return [];
+        }
+      
+        try {
+          const distanceThreshold = 10000;
+          const userLongitude = geocodeResult.longitude;
+          const userLatitude = geocodeResult.latitude;
+      
+          // Convert the distance in meters to radians (for use with $geoWithin)
+          const distanceInRadians = distanceThreshold / 6371000; // 6371000 is the approximate radius of the Earth in meters
+      
+          const sessions = await Session.find({
+            location_coordinates: {
+              $geoWithin: {
+                $centerSphere: [[userLongitude, userLatitude], distanceInRadians]
+              }
+            }
+          });
+          return sessions;
+        } catch (error) {
+          console.error('Error fetching nearby sessions:', error);
+          return null;
+        }
     },
     addSession: async function (session) {
+      try {
+        const geocodeResult = await getGeocode(session.location);
+        let longitude = '';
+        let latitude = '';
+    
+        if (geocodeResult) {
+          longitude = geocodeResult.longitude;
+          latitude = geocodeResult.latitude;
+        } else {
+          console.error('Invalid location data.');
+        }
         const newSession = new Session({
-            name: session.name,
-            description: session.description,
-            city: session.city,
-            location: session.location,
-            equipment: session.equipment,
-            playersNeeded: session.playersNeeded,
-            groupId: session.groupId,
-            image: session.image,
-            sport: session.sport,
-            members: session.members,
-            dateTime: session.dateTime
+          name: session.name,
+          description: session.description,
+          city: session.city,
+          location: session.location,
+          location_coordinates: {
+            type: 'Point',
+            coordinates: [longitude, latitude],
+          },
+          equipment: session.equipment,
+          playersNeeded: session.playersNeeded,
+          groupId: session.groupId,
+          image: session.image,
+          sport: session.sport,
+          members: session.members,
+            owner: session.owner,
+          dateTime: session.dateTime,
         });
-        newSession.save()
-            .then((savedSession) => {
-                console.log('Session saved:', savedSession);
-            })
-            .catch((error) => {
-                console.error('Error saving session:', error);
-            })
+        newSession
+          .save()
+          .then((savedSession) => {
+            console.log('Session saved:', savedSession);
+          })
+          .catch((error) => {
+            console.error('Error saving session:', error);
+          });
+      } catch (error) {
+        console.error('Error geocoding location:', error);
+      }
     },
     updateSession: async function (session) {
         Session.findOneAndUpdate(
@@ -38,11 +93,13 @@ const sessionQueries = {
                 description: session.description,
                 city: session.city,
                 location: session.location,
+                location_coordinates: session.location_coordinates,
                 equipment: session.equipment,
                 playersNeeded: session.playersNeeded,
                 image: session.image,
                 sport: session.sport,
                 members: session.members,
+                owner: session.owner,
                 dateTime: session.date
             },
             { new: true })

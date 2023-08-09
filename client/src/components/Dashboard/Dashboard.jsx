@@ -1,28 +1,57 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../Navbar/Navbar.jsx";
 import Featured from "../FeaturedCard/Featured.jsx";
-import SessionCard from "../SessionCard/SessionCard.jsx";
-import Filter from "../Filter/Filter.jsx";
+import Card from "../Card/Card.jsx";
 import "./Dashboard.css";
 import "../styles.module.css";
-import Divider from "@mui/material/Divider";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
-import Fade from '@mui/material/Fade';
-import { Grid } from "@mui/material";
 import CreateSessionPopup from "../CreateSession/CreateSessionPopup.jsx";
-import SessionMoreInfoPopup from "../SessionMoreInfo/SessionMoreInfoPopup.jsx";
-import { useSelector } from "react-redux";
+import { getSessionsNearYouAsync } from "../../redux/session/sessionThunks.js";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Dashboard() {
 
+  const featuredSessions = useSelector(state => state.sessionReducer).featuredSessions;
+  const sessions = useSelector(state => state.sessionReducer).sessions;
+  const profile = useSelector(state => state.profileReducer).profile;
   const [isCreateSessionModalOpen, setIsCreateSessionModalOpen] =
     useState(false);
-  const [isSessionMoreInfoModalOpen, setIsSessionMoreInfoModalOpen] =
-    useState(false);
-  const [selectedSessionId, setSelectedItemId] = useState(null);
-  const profile = useSelector((store) => store.profileReducer).profile;
-  const sessions = useSelector((store) => store.sessionReducer).sessions;
+  const [filteredSessions, setFilteredSessions] = useState([]);
+
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearchSessions = (searchTerm) => {
+    setSearchTerm(searchTerm);
+    const filtered = sessions.filter((session) =>
+      session.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredSessions(filtered);
+  };
+
+  const dispatch = useDispatch();
+
+  const [nearYouSessions, setNearYouSessions] = useState([]);
+  const [interestedSportsSessions, setInterestedSportsSessions] = useState([]);
+
+  useEffect(() => {
+    let sportCategoriesArrays = [];
+    profile.interests.forEach((sport) => {
+      sportCategoriesArrays.push(sessions.filter((session) => session.sport.toLowerCase() === sport.toLowerCase()))
+    })
+    setInterestedSportsSessions(sportCategoriesArrays)
+  }, [dispatch, sessions, profile.interests]);
+
+  useEffect(() => {
+    dispatch(getSessionsNearYouAsync(profile.location))
+      .then((sessions) => {
+        const near_you = sessions.payload
+        setNearYouSessions(near_you);
+      })
+      .catch((error) => {
+        console.error('Error fetching near you sessions:', error);
+      });
+  }, [dispatch, sessions, profile.location]);
 
   const openCreateSessionModal = () => {
     setIsCreateSessionModalOpen(true);
@@ -32,78 +61,32 @@ export default function Dashboard() {
     setIsCreateSessionModalOpen(false);
   };
 
-  const openSessionMoreInfoModal = (itemId) => {
-    setSelectedItemId(itemId);
-    setIsSessionMoreInfoModalOpen(true);
-  };
-
-  const closeSessionMoreInfoModal = () => {
-    setSelectedItemId(null);
-    setIsSessionMoreInfoModalOpen(false);
-  };
-
-  
-
   return (
     <div className="container">
-      <Navbar />
+      <Navbar onSearch={handleSearchSessions} showSearch={true} />
+      {searchTerm ? (
+          <div className='searchContainer'>
+            <div className="createSessionButton">
+              <Fab variant="extended" color="primary" aria-label="create" onClick={openCreateSessionModal}>
+                <AddIcon/>
+                Create Session
+              </Fab>
+            </div>
+            <Card sessions={filteredSessions} name={'Filtered Sessions'}/>
+          </div>
+        ) : (
+      <>
       <div className="featuredContainer">
         <Featured />
       </div>
       <div className="sessionsContainer">
-        <div className="featuredAndCreate">
-          <h3>Activities near you</h3>
-          <Grid sx = {{marginLeft: -20}} container justifyContent="flex-end">
-          {!isCreateSessionModalOpen && (
-            <Fab
-              variant="extended"
-              color="primary"
-              aria-label="create"
-              onClick={openCreateSessionModal}
-            >
-              <AddIcon />
-              Create Session
-            </Fab>
-          )}
-          </Grid>
-
-          <Fade in={isCreateSessionModalOpen}>
-            <div>
-              <CreateSessionPopup closeModal={closeCreateSessionModal} />
-            </div>
-          </Fade>
-        </div>
-        <Divider />
-        <ul className="sessionsList">
-          {sessions.map((element, index) => (
-            <SessionCard
-              key={index}
-              session={element}
-              onMoreInfo={openSessionMoreInfoModal}
-            />
-          ))}
-        </ul>
-        <h3>Soccer</h3>
-        <Divider />
-        <ul className="sessionsList">
-          {sessions.map((element, index) => (
-            <SessionCard
-              key={index}
-              session={element}
-              onMoreInfo={openSessionMoreInfoModal}
-            />
-          ))}
-        </ul>
-
-        {isSessionMoreInfoModalOpen && (
-          <div>
-            <SessionMoreInfoPopup
-              sessionID={selectedSessionId}
-              closeModal={closeSessionMoreInfoModal}
-            />
-          </div>
-        )}
+        <Card sessions={sessions} name={'All'} />
+        <Card sessions={nearYouSessions} name={'Activities near you'} />
+        {interestedSportsSessions.map((sessionsArray, index) => (
+          sessionsArray && sessionsArray[0] && <Card key={index} sessions={sessionsArray} name={sessionsArray[0].sport} />
+        ))}
       </div>
+      </>)}
     </div>
   );
 }

@@ -1,6 +1,5 @@
 const getProfile = async () => {
     const email = localStorage.getItem("currentUser");
-    console.log(email);
     try {
         const url = `${process.env.REACT_APP_REST_API_URL}/profile?email=${encodeURIComponent(email)}`;
         const response = await fetch(url, {
@@ -32,7 +31,20 @@ const updateProfile = async (new_details) => {
     return await response.json();
 }
 
+const addProfile = async (new_profile) => {
+    const response = await fetch(`${process.env.REACT_APP_REST_API_URL}/profile`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(new_profile)
+    })
+
+    return await response.json();
+}
+
 export default {
     getProfile,
-    updateProfile
+    updateProfile,
+    addProfile,
 };

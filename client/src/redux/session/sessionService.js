@@ -1,12 +1,19 @@
-const getSessions = async (sport = '') => {
-    var response = {}
-    if (sport !== "") {
-        response = await fetch(`${process.env.REACT_APP_REST_API_URL}/session` + '?sport=' + sport)
-    } else {
-        response = await fetch(`${process.env.REACT_APP_REST_API_URL}/session`)
-    }
+const getSessions = async (filter = '') => {
+    const queryParams = new URLSearchParams({ filter: filter });
+    const url = `${process.env.REACT_APP_REST_API_URL}/session?${queryParams}`;
+    var response = {}  
+    response = await fetch(url)
+    response = await response.json()
+    return response
+}
 
-    return await response.json()
+const getSessionsNearYou = async (location) => {
+    const queryParams = new URLSearchParams({ filter: location });
+    const url = `${process.env.REACT_APP_REST_API_URL}/session/near_you?${queryParams}`;
+    var response = {}  
+    response = await fetch(url)
+    response = await response.json()
+    return response
 }
 
 const getFeaturedSessions = async (profile, sessions) => {
@@ -54,7 +61,7 @@ const createNewSession = async (new_session) => {
     return await response.json()
 }
 
-const updateSession = async (session) => {
+const updateSession = async (session, featured) => {
     var response = await fetch(`${process.env.REACT_APP_REST_API_URL}/session`, {
         method: "PATCH",
         headers: {
@@ -63,13 +70,23 @@ const updateSession = async (session) => {
         body: JSON.stringify(session)
     })
 
+    return await response.json();
+}
+
+const deleteSession = async (groupId) => {
+    var response = await fetch(`${process.env.REACT_APP_REST_API_URL}/session/${groupId}`, {
+        method: "DELETE"
+    })
+
     return await response.json()
 }
 
 export default {
     getSessions,
+    getSessionsNearYou,
     getFeaturedSessions,
     getRecommendedSession,
     createNewSession,
-    updateSession
+    updateSession,
+    deleteSession
 };

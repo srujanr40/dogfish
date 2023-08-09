@@ -1,20 +1,14 @@
-import UploadImage from "../UploadImage/UploadImage";
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { TextField, Button, MenuItem, Chip } from '@mui/material';
-import Navbar from '../Navbar/Navbar.jsx';
-import { updateProfileAsync } from "../../redux/profile/profileThunks";
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { TextField, Button } from '@mui/material';
+import { addProfileAsync } from "../../redux/profile/profileThunks";
 import './SignUp.css'
 
 import logo from '../../assets/logo.png'
 
 import { Link } from 'react-router-dom';
 
-
-import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import Input from '@mui/material/Input';
-import FilledInput from '@mui/material/FilledInput';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -24,8 +18,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Divider from '@mui/material/Divider';
 import { useNavigate } from 'react-router-dom';
-
-import { setEmail, setPassword, signUpAsync } from '../../redux/auth/authThunks';
+import { loginSuccess } from "../../redux/auth/authThunks";
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = React.useState(false);
@@ -54,6 +47,8 @@ export default function SignUp() {
     setConfirmPassword(event.target.value);
   };
 
+  const dispatch = useDispatch();
+
   const handleSignUp = async () => {
     try {
       const response = await fetch(`${process.env.REACT_APP_REST_API_URL}/auth`, {
@@ -67,13 +62,18 @@ export default function SignUp() {
         })
       });
       setDisplayError(false);
+      const data = await response.json();
 
       if (!response.ok) {
         setDisplayError(true);
-        const data = await response.json();
         setErrorText(data.error);
       } else {
-        navigate('/profile');
+        localStorage.setItem("currentUser", data.profile.email);
+        dispatch(loginSuccess(data));
+        dispatch(addProfileAsync(data.profile)).then(() => {
+          navigate('/profile');
+          navigate(0);
+        })
       }
     } catch (error) {
       alert(error);

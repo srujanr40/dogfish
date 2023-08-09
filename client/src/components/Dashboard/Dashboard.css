@@ -26,6 +26,7 @@
 .featuredContainer {
     display: flex;
     flex-direction: column;
+    margin-top: 90px;
     padding: 20px;
     padding-bottom: 0;
     justify-content: space-between;
@@ -37,6 +38,11 @@
     justify-content: space-between;
 }
 
+.createSessionButton{
+    align-self: end;
+    margin-top: 20px;
+    margin-right: 20px;
+}
 .sessionsList {
     display: flex;
     flex-direction: row;
@@ -49,4 +55,10 @@
     /* Depending on preference we could make overflow hidden but we'd have to limit number of shown events on main page*/
     /* otherwise it just cus sessions*/
     /* overflow: hidden */
+}
+
+.searchContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
