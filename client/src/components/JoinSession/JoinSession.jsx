@@ -257,7 +257,7 @@ export default function JoinSession() {
                 <div className="chat">
                     <div className={`splits${isEditable ? 'Edit' : ''}`}>
                         <Box sx={{
-                            height: "675px",
+                            height: "550px",
                             backgroundColor: 'white',
                             overflow: "auto",
                         }}>
@@ -341,13 +341,6 @@ export default function JoinSession() {
                             </Button>
                         </div>
                     )}
-                </div>
-                <div className="end">
-                    <Link to={{ pathname: '/dashboard' }} style={{ marginRight: '10px', textDecoration: 'none' }}>
-                        <span className="closeButton">
-                            &times;
-                        </span>
-                    </Link>
                 </div>
             </div>
         </div>

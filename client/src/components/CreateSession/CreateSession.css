@@ -13,12 +13,13 @@
 #create-session-content {
     display: flex;
     background-color: #fff;
-    margin: 10%;
+    margin: 2%;
+    margin-top: 10%;
     border: 1px solid #ccc;
     justify-content: center;
     display: flex;
     border-radius: 10px;
-    padding: 20px;
+    padding: 30px;
     padding-left: 0px;
     padding-right: 0px;
     flex-grow: 1;
