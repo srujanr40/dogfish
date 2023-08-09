@@ -83,7 +83,7 @@ export default function Dashboard() {
         <Card sessions={sessions} name={'All Sessions'} />
         <Card sessions={nearYouSessions} name={'Activities near you'} />
         {interestedSportsSessions.map((sessionsArray, index) => (
-          sessionsArray && sessionsArray[0] && <Card sessions={sessionsArray} name={sessionsArray[0].sport} />
+          sessionsArray && sessionsArray[0] && <Card key={index} sessions={sessionsArray} name={sessionsArray[0].sport} />
         ))}
       </div>
       </>)}

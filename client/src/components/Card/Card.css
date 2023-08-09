@@ -3,6 +3,4 @@
   color: black;
 }
 
-.left-align-slick > .slick-list > .slick-track {    
-    margin-left:0;
-}
+.slick-track { margin-left:0; }
