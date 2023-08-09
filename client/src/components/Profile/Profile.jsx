@@ -5,6 +5,10 @@ import { TextField, Button, MenuItem, Chip } from '@mui/material';
 import Navbar from '../Navbar/Navbar.jsx';
 import { updateProfileAsync } from "../../redux/profile/profileThunks";
 import Box from "@mui/material/Box";
+import "./Profile.css";
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+import { Divider } from "@mui/material";
+
 
 
 export default function Profile() {
@@ -18,7 +22,7 @@ export default function Profile() {
     equipment: profile.equipment || [],
     interests: profile.interests || [],
     location: profile.location || '',
-    image: profile.image || 'https://placehold.co/200'
+    image: profile.image || 'https://static-00.iconduck.com/assets.00/profile-circle-icon-1023x1024-ucnnjrj1.png'
   });
   const [selectedEquipment, setSelectedEquipment] = useState('');
   const [interest, setInterest] = useState('');
@@ -71,37 +75,31 @@ export default function Profile() {
   };
 
   return (
-    <div>
+    <div className="fullContainer">
       <Navbar />
-      <div style=
-        {{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginTop: '120px',
-          marginBottom: '50px'
-        }}>
+      <div className="profileContainer">
         <Box>
           {formData.image ? (
-            <img className="upload-image" src={formData.image} alt="Selected"/>
+            <img className="upload-image" width="200px" src={formData.image} alt="Selected"/>
           ) : (
             <div>
-              <img className="upload-image" src={profile.image} alt='placeholder'/>
+              <img className="upload-image" width="200px" src={profile.image} alt='placeholder'/>
             </div>
           )}
           <br />
-          <input type="file" onChange={handleImageUpload} accept="image/*" />
+          <input name="image" type="file" onChange={handleImageUpload} accept="image/*" />
       </Box>
         <form onSubmit={handleSubmit}>
           <TextField
             name="name"
             label="Name"
+            type="contained"
             value={formData.name}
             onChange={handleChange}
             fullWidth
             required
-            style={{ marginBottom: '20px', marginTop: '20px' }}
+            color="primary"
+            sx={{color: 'white', marginBottom: '10px', marginTop: '20px'}}
           />
 
           <TextField
@@ -110,7 +108,7 @@ export default function Profile() {
             value={selectedEquipment}
             onChange={(e) => setSelectedEquipment(e.target.value)}
             placeholder="Sports Equipment"
-            style={{ marginBottom: '20px', boxSizing: 'border-box', width: '100%' }}
+            style={{ marginBottom: '10px', boxSizing: 'border-box', width: '100%' }}
           />
 
           <Button
@@ -118,12 +116,12 @@ export default function Profile() {
             color="primary"
             onClick={handleAddEquipment}
             disabled={!selectedEquipment}
-            style={{ marginBottom: '20px' }}
+            style={{ marginBottom: '10px' }}
           >
             Add
           </Button>
 
-          <div style={{ marginBottom: '20px' }}>
+          <div style={{ marginBottom: '10px' }}>
             {formData.equipment && formData.equipment.map((equipment) => (
               <Chip
                 key={equipment}
@@ -133,13 +131,29 @@ export default function Profile() {
               />
             ))}
           </div>
+          <GooglePlacesAutocomplete
+                                    apiKey={process.env.REACT_APP_GOOGLE_MAPS_API}
+                                    selectProps={{
+                                        onChange: FormData.location,
+                                        placeholder: "Location",
+                                    }}
+                                />
           <TextField
             name="interest"
             value={interest}
             onChange={(e) => setInterest(e.target.value)}
             placeholder="Interests"
-            style={{ marginBottom: '20px', boxSizing: 'border-box', width: '100%' }}
+            sx={{ marginBottom: '10px', boxSizing: 'border-box', width: '100%', mt: 2 }}
           />
+          <div style={{ marginBottom: '20px' }}>
+            {formData.interests && formData.interests.map((interest) => (
+              <Chip
+                key={interest}
+                label={interest}
+                onDelete={() => handleDeleteInterest(interest)}
+              />
+            ))}
+          </div>
           <Button
             variant="contained"
             color="primary"
@@ -148,29 +162,13 @@ export default function Profile() {
           >
             Add
           </Button>
-          <div style={{ marginBottom: '20px' }}>
-            {formData.interests && formData.interests.map((interest) => (
-              <Chip
-                key={interest}
-                label={interest}
-                onDelete={() => handleDeleteInterest(interest)}
-                style={{ margin: '5px' }}
-              />
-            ))}
-          </div>
-          <TextField
-            name="location"
-            label="Location"
-            value={formData.location}
-            onChange={handleChange}
-            fullWidth
-            required
-            style={{ marginBottom: '20px' }}
-          />
+          <Divider/>
 
+          <Box sx={{display: 'flex', justifyContent: 'center', mt: 2}}>
           <Button type="submit" variant="contained" color="primary">
-            Submit
+            Save Changes
           </Button>
+          </Box>
         </form>
 
       </div>
