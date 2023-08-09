@@ -71,7 +71,7 @@ export default function SignUp() {
         localStorage.setItem("currentUser", data.profile.email);
         dispatch(loginSuccess(data));
         dispatch(addProfileAsync(data.profile)).then(() => {
-          navigate('/profile');
+          navigate(`/email-verification?email=${encodeURIComponent(email)}`);
           navigate(0);
         })
       }

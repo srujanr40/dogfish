@@ -29,6 +29,10 @@ const profileSchema = new mongoose.Schema({
     image: {
         type: String,
         required: false,
+    },
+    verificationCode: {
+        type: String,
+        required: false,
     }
 });
 
